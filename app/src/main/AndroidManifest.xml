@@ -15,6 +15,11 @@
         android:theme="@style/Theme.LojaDeHardwareAlpha"
         tools:targetApi="31">
         <activity
+            android:name=".ListaProdutosActivity"
+            android:exported="false"
+            android:label="@string/title_activity_lista_produtos"
+            android:theme="@style/Theme.LojaDeHardwareAlpha" />
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity

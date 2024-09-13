@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Loja de Hardware - Alpha</string>
+    <string name="title_activity_lista_produtos">ListaProdutosActivity</string>
 </resources>
