@@ -25,7 +25,6 @@ class ListaProdutos : AppCompatActivity(){
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        // ConfiguraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o do Retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("https://e82e9586-aa94-43b1-8ca2-d94a2d14498f-00-19cstbsp9seuc.spock.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
