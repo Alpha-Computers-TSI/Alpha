@@ -27,7 +27,7 @@ class ListaProdutos : AppCompatActivity(){
 
         // ConfiguraÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o do Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://4af01f27-21ff-4a35-8f58-48517ff0c74c-00-2ohswx0v4qr6t.kirk.replit.dev/")
+            .baseUrl("https://e82e9586-aa94-43b1-8ca2-d94a2d14498f-00-19cstbsp9seuc.spock.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -48,5 +48,12 @@ class ListaProdutos : AppCompatActivity(){
                 Log.e("API Failure", "Error fetching products", t)
             }
         })
+    }
+
+
+    interface ApiService {
+        @GET("produtos")
+        fun getProdutos(): Call<List<Produto>>
+
     }
 }

@@ -66,6 +66,7 @@ class Login : AppCompatActivity() {
         togglePasswordVisibility.setImageResource(R.drawable.ic_visibility_off)
 
         // Alterna a visibilidade da senha ao clicar no ícone
+        // Alterna a visibilidade da senha ao clicar no ícone
         togglePasswordVisibility.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
@@ -112,7 +113,7 @@ class Login : AppCompatActivity() {
                             apply()
                         }
 
-                        val intent = Intent(this@Login, Home::class.java)
+                        val intent = Intent(this@Login, ListaProdutos::class.java)
                         startActivity(intent)
                         finish()
                     } else {
