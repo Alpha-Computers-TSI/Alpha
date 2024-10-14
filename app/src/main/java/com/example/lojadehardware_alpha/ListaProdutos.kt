@@ -2,6 +2,8 @@ package com.example.lojadehardware_alpha
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+
 
 class ListaProdutos : AppCompatActivity(){
 
@@ -26,7 +29,7 @@ class ListaProdutos : AppCompatActivity(){
 
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://e82e9586-aa94-43b1-8ca2-d94a2d14498f-00-19cstbsp9seuc.spock.replit.dev/")
+            .baseUrl("http://thyagoquintas.com.br/ALPHA/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -50,9 +53,11 @@ class ListaProdutos : AppCompatActivity(){
     }
 
 
+
     interface ApiService {
-        @GET("produtos")
+        @GET("lista_de_produtos/")
         fun getProdutos(): Call<List<Produto>>
 
     }
-}
+
+    }
