@@ -29,7 +29,7 @@ class ListaProdutos : AppCompatActivity(){
 
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://thyagoquintas.com.br/ALPHA/")
+            .baseUrl("http://thyagoquintas.com.br/BRAVO/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

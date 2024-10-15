@@ -29,7 +29,7 @@ class CustomAdapter(private val dataSet: List<Produto>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val produto = dataSet[position]
         viewHolder.nome.text = produto.produtoNome
-        viewHolder.descricao.text = produto.produtoDesc
+       // viewHolder.descricao.text = produto.produtoDesc
         viewHolder.valor.text = produto.produtoPreco.toString()
 
         Glide.with(viewHolder.itemView.context)
