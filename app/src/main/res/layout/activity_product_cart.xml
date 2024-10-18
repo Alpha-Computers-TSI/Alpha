@@ -18,8 +18,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout8"
-            android:layout_width="489dp"
-            android:layout_height="42dp"
+            android:layout_width="406dp"
+            android:layout_height="41dp"
             android:layout_marginTop="28dp"
             android:background="#FFFFFF"
             android:gravity="center_horizontal|center_vertical"
@@ -95,38 +95,6 @@
             app:srcCompat="@drawable/arrow"
             app:tint="#34C9FF" />
 
-        <Space
-            android:id="@+id/space"
-            android:layout_width="319dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15"
-            tools:ignore="NotSibling" />
-
-        <Space
-            android:id="@+id/space2"
-            android:layout_width="319dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
-            tools:ignore="NotSibling" />
-
-        <Space
-            android:id="@+id/space3"
-            android:layout_width="319dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19"
-            tools:ignore="NotSibling" />
-
         <Button
             android:id="@+id/button"
             android:layout_width="349dp"
@@ -194,8 +162,8 @@
                     android:minHeight="48dp" />
 
                 <Button
-                    android:layout_width="134dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="123dp"
+                    android:layout_height="48dp"
                     android:backgroundTint="#34C9FF"
                     android:text="OK"
                     app:cornerRadius="6dp" />
@@ -232,7 +200,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView4"
+            android:id="@+id/recyclerViewCartProducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -251,10 +219,10 @@
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView4">
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewCartProducts">
 
             <LinearLayout
-                android:layout_width="497dp"
+                android:layout_width="411dp"
                 android:layout_height="54dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal">
@@ -302,6 +270,11 @@
                     android:textColor="#6A6A6A" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="355dp"
+                android:layout_height="1dp"
+                android:background="#373737" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
@@ -324,7 +297,13 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:text="Grátis" />
+
             </RelativeLayout>
+
+            <View
+                android:layout_width="355dp"
+                android:layout_height="1dp"
+                android:background="#373737" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -351,6 +330,11 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
+
+            <View
+                android:layout_width="355dp"
+                android:layout_height="1dp"
+                android:background="#373737" />
 
             <TextView
                 android:id="@+id/textView21"

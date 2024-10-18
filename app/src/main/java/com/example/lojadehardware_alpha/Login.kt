@@ -90,8 +90,7 @@ class Login : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://027c2e5f-4e20-4907-8ddb-002cce23454a-00-2bk0k8130zh8s.kirk.replit.dev/")
-
+            .baseUrl("http://thyagoquintas.com.br/ALPHA/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -133,7 +132,7 @@ class Login : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("login")
+        @GET("autenticacao/login/")
         fun login(
             @Query("usuario") usuario: String,
             @Query("senha") senha: String
