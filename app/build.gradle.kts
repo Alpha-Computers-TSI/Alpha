@@ -55,6 +55,7 @@ dependencies {
     implementation ("androidx.compose.ui:ui:1.0.0")
     implementation ("androidx.compose.material:material:1.0.0")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.0.0")
+    implementation(libs.androidx.activity)
     debugImplementation ("androidx.compose.ui:ui-tooling:1.0.0")
     implementation ("androidx.compose.material3:material3:1.0.0")
 
