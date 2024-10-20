@@ -17,7 +17,6 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView = view.findViewById(R.id.nomeProduto)
-        val descricao: TextView = view.findViewById(R.id.descricaoProduto)
         val valor: TextView = view.findViewById(R.id.valorProduto)
         val imagem: ImageView = view.findViewById(R.id.imagem_produto)
     }
@@ -34,8 +33,10 @@ class CustomAdapter(private val dataSet: List<Produto>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val produto = dataSet[position]
         viewHolder.nome.text = produto.produtoNome
-       // viewHolder.descricao.text = produto.produtoDesc
         viewHolder.valor.text = produto.produtoPreco.toString()
+
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+        viewHolder.valor.text = numberFormat.format(produto.produtoPreco)
 
 
         Glide.with(viewHolder.itemView.context)

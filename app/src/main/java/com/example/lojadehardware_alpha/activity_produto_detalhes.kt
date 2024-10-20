@@ -24,6 +24,5 @@ class activity_produto_detalhes : AppCompatActivity() {
 
         }
 
-
         }
     }
