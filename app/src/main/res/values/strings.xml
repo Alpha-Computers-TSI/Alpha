@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Loja de Hardware - Alpha</string>
     <string name="title_activity_lista_produtos">ListaProdutosActivity</string>
+    <string name="comprar">COMPRAR</string>
+    <string name="ver_detalhes">VER DETALHES</string>
+    <string name="imagem_produto_descricao">Imagem do produto</string>
 </resources>
