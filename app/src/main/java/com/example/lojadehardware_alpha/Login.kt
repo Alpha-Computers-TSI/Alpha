@@ -66,6 +66,7 @@ class Login : AppCompatActivity() {
         togglePasswordVisibility.setImageResource(R.drawable.ic_visibility_off)
 
         // Alterna a visibilidade da senha ao clicar no ícone
+        // Alterna a visibilidade da senha ao clicar no ícone
         togglePasswordVisibility.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
@@ -90,6 +91,7 @@ class Login : AppCompatActivity() {
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://027c2e5f-4e20-4907-8ddb-002cce23454a-00-2bk0k8130zh8s.kirk.replit.dev/")
+
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -111,7 +113,7 @@ class Login : AppCompatActivity() {
                             apply()
                         }
 
-                        val intent = Intent(this@Login, Home::class.java)
+                        val intent = Intent(this@Login, ListaProdutos::class.java)
                         startActivity(intent)
                         finish()
                     } else {

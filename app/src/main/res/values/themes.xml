@@ -1,9 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.LojaDeHardwareAlpha" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Base application theme -->
+    <style name="Base.Theme.LojaDeHardwareAlpha" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Cor de fundo branca -->
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <item name="android:buttonStyle">@style/CustomButton</item>
     </style>
 
     <style name="Theme.LojaDeHardwareAlpha" parent="Base.Theme.LojaDeHardwareAlpha" />
+
+    <!-- Estilo customizado para o botão -->
+    <style name="CustomButton" parent="Widget.Material3.Button">
+        <!-- Remove bordas padrão -->
+        <item name="android:backgroundTint">#34C9FF</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:radius">4dp</item>
+    </style>
 </resources>
