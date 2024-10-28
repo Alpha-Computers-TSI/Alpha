@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
+
         val startButton: Button = findViewById(R.id.startButton)
 
         startButton.setOnClickListener {
-            val intent = Intent(this@MainActivity,  ProductCart::class.java)
+            val intent = Intent(this@MainActivity,  Home::class.java)
             startActivity(intent)
             finish()
         }
