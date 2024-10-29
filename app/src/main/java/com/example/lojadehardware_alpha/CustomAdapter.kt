@@ -13,7 +13,6 @@ import java.text.NumberFormat
 import java.util.Locale
 import android.content.Context
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,17 +50,16 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         // Adiciona ao carrinho
         viewHolder.btnComprar.setOnClickListener {
-            val userId = viewHolder.itemView.context.getSharedPreferences("Dados", Context.MODE_PRIVATE).getInt("id", 0)
-            adicionarAoCarrinho(userId, produto.produtoId, 1, viewHolder.itemView.context)
+          /*  val userId = viewHolder.itemView.context.getSharedPreferences("Dados", Context.MODE_PRIVATE).getInt("id", 0)
+            adicionarAoCarrinho(userId, produto.produtoId, 1, viewHolder.itemView.context)*/
 
             // Muda para a tela do carrinho após adicionar o item
             val intent = Intent(viewHolder.itemView.context, ProductCart::class.java)
             viewHolder.itemView.context.startActivity(intent)
         }
 
-
         viewHolder.itemView.setOnClickListener {
-            val intent = Intent(viewHolder.itemView.context, activity_produto_detalhes::class.java)
+            val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
             intent.putExtra("PRODUTO_NOME", produto.produtoNome)
             intent.putExtra("PRODUTO_DESC", produto.produtoDesc)
             intent.putExtra("CATEGORIA_ID", produto.categoriaId)

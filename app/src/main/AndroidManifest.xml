@@ -19,12 +19,15 @@
         android:theme="@style/Theme.LojaDeHardwareAlpha"
         tools:targetApi="31" >
         <activity
-            android:name=".ListaProdutos"
+            android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_lista_produtos"
             android:theme="@style/Theme.LojaDeHardwareAlpha" />
         <activity
-            android:name=".activity_produto_detalhes"
+            android:name=".SingleProduct"
+            android:exported="false" />
+        <activity
+            android:name=".ProductCart"
             android:exported="false" />
         <activity
             android:name=".Home"
@@ -36,7 +39,7 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ListaProdutos"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
