@@ -14,6 +14,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import java.text.NumberFormat
+import java.util.Locale
 
 class activity_produto_detalhes : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +25,10 @@ class activity_produto_detalhes : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_produto_detalhes)
 
+        val nomeProduto = intent.getStringExtra("PRODUTO_NOME")
+        val categoriaProduto = intent.getStringExtra("CATEGORIA_ID")
+        val descricaoProduto = intent.getStringExtra("PRODUTO_DESC")
+        val precoProduto = intent.getStringExtra("PRODUTO_PRECO")
         // Recebe os dados do produto
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO")
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO")
@@ -32,7 +40,11 @@ class activity_produto_detalhes : AppCompatActivity() {
         val userId = sharedPreferences.getInt("id", 0)
 
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
+        findViewById<TextView>(R.id.txtCategoriaProduto).text = categoriaProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
+
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+        findViewById<TextView>(R.id.txtPrecoProduto).text = numberFormat.format(precoProduto)
 
 
         // Adiciona o produto ao carrinho
@@ -50,6 +62,9 @@ class activity_produto_detalhes : AppCompatActivity() {
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
+        }
+    }
+}
         val api = retrofit.create(ApiService::class.java)
         api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
