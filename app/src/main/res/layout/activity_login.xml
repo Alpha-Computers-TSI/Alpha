@@ -103,7 +103,6 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
