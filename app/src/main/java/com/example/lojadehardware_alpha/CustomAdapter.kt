@@ -47,11 +47,12 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         viewHolder.itemView.setOnClickListener {
             val intent = Intent(viewHolder.itemView.context, activity_produto_detalhes::class.java)
-            intent.putExtra("NOME_PRODUTO", produto.produtoNome)
-            intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+            intent.putExtra("PRODUTO_NOME", produto.produtoNome)
+            intent.putExtra("PRODUTO_DESC", produto.produtoDesc)
+            intent.putExtra("CATEGORIA_ID", produto.categoriaId)
+            intent.putExtra("PRODUTO_PRECO", produto.produtoPreco)
             viewHolder.itemView.context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount() = dataSet.size
