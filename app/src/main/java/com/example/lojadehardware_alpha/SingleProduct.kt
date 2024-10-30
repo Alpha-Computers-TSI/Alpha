@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +36,7 @@ class SingleProduct : AppCompatActivity() {
         val userId = sharedPreferences.getInt("id", 0)
 
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
-        findViewById<TextView>(R.id.txtCategoriaProduto).text = categoriaProduto
+        //findViewById<TextView>(R.id.txtCategoriaProduto).text = categoriaProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
 
         //Formata o valor do produto para o Real
@@ -47,6 +49,33 @@ class SingleProduct : AppCompatActivity() {
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
             val intent = Intent(this@SingleProduct, ProductCart::class.java)
             startActivity(intent)
+        }
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, Home::class.java))
+                    true
+                }
+                R.id.nav_categories -> {
+                    startActivity(Intent(this, ListaProdutos::class.java))
+                    true
+                }
+                R.id.nav_account -> {
+                    //startActivity(Intent(this, AccountActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
+        val backButton: ImageView = findViewById(R.id.btnBack)
+
+        backButton.setOnClickListener {
+            val intent = Intent(this@SingleProduct,  ListaProdutos::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

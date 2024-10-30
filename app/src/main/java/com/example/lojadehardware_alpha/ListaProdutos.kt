@@ -1,5 +1,6 @@
 package com.example.lojadehardware_alpha
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +41,25 @@ class ListaProdutos : AppCompatActivity(){
         val searchView = findViewById<SearchView>(R.id.search_view)
         searchView.setOnClickListener {
             searchView.isIconified = false
+        }
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, Home::class.java))
+                    true
+                }
+                R.id.nav_categories -> {
+                    //startActivity(Intent(this, ListaProdutos::class.java))
+                    true
+                }
+                R.id.nav_account -> {
+                    //startActivity(Intent(this, AccountActivity::class.java))
+                    true
+                }
+                else -> false
+            }
         }
 
         apiService.getProdutos().enqueue(object : Callback<List<Produto>> {
