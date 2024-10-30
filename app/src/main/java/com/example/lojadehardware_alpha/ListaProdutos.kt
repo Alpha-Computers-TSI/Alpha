@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -34,6 +35,11 @@ class ListaProdutos : AppCompatActivity(){
             .build()
 
         val apiService = retrofit.create(ApiService::class.java)
+
+        val searchView = findViewById<SearchView>(R.id.search_view)
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
 
         apiService.getProdutos().enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
