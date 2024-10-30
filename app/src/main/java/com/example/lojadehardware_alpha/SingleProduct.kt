@@ -37,8 +37,8 @@ class SingleProduct : AppCompatActivity() {
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
 
         //Formata o valor do produto para o Real
-        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
-        findViewById<TextView>(R.id.txtPrecoProduto).text = numberFormat.format(precoProduto)
+//        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+//        findViewById<TextView>(R.id.txtPrecoProduto).text = numberFormat.format(precoProduto)
 
 
         // Adiciona o produto ao carrinho

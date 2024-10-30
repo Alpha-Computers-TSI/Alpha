@@ -11,13 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.text.NumberFormat
 import java.util.Locale
-import android.content.Context
-import android.widget.Toast
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class CustomAdapter(private val dataSet: List<Produto>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -32,75 +25,39 @@ class CustomAdapter(private val dataSet: List<Produto>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_produto, viewGroup, false)
+
         return ViewHolder(view)
     }
+
+
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val produto = dataSet[position]
         viewHolder.nome.text = produto.produtoNome
+        viewHolder.valor.text = produto.produtoPreco.toString()
 
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
         viewHolder.valor.text = numberFormat.format(produto.produtoPreco)
 
+
         Glide.with(viewHolder.itemView.context)
             .load(produto.imagemUrl)
-            .placeholder(R.drawable.ic_launcher_background)
-            .error(com.google.android.material.R.drawable.mtrl_ic_error)
+            .placeholder(R.drawable.ic_launcher_background) // placeholder
+            .error(com.google.android.material.R.drawable.mtrl_ic_error) // indica erro
             .into(viewHolder.imagem)
 
-        // Adiciona ao carrinho
-        viewHolder.btnComprar.setOnClickListener {
-          /*  val userId = viewHolder.itemView.context.getSharedPreferences("Dados", Context.MODE_PRIVATE).getInt("id", 0)
-            adicionarAoCarrinho(userId, produto.produtoId, 1, viewHolder.itemView.context)*/
-
-            // Muda para a tela do carrinho após adicionar o item
-            val intent = Intent(viewHolder.itemView.context, ProductCart::class.java)
-            viewHolder.itemView.context.startActivity(intent)
-        }
-
-        viewHolder.itemView.setOnClickListener {
-            val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
-            intent.putExtra("PRODUTO_NOME", produto.produtoNome)
-            intent.putExtra("PRODUTO_DESC", produto.produtoDesc)
-            intent.putExtra("CATEGORIA_ID", produto.categoriaId)
-            intent.putExtra("PRODUTO_PRECO", produto.produtoPreco)
-            viewHolder.itemView.context.startActivity(intent)
-        }
-    }
-
-    a
-
-    override fun getItemCount() = dataSet.size
-
-    private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int, context: Context) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .build()
-
-        val api = retrofit.create(ApiService::class.java)
-        api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(context, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Resposta mal sucedida", Toast.LENGTH_SHORT).show()
-                }
+            val abrirDetalhes = {
+                val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
+                intent.putExtra("NOME_PRODUTO", produto.produtoNome)
+                intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+                intent.putExtra("PRECO_PRODUTO", produto.produtoPreco)
+                viewHolder.itemView.context.startActivity(intent)
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Toast.makeText(context, "Erro na API: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
+            // Clique no itemView e no botão de compra para abrir os detalhes
+            viewHolder.itemView.setOnClickListener { abrirDetalhes() }
+            viewHolder.btnComprar.setOnClickListener { abrirDetalhes() }
+        }
 
-    interface ApiService {
-        @retrofit2.http.FormUrlEncoded
-        @retrofit2.http.POST("getCartItems/")
-        fun adicionarAoCarrinho(
-            @retrofit2.http.Field("userId") userId: Int,
-            @retrofit2.http.Field("produtoId") produtoId: Int,
-            @retrofit2.http.Field("quantidade") quantidade: Int
-        ): Call<String>
+        override fun getItemCount(): Int = dataSet.size
     }
-}
