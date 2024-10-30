@@ -25,7 +25,8 @@ class SingleProduct : AppCompatActivity() {
         val nomeProduto = intent.getStringExtra("PRODUTO_NOME")
         val categoriaProduto = intent.getStringExtra("CATEGORIA_ID")
         val descricaoProduto = intent.getStringExtra("PRODUTO_DESC")
-        val precoProduto = intent.getStringExtra("PRODUTO_PRECO")
+        val precoProduto = intent.getDoubleExtra("PRECO_PRODUTO", 0.0)
+
         val quantidadeDesejada = 1
 
         // Pega o ID do usuário logado do armazenamento local
@@ -37,8 +38,8 @@ class SingleProduct : AppCompatActivity() {
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
 
         //Formata o valor do produto para o Real
-//        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
-//        findViewById<TextView>(R.id.txtPrecoProduto).text = numberFormat.format(precoProduto)
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+        findViewById<TextView>(R.id.txtPrecoProduto).text = numberFormat.format(precoProduto)
 
 
         // Adiciona o produto ao carrinho
