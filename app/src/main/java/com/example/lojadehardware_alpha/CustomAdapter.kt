@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import java.text.NumberFormat
 import java.util.Locale
 
-class CustomAdapter(private val dataSet: List<Produto>) :
+class CustomAdapter(private var dataSet: List<Produto>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,6 +28,8 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         return ViewHolder(view)
     }
+
+
 
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -59,4 +61,11 @@ class CustomAdapter(private val dataSet: List<Produto>) :
         }
 
         override fun getItemCount(): Int = dataSet.size
+
+    // Função para atualizar a lista de produtos e notificar mudanças
+    fun atualizarLista(novaLista: List<Produto>) {
+        dataSet = novaLista
+        notifyDataSetChanged()
+    }
+
     }
