@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
+    android:layout_height="160dp"
     android:layout_margin="8dp"
     android:background="@drawable/borda_produto"
     android:padding="8dp">
@@ -14,16 +14,37 @@
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
-    <ImageView
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight="1">
+
+        <ImageView
         android:id="@+id/imagem_produto"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:scaleType="centerCrop"
         android:layout_weight="1"
         android:contentDescription="@string/imagem_produto_descricao"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <!-- Indicador de desconto -->
+            <TextView
+                android:id="@+id/indicadorDesconto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:layout_margin="8dp"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
 
     <LinearLayout
         android:layout_width="30dp"
@@ -80,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="43dp"
             android:layout_marginTop="4dp"
-            android:backgroundTint="#03A9F4"
+            android:backgroundTint="#34C9FF"
             android:text="@string/comprar"
             android:textColor="@android:color/white"
             android:textSize="12sp"

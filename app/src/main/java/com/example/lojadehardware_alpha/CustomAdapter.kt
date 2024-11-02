@@ -21,6 +21,7 @@ class CustomAdapter(private var dataSet: List<Produto>) :
         val nome: TextView = view.findViewById(R.id.nomeProduto)
         val valor: TextView = view.findViewById(R.id.valorProduto)
         val desconto: TextView = view.findViewById(R.id.descontoProduto)
+        val indicadorDesconto: TextView = view.findViewById(R.id.indicadorDesconto)
         val imagem: ImageView = view.findViewById(R.id.imagem_produto)
         val btnComprar: Button = view.findViewById(R.id.btnComprar)
     }
@@ -69,6 +70,14 @@ class CustomAdapter(private var dataSet: List<Produto>) :
             viewHolder.valor.setTextColor(Color.parseColor("#34C9FF"))
             viewHolder.valor.textSize = 15f // Define o tamanho de fonte do desconto
             viewHolder.valor.setTypeface(viewHolder.valor.typeface, Typeface.BOLD) // Define o estilo em negrito
+        }
+
+        if (descontoPorcentagem > 0) {
+            // Formata a porcentagem para exibição
+            viewHolder.indicadorDesconto.text = "${descontoPorcentagem.toInt()}% OFF"
+            viewHolder.indicadorDesconto.visibility = View.VISIBLE // Torna visível se houver desconto
+        } else {
+            viewHolder.indicadorDesconto.visibility = View.GONE // Esconde se não houver desconto
         }
 
         Glide.with(viewHolder.itemView.context)
