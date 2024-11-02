@@ -18,7 +18,13 @@ class ProductCart : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var totalTextView: TextView
     private lateinit var goToPaymentButton: Button
+    private lateinit var goToListagemProdutos: Button
     private var total: Double = 0.0
+    private var productsValue: Double = 0.0
+    private lateinit var productsValueTextView: TextView
+    private lateinit var parcelamentoTextView: TextView
+    private lateinit var cartAdapter: CartAdapter
+    private var cartItems: MutableList<Produto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +32,22 @@ class ProductCart : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.cartRecyclerView)
         totalTextView = findViewById(R.id.totalTextView)
+        productsValueTextView = findViewById(R.id.productsValueTextView)
+        parcelamentoTextView = findViewById(R.id.parcelamentoTextView)
         goToPaymentButton = findViewById(R.id.goToPaymentButton)
+        goToListagemProdutos = findViewById(R.id.goToListagemProdutos)
+
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         fetchCartItems()
 
         goToPaymentButton.setOnClickListener {
             val intent = Intent(this@ProductCart, Payment::class.java)
+            startActivity(intent)
+        }
+
+        goToListagemProdutos.setOnClickListener {
+            val intent = Intent(this@ProductCart, ListaProdutos::class.java)
             startActivity(intent)
         }
     }
@@ -51,19 +66,32 @@ class ProductCart : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
-                    val cartItems = response.body()?.toMutableList() ?: mutableListOf()
-                    recyclerView.adapter = CartAdapter(cartItems, this@ProductCart) {
-                        total = cartItems.sumOf {
-                            (it.produtoPreco ?: 0.0) * (it.quantidadeDisponivel ?: 0)
-                        }
-                        totalTextView.text = "Total: R$${String.format("%.2f", total)}"
-                    }
+                    cartItems = response.body()?.toMutableList() ?: mutableListOf()
+                    setupAdapter()
+                    updateTotal()
                 }
             }
 
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                // Tratamento de exception
+                // Tratamento de erro
             }
         })
+    }
+    private fun setupAdapter() {
+        cartAdapter = CartAdapter(cartItems, this) { updateTotal() }
+        recyclerView.adapter = cartAdapter
+    }
+
+    private fun updateTotal() {
+        // Calcula o total com base nos itens no carrinho com frete
+        total = cartItems.sumOf { it.produtoPreco?: 0.0 * (it.quantidadeDisponivel ?: 1) }
+        totalTextView.text = "Total: R$${String.format("%.2f", total)}"
+
+        // Calcula o total com base nos itens no carrinho sem frete
+        productsValue = cartItems.sumOf { it.produtoPreco?: 0.0 * (it.quantidadeDisponivel ?: 1) }
+        productsValueTextView.text = "R$${String.format("%.2f", productsValue)}"
+
+        //Valor do total parcelado
+        parcelamentoTextView.text = "ou 12x de R$ ${String.format("%.2f", total / 12)} sem juros!"
     }
 }
