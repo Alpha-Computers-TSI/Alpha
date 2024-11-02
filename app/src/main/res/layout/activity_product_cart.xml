@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cartRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -96,7 +96,7 @@
             app:tint="#34C9FF" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/goToPaymentButton"
             android:layout_width="349dp"
             android:layout_height="56dp"
             android:layout_marginTop="36dp"
@@ -261,12 +261,12 @@
                     android:textColor="#6A6A6A" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/productsValueTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="R$ 2.209,97"
+                    android:text="R$ 0,00"
                     android:textColor="#6A6A6A" />
             </RelativeLayout>
 
@@ -321,12 +321,12 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/totalTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="R$ 2.209,97"
+                    android:text="0,00"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -341,7 +341,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="ou 12x de R$ 184,16 sem juros!" />
+                android:text="ou 12x de R$ 00,0 sem juros!" />
 
         </LinearLayout>
 
@@ -357,11 +357,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/goToPaymentButton"
             app:strokeColor="#34C9FF"
             app:strokeWidth="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+</ScrollView>
 

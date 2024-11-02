@@ -50,8 +50,8 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         // Adiciona ao carrinho
         viewHolder.btnComprar.setOnClickListener {
-          /*  val userId = viewHolder.itemView.context.getSharedPreferences("Dados", Context.MODE_PRIVATE).getInt("id", 0)
-            adicionarAoCarrinho(userId, produto.produtoId, 1, viewHolder.itemView.context)*/
+            /*  val userId = viewHolder.itemView.context.getSharedPreferences("Dados", Context.MODE_PRIVATE).getInt("id", 0)
+              adicionarAoCarrinho(userId, produto.produtoId, 1, viewHolder.itemView.context)*/
 
             // Muda para a tela do carrinho após adicionar o item
             val intent = Intent(viewHolder.itemView.context, ProductCart::class.java)
@@ -60,10 +60,10 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         viewHolder.itemView.setOnClickListener {
             val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
-            intent.putExtra("PRODUTO_NOME", produto.produtoNome)
-            intent.putExtra("PRODUTO_DESC", produto.produtoDesc)
-            intent.putExtra("CATEGORIA_ID", produto.categoriaId)
-            intent.putExtra("PRODUTO_PRECO", produto.produtoPreco)
+            intent.putExtra("NOME_PRODUTO", produto.produtoNome)
+            intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+            intent.putExtra("ID_PRODUTO", produto.produtoId)
+            intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
             viewHolder.itemView.context.startActivity(intent)
         }
     }

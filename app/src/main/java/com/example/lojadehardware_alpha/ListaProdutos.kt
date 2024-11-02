@@ -27,7 +27,6 @@ class ListaProdutos : AppCompatActivity(){
         recyclerView = findViewById(R.id.recyclerViewProdutos)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
         val retrofit = Retrofit.Builder()
             .baseUrl("http://thyagoquintas.com.br/ALPHA/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -52,12 +51,9 @@ class ListaProdutos : AppCompatActivity(){
         })
     }
 
-
-
     interface ApiService {
         @GET("lista_de_produtos/")
         fun getProdutos(): Call<List<Produto>>
 
     }
-
     }
