@@ -1,6 +1,8 @@
 package com.example.lojadehardware_alpha
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ class CustomAdapter(private var dataSet: List<Produto>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView = view.findViewById(R.id.nomeProduto)
         val valor: TextView = view.findViewById(R.id.valorProduto)
+        val desconto: TextView = view.findViewById(R.id.descontoProduto)
         val imagem: ImageView = view.findViewById(R.id.imagem_produto)
         val btnComprar: Button = view.findViewById(R.id.btnComprar)
     }
@@ -30,16 +33,43 @@ class CustomAdapter(private var dataSet: List<Produto>) :
     }
 
 
-
-
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val produto = dataSet[position]
         viewHolder.nome.text = produto.produtoNome
         viewHolder.valor.text = produto.produtoPreco.toString()
 
+        // Formata o valor original do produto
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
-        viewHolder.valor.text = numberFormat.format(produto.produtoPreco)
+        val precoFormatado = numberFormat.format(produto.produtoPreco)
 
+        // Calcula o valor com desconto
+        val descontoPorcentagem = produto.produtoDesconto.toDoubleOrNull() ?: 0.0
+        val precoComDesconto = produto.produtoPreco * (1 - descontoPorcentagem / 100)
+        val precoComDescontoFormatado = numberFormat.format(precoComDesconto)
+
+
+        viewHolder.valor.setTypeface(null, Typeface.NORMAL) // Resetando para normal
+        viewHolder.valor.setTextColor(Color.parseColor("#606060")) // Resetando para cor padrão
+        viewHolder.desconto.visibility = View.GONE // Esconde o desconto por padrão
+
+        // Verifica se o desconto é válido e não é zero
+        if (descontoPorcentagem > 0) {
+            // Exibe o valor original e o valor com desconto
+            viewHolder.valor.text = precoFormatado
+            viewHolder.desconto.text = precoComDescontoFormatado
+            viewHolder.desconto.visibility = View.VISIBLE // Certifique-se de que o desconto esteja visível
+
+            viewHolder.valor.setTypeface(viewHolder.valor.typeface, Typeface.NORMAL) // Define o estilo normal
+            viewHolder.valor.setTextColor(Color.parseColor("#606060")) // Exemplo de cor para o valor original
+            viewHolder.valor.textSize = 12f // Tamanho da fonte do valor original
+        } else {
+            // Apenas exibe o valor original, escondendo o TextView de desconto
+            viewHolder.valor.text = precoFormatado
+            viewHolder.desconto.visibility = View.GONE
+            viewHolder.valor.setTextColor(Color.parseColor("#34C9FF"))
+            viewHolder.valor.textSize = 15f // Define o tamanho de fonte do desconto
+            viewHolder.valor.setTypeface(viewHolder.valor.typeface, Typeface.BOLD) // Define o estilo em negrito
+        }
 
         Glide.with(viewHolder.itemView.context)
             .load(produto.imagemUrl)
