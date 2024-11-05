@@ -84,14 +84,15 @@ class ProductCart : AppCompatActivity() {
 
     private fun updateTotal() {
         // Calcula o total com base nos itens no carrinho com frete
-        total = cartItems.sumOf { it.produtoPreco?: 0.0 * (it.quantidadeDisponivel ?: 1) }
+        total = cartItems.sumOf { (it.produtoPreco ?: 0.0) * (it.quantidadeDisponivel ?: 1) }
         totalTextView.text = "Total: R$${String.format("%.2f", total)}"
 
         // Calcula o total com base nos itens no carrinho sem frete
-        productsValue = cartItems.sumOf { it.produtoPreco?: 0.0 * (it.quantidadeDisponivel ?: 1) }
+        productsValue = cartItems.sumOf { (it.produtoPreco ?: 0.0) * (it.quantidadeDisponivel ?: 1) }
         productsValueTextView.text = "R$${String.format("%.2f", productsValue)}"
 
         //Valor do total parcelado
         parcelamentoTextView.text = "ou 12x de R$ ${String.format("%.2f", total / 12)} sem juros!"
     }
+
 }

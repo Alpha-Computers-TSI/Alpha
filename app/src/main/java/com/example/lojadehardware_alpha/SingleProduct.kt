@@ -51,7 +51,7 @@ class SingleProduct : AppCompatActivity() {
     // Função para adicionar o produto ao carrinho
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
+            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 

@@ -49,8 +49,8 @@ class CustomAdapter(private var dataSet: List<Produto>) :
         val precoFormatado = numberFormat.format(produto.produtoPreco)
 
         // Calcula o valor com desconto
-        val descontoPorcentagem = produto.produtoDesconto.toDoubleOrNull() ?: 0.0
-        val precoComDesconto = produto.produtoPreco * (1 - descontoPorcentagem / 100)
+        val descontoPorcentagem = produto.produtoDesconto?.toDoubleOrNull() ?: 0.0
+        val precoComDesconto = produto.produtoPreco?.times((1 - descontoPorcentagem / 100))
         val precoComDescontoFormatado = numberFormat.format(precoComDesconto)
 
 
@@ -93,9 +93,12 @@ class CustomAdapter(private var dataSet: List<Produto>) :
 
             val abrirDetalhes = {
                 val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
+                intent.putExtra("ID_PRODUTO", produto.produtoId)
                 intent.putExtra("NOME_PRODUTO", produto.produtoNome)
                 intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
                 intent.putExtra("PRECO_PRODUTO", produto.produtoPreco)
+                intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
+
                 viewHolder.itemView.context.startActivity(intent)
             }
 
