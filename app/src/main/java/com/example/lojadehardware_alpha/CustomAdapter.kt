@@ -1,6 +1,8 @@
 package com.example.lojadehardware_alpha
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +21,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-class CustomAdapter(private val dataSet: List<Produto>) :
+class CustomAdapter(private var dataSet: List<Produto>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView = view.findViewById(R.id.nomeProduto)
         val valor: TextView = view.findViewById(R.id.valorProduto)
+        val desconto: TextView = view.findViewById(R.id.descontoProduto)
+        val indicadorDesconto: TextView = view.findViewById(R.id.indicadorDesconto)
         val imagem: ImageView = view.findViewById(R.id.imagem_produto)
         val btnComprar: Button = view.findViewById(R.id.btnComprar)
     }
@@ -32,73 +36,80 @@ class CustomAdapter(private val dataSet: List<Produto>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_produto, viewGroup, false)
+
         return ViewHolder(view)
     }
+
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val produto = dataSet[position]
         viewHolder.nome.text = produto.produtoNome
 
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
-        viewHolder.valor.text = numberFormat.format(produto.produtoPreco)
+        val precoFormatado = numberFormat.format(produto.produtoPreco)
+
+        // Calcula o valor com desconto
+        val descontoPorcentagem = produto.produtoDesconto.toDoubleOrNull() ?: 0.0
+        val precoComDesconto = produto.produtoPreco * (1 - descontoPorcentagem / 100)
+        val precoComDescontoFormatado = numberFormat.format(precoComDesconto)
+
+
+        viewHolder.valor.setTypeface(null, Typeface.NORMAL) // Resetando para normal
+        viewHolder.valor.setTextColor(Color.parseColor("#606060")) // Resetando para cor padrão
+        viewHolder.desconto.visibility = View.GONE // Esconde o desconto por padrão
+
+        // Verifica se o desconto é válido e não é zero
+        if (descontoPorcentagem > 0) {
+            // Exibe o valor original e o valor com desconto
+            viewHolder.valor.text = precoFormatado
+            viewHolder.desconto.text = precoComDescontoFormatado
+            viewHolder.desconto.visibility = View.VISIBLE // Certifique-se de que o desconto esteja visível
+
+            viewHolder.valor.setTypeface(viewHolder.valor.typeface, Typeface.NORMAL) // Define o estilo normal
+            viewHolder.valor.setTextColor(Color.parseColor("#606060")) // Exemplo de cor para o valor original
+            viewHolder.valor.textSize = 12f // Tamanho da fonte do valor original
+        } else {
+            // Apenas exibe o valor original, escondendo o TextView de desconto
+            viewHolder.valor.text = precoFormatado
+            viewHolder.desconto.visibility = View.GONE
+            viewHolder.valor.setTextColor(Color.parseColor("#34C9FF"))
+            viewHolder.valor.textSize = 15f // Define o tamanho de fonte do desconto
+            viewHolder.valor.setTypeface(viewHolder.valor.typeface, Typeface.BOLD) // Define o estilo em negrito
+        }
+
+        if (descontoPorcentagem > 0) {
+            // Formata a porcentagem para exibição
+            viewHolder.indicadorDesconto.text = "${descontoPorcentagem.toInt()}% OFF"
+            viewHolder.indicadorDesconto.visibility = View.VISIBLE // Torna visível se houver desconto
+        } else {
+            viewHolder.indicadorDesconto.visibility = View.GONE // Esconde se não houver desconto
+        }
 
         Glide.with(viewHolder.itemView.context)
             .load(produto.imagemUrl)
-            .placeholder(R.drawable.ic_launcher_background)
-            .error(com.google.android.material.R.drawable.mtrl_ic_error)
+            .placeholder(R.drawable.ic_launcher_background) // placeholder
+            .error(com.google.android.material.R.drawable.mtrl_ic_error) // indica erro
             .into(viewHolder.imagem)
 
-        // Adiciona ao carrinho
-        viewHolder.btnComprar.setOnClickListener {
-            /*  val userId = viewHolder.itemView.context.getSharedPreferences("Dados", Context.MODE_PRIVATE).getInt("id", 0)
-              adicionarAoCarrinho(userId, produto.produtoId, 1, viewHolder.itemView.context)*/
-
-            // Muda para a tela do carrinho após adicionar o item
-            val intent = Intent(viewHolder.itemView.context, ProductCart::class.java)
-            viewHolder.itemView.context.startActivity(intent)
-        }
-
-        viewHolder.itemView.setOnClickListener {
-            val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
-            intent.putExtra("NOME_PRODUTO", produto.produtoNome)
-            intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
-            intent.putExtra("ID_PRODUTO", produto.produtoId)
-            intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
-            viewHolder.itemView.context.startActivity(intent)
-        }
-    }
-
-    override fun getItemCount() = dataSet.size
-
-    private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int, context: Context) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .build()
-
-        val api = retrofit.create(ApiService::class.java)
-        api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(context, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Resposta mal sucedida", Toast.LENGTH_SHORT).show()
-                }
+            val abrirDetalhes = {
+                val intent = Intent(viewHolder.itemView.context, SingleProduct::class.java)
+                intent.putExtra("NOME_PRODUTO", produto.produtoNome)
+                intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+                intent.putExtra("PRECO_PRODUTO", produto.produtoPreco)
+                viewHolder.itemView.context.startActivity(intent)
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Toast.makeText(context, "Erro na API: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+            // Clique no itemView e no botão de compra para abrir os detalhes
+            viewHolder.itemView.setOnClickListener { abrirDetalhes() }
+            viewHolder.btnComprar.setOnClickListener { abrirDetalhes() }
+        }
+
+        override fun getItemCount(): Int = dataSet.size
+
+    // Função para atualizar a lista de produtos e notificar mudanças
+    fun atualizarLista(novaLista: List<Produto>) {
+        dataSet = novaLista
+        notifyDataSetChanged()
     }
 
-    interface ApiService {
-        @retrofit2.http.FormUrlEncoded
-        @retrofit2.http.POST("getCartItems/")
-        fun adicionarAoCarrinho(
-            @retrofit2.http.Field("userId") userId: Int,
-            @retrofit2.http.Field("produtoId") produtoId: Int,
-            @retrofit2.http.Field("quantidade") quantidade: Int
-        ): Call<String>
     }
-}

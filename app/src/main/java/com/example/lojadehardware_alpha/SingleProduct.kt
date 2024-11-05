@@ -16,7 +16,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-
+import java.text.NumberFormat
+import java.util.Locale
 
 class SingleProduct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +48,10 @@ class SingleProduct : AppCompatActivity() {
       }
     }
 
+    // Função para adicionar o produto ao carrinho
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/")
+            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
