@@ -6,6 +6,7 @@
 
         <!-- Cor da barra de status -->
         <item name="android:statusBarColor">#000000</item>
+        <item name="android:windowLightStatusBar">true</item>
 
         <item name="android:buttonStyle">@style/CustomButton</item>
     </style>
