@@ -125,12 +125,6 @@ class ListaProdutos : AppCompatActivity(){
         return retrofit.create(ApiService::class.java)
     }
 
-    interface ApiService {
-        @GET("lista_de_produtos/")
-        fun getProdutos(): Call<List<Produto>>
 
-        @GET("busca.php")
-        fun buscarProduto(@Query("query") termo: String): Call<List<Produto>>
-    }
 }
 
