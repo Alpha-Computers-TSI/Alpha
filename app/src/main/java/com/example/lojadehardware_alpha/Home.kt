@@ -22,6 +22,12 @@ class Home : AppCompatActivity() {
 
         // Pesquisa de produto
         val searchView = findViewById<SearchView>(R.id.search_view)
+
+        //ao clicar em qualquer parte da barra de pesquisa ela abre
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {

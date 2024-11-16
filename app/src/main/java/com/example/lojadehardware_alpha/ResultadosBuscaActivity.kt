@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -27,6 +28,9 @@ class ResultadosBuscaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_resultados_busca)
+
+        // Define a cor de fundo da barra de status
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
 
         recyclerView = findViewById(R.id.recyclerViewResultadosBusca)
         searchResultsMessage = findViewById(R.id.searchResultsMessage)

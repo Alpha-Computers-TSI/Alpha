@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="8dp">
+
+    <!-- Botão de filtros -->
+    <Button
+        android:id="@+id/button_filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Filtros"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/filter_list" />
+
+    <!-- Botão de mais procurados -->
+    <Button
+        android:id="@+id/button_popular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Mais procurados"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/mais_buscados" />
+
+</LinearLayout>
