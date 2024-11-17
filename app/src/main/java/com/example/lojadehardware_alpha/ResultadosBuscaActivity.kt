@@ -3,9 +3,11 @@ package com.example.lojadehardware_alpha
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@ class ResultadosBuscaActivity : AppCompatActivity() {
     private lateinit var adapter: CustomAdapter
     private lateinit var termoBusca: String
     private lateinit var searchResultsMessage: TextView
+    private lateinit var searchView: androidx.appcompat.widget.SearchView
     private lateinit var apiService: ApiService
 
 
@@ -34,6 +37,7 @@ class ResultadosBuscaActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewResultadosBusca)
         searchResultsMessage = findViewById(R.id.searchResultsMessage)
+        searchView = findViewById(R.id.search_view)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = CustomAdapter(emptyList()) // Inicializa com uma lista vazia
@@ -43,8 +47,44 @@ class ResultadosBuscaActivity : AppCompatActivity() {
 
         title = "Resultados para \"$termoBusca\""
 
+        configurarSearchView()
+
         apiService = createRetrofitService("https://027c2e5f-4e20-4907-8ddb-002cce23454a-00-2bk0k8130zh8s.kirk.replit.dev/")
         buscarProdutos()
+    }
+
+    private fun configurarSearchView() {
+        // Abre o SearchView ao clicar
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
+
+        // Lida com a submissão da nova busca
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    termoBusca = query // Atualiza o termo de busca
+                    title = "Resultados para \"$termoBusca\""
+                    buscarProdutos() // Realiza a nova busca
+                    fecharTeclado() // Fecha o teclado
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+    }
+
+    private fun fecharTeclado() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        val view = this.currentFocus
+        if (view != null) {
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        } else {
+            imm.hideSoftInputFromWindow(searchView.windowToken, 0)
+        }
     }
 
     private fun buscarProdutos() {
@@ -61,7 +101,7 @@ class ResultadosBuscaActivity : AppCompatActivity() {
                     } else {
                         Log.d("API Response", "Nenhum produto encontrado para a busca: $termoBusca")
                         Log.d("Busca", "Buscando produtos com termo: '$termoBusca'")
-
+                        adapter.atualizarLista(emptyList())
                         searchResultsMessage.text = "Nenhum produto encontrado."
                         searchResultsMessage.visibility = View.VISIBLE
                     }
