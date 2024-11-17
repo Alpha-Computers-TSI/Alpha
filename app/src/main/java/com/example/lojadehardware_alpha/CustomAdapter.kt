@@ -94,7 +94,7 @@ class CustomAdapter(private var dataSet: List<Produto>) :
         Glide.with(viewHolder.itemView.context)
             .load(imageUrl)
             .placeholder(R.drawable.ic_launcher_background) // placeholder
-            .error(R.drawable.) // indica erro
+            .error(R.drawable.erro) // indica erro
             .into(viewHolder.imagem)
 
             val abrirDetalhes = {
