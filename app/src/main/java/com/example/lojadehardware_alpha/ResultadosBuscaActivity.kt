@@ -2,15 +2,20 @@ package com.example.lojadehardware_alpha
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lojadehardware_alpha.util.MenuFiltrosHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +30,7 @@ class ResultadosBuscaActivity : AppCompatActivity() {
     private lateinit var searchResultsMessage: TextView
     private lateinit var searchView: androidx.appcompat.widget.SearchView
     private lateinit var apiService: ApiService
+    private lateinit var menuFiltrosHelper: MenuFiltrosHelper
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +40,15 @@ class ResultadosBuscaActivity : AppCompatActivity() {
 
         // Define a cor de fundo da barra de status
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+
+        // Inicializa o MenuFiltrosHelper
+        val buttonFilters = findViewById<Button>(R.id.button_popular)
+
+        menuFiltrosHelper = MenuFiltrosHelper(this, buttonFilters)
+
+        buttonFilters.setOnClickListener { view ->
+            menuFiltrosHelper.mostrarMenuFiltros(view)
+        }
 
         recyclerView = findViewById(R.id.recyclerViewResultadosBusca)
         searchResultsMessage = findViewById(R.id.searchResultsMessage)

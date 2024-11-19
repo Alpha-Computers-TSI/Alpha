@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lojadehardware_alpha.util.MenuFiltrosHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +26,9 @@ class ListaProdutos : AppCompatActivity(){
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CustomAdapter
     private lateinit var tvNenhumProduto: TextView
+    private lateinit var menuFiltrosHelper: MenuFiltrosHelper
+
+
     private var produtosOriginais: List<Produto> = listOf() // Lista original de produtos
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +50,14 @@ class ListaProdutos : AppCompatActivity(){
 
         // Configura a barra de pesquisa
         setupSearchView(apiServiceBusca)
+
+        // Inicializa o MenuFiltrosHelper
+        val buttonFilters = findViewById<Button>(R.id.button_popular)
+        menuFiltrosHelper = MenuFiltrosHelper(this, buttonFilters)
+
+        buttonFilters.setOnClickListener { view ->
+            menuFiltrosHelper.mostrarMenuFiltros(view)
+        }
 
         // Carrega produtos da API
         apiServiceListar.getProdutos().enqueue(object : Callback<List<Produto>> {

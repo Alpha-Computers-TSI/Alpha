@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Mais procurados"
+        android:text="Mais recentes"
         android:textSize="15sp"
         android:textColor="@color/black"
         android:background="@android:color/transparent"
