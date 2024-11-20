@@ -5,12 +5,11 @@
     android:id="@+id/myOrdersTextView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#03A9F4"
-    tools:context=".Profile">
+    tools:context=".MyAddress">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar4"
-        android:layout_width="0dp"
+        android:id="@+id/toolbar5"
+        android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:minHeight="?attr/actionBarSize"
@@ -19,113 +18,92 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout16"
-        android:layout_width="411dp"
-        android:layout_height="408dp"
-        android:layout_marginTop="64dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4">
-
-        <!--Campo Nome-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:text="Nome"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/nomeEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Digite seu nome"
-            android:padding="12dp" />
-
-        <!--Campo CPF-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:text="CPF"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/cpfEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Digite seu CPF"
-            android:padding="12dp" />
-
-        <!--Campo Telefone-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:text="Telefone"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/telefoneEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Digite seu telefone"
-            android:padding="12dp" />
-
-        <!--Campo Email-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:text="Email"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Digite seu email"
-            android:padding="12dp" />
-
-    </LinearLayout>
-
     <TextView
-        android:id="@+id/textView51"
+        android:id="@+id/textView52"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="MEUS DADOS"
+        android:text="MEU ENDEREÇO"
         android:textColor="#03A9F4"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--Botão-->
+
+    <LinearLayout
+        android:id="@+id/linearLayout15"
+        android:layout_width="413dp"
+        android:layout_height="312dp"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar5">
+
+        <!--Campo CEP-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:text="CEP"
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite seu CEP"
+            android:padding="12dp" />
+
+        <!--Campo Rua-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="Rua"
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite sua rua"
+            android:padding="12dp" />
+
+        <!--Campo numero-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:text="Número"
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite seu número"
+            android:padding="12dp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="168dp"
         android:background="@drawable/profile_button"
         android:backgroundTint="#03A9F4"
         android:text="ATUALIZAR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout16"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout15"
         tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

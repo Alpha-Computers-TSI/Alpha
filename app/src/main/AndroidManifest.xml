@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:usesCleartextTraffic="true"
-
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LojaDeHardwareAlpha"
-        tools:targetApi="31" >
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Orders"
+            android:exported="false" />
+        <activity
+            android:name=".MyAddress"
+            android:exported="false" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".ListaProdutos"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
             android:exported="false"
             android:label="@string/title_activity_lista_produtos"
             android:theme="@style/Theme.LojaDeHardwareAlpha" />
@@ -30,17 +40,17 @@
             android:name=".ProductCart"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".Login"
             android:exported="false" />
         <activity
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaProdutos"
-            android:exported="true" >
+            android:name=".MyAccount"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
