@@ -1,5 +1,6 @@
 package com.example.lojadehardware_alpha
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -21,14 +22,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-class ListaProdutos : AppCompatActivity(){
+class ListaProdutos : BaseSearchActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CustomAdapter
     private lateinit var tvNenhumProduto: TextView
-    private lateinit var menuFiltrosHelper: MenuFiltrosHelper
-
-
     private var produtosOriginais: List<Produto> = listOf() // Lista original de produtos
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,106 +34,81 @@ class ListaProdutos : AppCompatActivity(){
         // Inicializa os componentes
         tvNenhumProduto = findViewById(R.id.tvNenhumProduto)
         recyclerView = findViewById(R.id.recyclerViewProdutos)
+        searchView = findViewById(R.id.search_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Inicializa o adapter
-        adapter = CustomAdapter(emptyList()) // Inicializa com uma lista vazia
+        adapter = CustomAdapter(emptyList()) // Inicializa o adapter com uma lista vazia
         recyclerView.adapter = adapter
 
-        // Configura Retrofit
-        val apiServiceListar = createRetrofitService("http://thyagoquintas.com.br/ALPHA/")
-        val apiServiceBusca = createRetrofitService("https://027c2e5f-4e20-4907-8ddb-002cce23454a-00-2bk0k8130zh8s.kirk.replit.dev/")
-
         // Configura a barra de pesquisa
-        setupSearchView(apiServiceBusca)
-
-        // Inicializa o MenuFiltrosHelper
-        val buttonFilters = findViewById<Button>(R.id.button_popular)
-        menuFiltrosHelper = MenuFiltrosHelper(this, buttonFilters)
-
-        buttonFilters.setOnClickListener { view ->
-            menuFiltrosHelper.mostrarMenuFiltros(view)
+        configurarSearchView(searchView) { query ->
+            abrirResultadosBusca(query)
         }
 
-        // Carrega produtos da API
-        apiServiceListar.getProdutos().enqueue(object : Callback<List<Produto>> {
+        // Configurar o MenuFiltrosHelper
+        val buttonFilters = findViewById<Button>(R.id.button_popular)
+        configurarButtonFiltros(buttonFilters) {
+            buscarProdutos() // Recarregar a lista de produtos com o filtro aplicado
+        }
+
+        // Carrega a lista inicial de produtos
+        carregarProdutos()
+    }
+
+    private fun carregarProdutos() {
+        apiService.getProdutos().enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     produtosOriginais = response.body() ?: emptyList()
-                    adapter.atualizarLista(produtosOriginais) // Atualiza a lista do adapter
-                    tvNenhumProduto.visibility = View.GONE // Oculta mensagem, se existir
+                    if (produtosOriginais.isNotEmpty()) {
+                        adapter.atualizarLista(produtosOriginais)
+                        tvNenhumProduto.visibility = View.GONE
+                    } else {
+                        tvNenhumProduto.text = "Nenhum produto encontrado."
+                        tvNenhumProduto.visibility = View.VISIBLE
+                    }
                 } else {
                     Log.e("API Error", "Response not successful. Code: ${response.code()}")
+                    tvNenhumProduto.text = "Erro ao carregar produtos."
+                    tvNenhumProduto.visibility = View.VISIBLE
                 }
             }
 
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                Log.e("API Failure", "Error fetching products", t)
+                Log.e("API Failure", "Erro ao buscar produtos", t)
+                tvNenhumProduto.text = "Erro ao carregar produtos."
+                tvNenhumProduto.visibility = View.VISIBLE
             }
         })
     }
 
-    // Função para configurar a barra de pesquisa
-    private fun setupSearchView(apiServiceBusca: ApiService) {
-        val searchView = findViewById<SearchView>(R.id.search_view)
-        searchView.setOnClickListener {
-            searchView.isIconified = false
+    private fun buscarProdutos() {
+        val filtro = filtroSelecionado.orEmpty() // Garante que o filtro não seja nulo
+
+        // Aplica o filtro à lista de produtos originais
+        val produtosFiltrados = when (filtro) {
+            "Preço maior" -> produtosOriginais.sortedByDescending { it.produtoPreco }
+            "Preço menor" -> produtosOriginais.sortedBy { it.produtoPreco }
+            "Mais recentes" -> produtosOriginais.sortedByDescending { it.produtoId }
+            "Mais vendidos" -> produtosOriginais.sortedBy { it.produtudoQtd }
+            else -> produtosOriginais // Sem filtro
         }
 
-
-        // Escuta o texto da pesquisa
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filtrarProdutos(newText, apiServiceBusca)
-                return true
-            }
-        })
-    }
-
-    // Função para filtrar produtos com base na pesquisa
-    private fun filtrarProdutos(query: String?, apiServiceBusca: ApiService) {
-        if (!query.isNullOrEmpty()) {
-            apiServiceBusca.buscarProduto(query).enqueue(object : Callback<List<Produto>> {
-                override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
-                    if (response.isSuccessful) {
-                        val produtosFiltrados = response.body() ?: emptyList()
-
-                        if (produtosFiltrados.isNotEmpty()) {
-                            adapter.atualizarLista(produtosFiltrados)
-                            tvNenhumProduto.visibility = View.GONE // Oculta mensagem se houver produtos
-                        } else {
-                            Log.d("Pesquisa", "Nenhum produto encontrado para a pesquisa: $query")
-                            tvNenhumProduto.visibility = View.VISIBLE // Exibe a mensagem
-                            adapter.atualizarLista(emptyList())
-                        }
-                    } else {
-                        Log.e("API Error", "Response not successful. Code: ${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                    Log.e("API Failure", "Error fetching filtered products", t)
-                }
-            })
+        // Atualiza o adapter com a lista filtrada
+        if (produtosFiltrados.isNotEmpty()) {
+            adapter.atualizarLista(produtosFiltrados)
+            tvNenhumProduto.visibility = View.GONE
         } else {
-            adapter.atualizarLista(produtosOriginais) // Restaura a lista original
-            tvNenhumProduto.visibility = View.GONE // Oculta a mensagem
+            adapter.atualizarLista(emptyList())
+            tvNenhumProduto.text = "Nenhum produto encontrado."
+            tvNenhumProduto.visibility = View.VISIBLE
         }
     }
 
-    // Função para criar o serviço Retrofit
-    private fun createRetrofitService(baseUrl: String): ApiService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(ApiService::class.java)
+    private fun abrirResultadosBusca(query: String) {
+        if (query.isNotEmpty()) {
+            val intent = Intent(this, ResultadosBuscaActivity::class.java)
+            intent.putExtra("TEXTO_BUSCA", query) // Envia o termo da busca para a próxima Activity
+            startActivity(intent)
+        }
     }
-
-
 }
-
