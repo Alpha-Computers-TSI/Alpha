@@ -31,7 +31,7 @@ class ResultadosBuscaActivity : AppCompatActivity() {
     private lateinit var searchView: androidx.appcompat.widget.SearchView
     private lateinit var apiService: ApiService
     private lateinit var menuFiltrosHelper: MenuFiltrosHelper
-
+    private var filtroSelecionado: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,10 @@ class ResultadosBuscaActivity : AppCompatActivity() {
         // Inicializa o MenuFiltrosHelper
         val buttonFilters = findViewById<Button>(R.id.button_popular)
 
-        menuFiltrosHelper = MenuFiltrosHelper(this, buttonFilters)
+        menuFiltrosHelper = MenuFiltrosHelper(this, buttonFilters) { filtro ->
+            filtroSelecionado = filtro // Atualiza o filtro selecionado
+            buscarProdutos() // Realiza a busca novamente com o novo filtro
+        }
 
         buttonFilters.setOnClickListener { view ->
             menuFiltrosHelper.mostrarMenuFiltros(view)
@@ -103,19 +106,19 @@ class ResultadosBuscaActivity : AppCompatActivity() {
     }
 
     private fun buscarProdutos() {
-        apiService.buscarProduto(termoBusca).enqueue(object : Callback<List<Produto>> {
+        val filtro = filtroSelecionado ?: "" // Usa um valor vazio se nenhum filtro estiver selecionado
+
+        apiService.buscarProduto(termoBusca, filtro).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
 
-                    // Verifica se há produtos e exibe mensagem caso contrário
                     if (produtos.isNotEmpty()) {
                         Log.d("API Response", "Produtos encontrados: ${produtos.size}")
                         adapter.atualizarLista(produtos)
                         searchResultsMessage.visibility = View.GONE
                     } else {
-                        Log.d("API Response", "Nenhum produto encontrado para a busca: $termoBusca")
-                        Log.d("Busca", "Buscando produtos com termo: '$termoBusca'")
+                        Log.d("API Response", "Nenhum produto encontrado para a busca: $termoBusca com filtro: $filtro")
                         adapter.atualizarLista(emptyList())
                         searchResultsMessage.text = "Nenhum produto encontrado."
                         searchResultsMessage.visibility = View.VISIBLE

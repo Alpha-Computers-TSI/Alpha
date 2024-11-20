@@ -8,7 +8,8 @@ import com.example.lojadehardware_alpha.R
 
 class MenuFiltrosHelper(
     private val context: Context,
-    private val filtroButton: Button
+    private val filtroButton: Button,
+    private val onFiltroSelecionado: (String) -> Unit
 ) {
 
     fun mostrarMenuFiltros(anchorView: View) {
@@ -25,8 +26,8 @@ class MenuFiltrosHelper(
             }
 
             filtroSelecionado?.let {
-                filtroButton.text = it // Atualiza o texto do botão
-                aplicarFiltro(it) // Aplica a lógica do filtro
+                filtroButton.text = menuItem.title // Atualiza o texto do botão
+                onFiltroSelecionado(it) // Notifica o filtro selecionado
             }
             true
         }
@@ -34,12 +35,4 @@ class MenuFiltrosHelper(
         popupMenu.show()
     }
 
-    private fun aplicarFiltro(filtro: String) {
-        when (filtro) {
-            "Preço maior" -> {} // Ação para preço crescente
-            "Preço menor" -> {} // Ação para preço decrescente
-            "Mais recentes" -> {} // Ação para mais recentes
-            "Mais vendidos" -> {} // Ação para mais vendidos
-        }
-    }
 }

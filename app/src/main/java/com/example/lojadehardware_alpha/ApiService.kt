@@ -12,5 +12,8 @@ interface ApiService {
     fun getProdutos(): Call<List<Produto>>
 
     @GET("busca.php")
-    fun buscarProduto(@Query("query") termo: String): Call<List<Produto>>
+    fun buscarProduto(
+        @Query("query") termo: String,
+        @Query("filter") filter: String
+    ): Call<List<Produto>>
 }
