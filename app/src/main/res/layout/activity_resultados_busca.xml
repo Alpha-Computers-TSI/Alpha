@@ -4,49 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:fitsSystemWindows="true"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
+
 
     <include
         android:id="@+id/barra_pesquisa"
         layout="@layout/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include_filters"
         layout="@layout/filter_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/barra_pesquisa"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Caixa azul dizendo a categoria -->
-    <FrameLayout
-        android:id="@+id/frameLayout_background"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="#34C9FF"
-        app:layout_constraintTop_toBottomOf="@id/include_filters">
-
-        <!-- Texto dentro da View -->
-        <TextView
-            android:id="@+id/textViewInsideView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Acessórios"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
-    </FrameLayout>
-
-    <!--   texto simples de resultado da busca-->
+        app:layout_constraintTop_toBottomOf="@+id/barra_pesquisa" />
 
     <TextView
         android:id="@+id/textView3"
@@ -57,27 +34,32 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout_background"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintTop_toTopOf="@+id/include_filters"
+        app:layout_constraintVertical_bias="0.056" />
 
-    <!-- Texto quando nenhum produto for encontrado -->
     <TextView
-        android:id="@+id/tvNenhumProduto"
+        android:id="@+id/searchResultsMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="199dp"
-        android:text="Nenhum produto encontrado."
+        android:layout_gravity="center"
+        android:layout_marginTop="145dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewProdutos"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewResultadosBusca"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewProdutos" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56" />
 
-    <!-- RecyclerView -->
+    <!-- RecyclerView para listar os produtos encontrados -->
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProdutos"
+        android:id="@+id/recyclerViewResultadosBusca"
         android:layout_width="0dp"
         android:layout_height="390dp"
         android:layout_margin="16dp"
@@ -99,5 +81,4 @@
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:menu="@menu/bottom_nav_menu"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

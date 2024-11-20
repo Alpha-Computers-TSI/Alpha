@@ -17,4 +17,7 @@ class Payment : AppCompatActivity() {
             insets
         }
     }
+
+
+
 }

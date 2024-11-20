@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Home : AppCompatActivity() {
@@ -16,7 +16,34 @@ class Home : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
-        bottomNavigationView.setOnItemSelectedListener { item ->
+        // Define a cor de fundo da barra de status
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+
+
+        // Pesquisa de produto
+        val searchView = findViewById<SearchView>(R.id.search_view)
+
+        //ao clicar em qualquer parte da barra de pesquisa ela abre
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    val intent = Intent(this@Home, ResultadosBuscaActivity::class.java)
+                    intent.putExtra("TEXTO_BUSCA", it)
+                    startActivity(intent)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+
+            bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     // startActivity(Intent(this, HomeActivity::class.java))

@@ -10,14 +10,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
-    <ImageView
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight="1">
+
+        <ImageView
         android:id="@+id/imagem_produto"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:scaleType="centerCrop"
         android:layout_weight="1"
@@ -25,14 +30,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <!-- Indicador de desconto -->
+            <TextView
+                android:id="@+id/indicadorDesconto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:layout_margin="8dp"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="30dp"
         android:layout_marginTop="4dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
         android:paddingStart="10dp"
-        android:paddingEnd="10dp">
+        android:paddingEnd="10dp"
+        android:layout_marginLeft="10dp">
 
         <!-- Nome do produto -->
         <TextView
@@ -43,24 +65,41 @@
             android:layout_marginTop="20dp"
             android:textSize="16sp" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="15dp">
 
         <!-- Preço do produto -->
         <TextView
             android:id="@+id/valorProduto"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:textStyle="normal"
+            android:layout_weight="1"
+            android:textColor="#606060"
+            android:textSize="13sp" />
+
+        <!-- valor de desconto do produto -->
+        <TextView
+            android:id="@+id/descontoProduto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textStyle="bold"
             android:textColor="#34C9FF"
-            android:textSize="18sp" />
+            android:layout_marginLeft="10dp"
+            android:textSize="15sp" />
+
+</LinearLayout>
 
 
-    <!-- Botão de compra -->
+        <!-- Botão de compra -->
         <Button
             android:id="@+id/btnComprar"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="43dp"
             android:layout_marginTop="4dp"
             android:backgroundTint="#34C9FF"
             android:text="@string/comprar"

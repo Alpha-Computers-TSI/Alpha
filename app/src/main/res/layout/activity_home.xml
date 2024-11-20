@@ -3,46 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true">
 
-    <!-- Barra preta (Background) -->
-    <View
-        android:id="@+id/background_barra"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
+    <include
+        android:id="@+id/barra_pesquisa"
+        layout="@layout/search_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Barra de pesquisa -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Pesquisar..."
-        android:background="@drawable/rounded_search_background"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/darker_gray"
-
-        app:layout_constraintEnd_toStartOf="@+id/cart_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background_barra"
-        app:layout_constraintBottom_toBottomOf="@+id/background_barra" />
-
-    <!-- Ícone do carrinho (acima da barra preta) -->
-    <ImageView
-        android:id="@+id/cart_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
-        android:padding="8dp"
-        android:src="@drawable/carrinho"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background_barra"
-        app:layout_constraintBottom_toBottomOf="@+id/background_barra" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <FrameLayout
         android:id="@+id/frameLayout"
