@@ -23,7 +23,7 @@
             android:name=".MyAddress"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name="Profile"
             android:exported="false" />
         <activity
             android:name=".ListaProdutos"
