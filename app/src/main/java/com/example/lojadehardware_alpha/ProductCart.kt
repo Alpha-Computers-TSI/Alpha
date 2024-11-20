@@ -61,7 +61,7 @@ class ProductCart : AppCompatActivity() {
 
     private fun fetchCartItems() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.thyagoquintas.com.br/")
+            .baseUrl("https://027c2e5f-4e20-4907-8ddb-002cce23454a-00-2bk0k8130zh8s.kirk.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -84,22 +84,49 @@ class ProductCart : AppCompatActivity() {
             }
         })
     }
+
+
     private fun setupAdapter() {
-        cartAdapter = CartAdapter(cartItems, this) { updateTotal() }
+        cartAdapter = CartAdapter(cartItems, this, { updateTotal() }, { onQuantityZero() })
         recyclerView.adapter = cartAdapter
     }
 
     private fun updateTotal() {
         // Calcula o total com base nos itens no carrinho com frete
-        total = cartItems.sumOf { (it.produtoPreco ?: 0.0) * (it.quantidadeDisponivel ?: 1) }
+        total = cartItems.sumOf { item ->
+            val precoBase = item.produtoPreco ?: 0.0
+            val desconto = item.produtoDesconto ?: 0.0
+
+            val precoFinal = if (desconto > 0) {
+                precoBase - (precoBase * (desconto / 100))
+            } else {
+                precoBase
+            }
+            precoFinal * (item.quantidadeDisponivel ?: 1)
+        }
         totalTextView.text = "Total: R$${String.format("%.2f", total)}"
 
         // Calcula o total com base nos itens no carrinho sem frete
-        productsValue = cartItems.sumOf { (it.produtoPreco ?: 0.0) * (it.quantidadeDisponivel ?: 1) }
+        productsValue = cartItems.sumOf { item ->
+            val precoBase = item.produtoPreco ?: 0.0
+            val desconto = item.produtoDesconto ?: 0.0
+
+            val precoFinal = if (desconto > 0) {
+                precoBase - (precoBase * (desconto / 100))
+            } else {
+                precoBase
+            }
+            precoFinal * (item.quantidadeDisponivel ?: 1)
+        }
         productsValueTextView.text = "R$${String.format("%.2f", productsValue)}"
 
-        //Valor do total parcelado
+        // Valor do total parcelado
         parcelamentoTextView.text = "ou 12x de R$ ${String.format("%.2f", total / 12)} sem juros!"
     }
+
+    private fun onQuantityZero() {
+        fetchCartItems()
+    }
+
 
 }

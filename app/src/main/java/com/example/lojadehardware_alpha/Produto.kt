@@ -13,7 +13,7 @@ data class Produto(
     @SerializedName("CATEGORIA_ID") val categoriaId: Int?,
     @SerializedName("PRODUTO_ATIVO") val produtoAtivo: Int?,
     @SerializedName("IMAGEM_URL") val imagemUrl: String?,
-    @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int?
+    @SerializedName("QUANTIDADE_DISPONIVEL") var quantidadeDisponivel: Int?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
