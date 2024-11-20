@@ -19,11 +19,12 @@ class ProductCart : AppCompatActivity() {
     private lateinit var totalTextView: TextView
     private lateinit var goToPaymentButton: Button
     private lateinit var goToListagemProdutos: Button
-    private var total: Double = 0.0
-    private var productsValue: Double = 0.0
     private lateinit var productsValueTextView: TextView
     private lateinit var parcelamentoTextView: TextView
     private lateinit var cartAdapter: CartAdapter
+    private var total: Double = 0.0
+    private var productsValue: Double = 0.0
+
     private var cartItems: MutableList<Produto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +38,20 @@ class ProductCart : AppCompatActivity() {
         goToPaymentButton = findViewById(R.id.goToPaymentButton)
         goToListagemProdutos = findViewById(R.id.goToListagemProdutos)
 
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         fetchCartItems()
 
         goToPaymentButton.setOnClickListener {
-            val intent = Intent(this@ProductCart, Payment::class.java)
+            val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
+            val userId = sharedPreferences.getInt("id", 0)
+            val intent = Intent(this, Payment::class.java).apply {
+                putExtra("TOTAL", total.toString())
+                putExtra("USER", userId)
+                putParcelableArrayListExtra("PRODUCT_LIST", ArrayList(cartItems))
+            }
             startActivity(intent)
         }
+
 
         goToListagemProdutos.setOnClickListener {
             val intent = Intent(this@ProductCart, ListaProdutos::class.java)

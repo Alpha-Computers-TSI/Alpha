@@ -27,6 +27,9 @@
             android:name=".SingleProduct"
             android:exported="false" />
         <activity
+            android:name=".Payment"
+            android:exported="false" />
+        <activity
             android:name=".ProductCart"
             android:exported="false" />
         <activity

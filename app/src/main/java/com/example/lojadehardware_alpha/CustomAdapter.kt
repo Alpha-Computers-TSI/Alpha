@@ -49,7 +49,7 @@ class CustomAdapter(private var dataSet: List<Produto>) :
         val precoFormatado = numberFormat.format(produto.produtoPreco)
 
         // Calcula o valor com desconto
-        val descontoPorcentagem = produto.produtoDesconto?.toDoubleOrNull() ?: 0.0
+        val descontoPorcentagem = produto.produtoDesconto ?: 0.0
         val precoComDesconto = produto.produtoPreco?.times((1 - descontoPorcentagem / 100))
         val precoComDescontoFormatado = numberFormat.format(precoComDesconto)
 
