@@ -1,5 +1,7 @@
 package com.example.lojadehardware_alpha
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,6 +14,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ResultadosBuscaActivity : BaseSearchActivity() {
+
+    companion object {
+        private const val REQUEST_CODE_FILTROS = 1
+    }
+
+    private var filtroDesconto: Boolean? = null
+    private var filtroEstoque: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +47,32 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
         }
 
         // Configura o botão de filtros
-        val buttonFilters = findViewById<Button>(R.id.button_popular)
-        configurarButtonFiltros(buttonFilters) {
-            buscarProdutos() // Atualiza os produtos com base no filtro
+        val buttonPopular = findViewById<Button>(R.id.button_popular)
+        configurarButtonFiltros(buttonPopular) {
+            buscarProdutos()
+        }
+
+        val buttonFilters = findViewById<Button>(R.id.button_filters)
+        buttonFilters.setOnClickListener {
+            val intent = Intent(this, FiltrosActivity::class.java).apply {
+                putExtra("FILTRO_DESCONTO", filtroDesconto ?: false)
+                putExtra("FILTRO_ESTOQUE", filtroEstoque ?: false)
+            }
+            startActivityForResult(intent, REQUEST_CODE_FILTROS)
         }
 
         buscarProdutos()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_FILTROS && resultCode == Activity.RESULT_OK) {
+            filtroDesconto = data?.getBooleanExtra("FILTRO_DESCONTO", false)
+            filtroEstoque = data?.getBooleanExtra("FILTRO_ESTOQUE", false)
+
+            // Atualize a busca com os novos filtros
+            buscarProdutos()
+        }
     }
 
     private fun configurarSearchView() {
@@ -73,7 +102,8 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
     private fun buscarProdutos() {
         val filtro = filtroSelecionado ?: ""
 
-        apiService.buscarProduto(termoBusca, filtro).enqueue(object : Callback<List<Produto>> {
+        apiService.buscarProduto(termoBusca, filtro, filtroDesconto ?: false, filtroEstoque ?: false)
+            .enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
