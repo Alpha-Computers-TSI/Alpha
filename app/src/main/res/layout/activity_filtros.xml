@@ -29,5 +29,59 @@
         android:layout_height="wrap_content"
         android:text="Limpar Filtros" />
 
+<!-- filtro de preço-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Definir intervalo de preço" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editPrecoMin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Preço mínimo"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/editPrecoMax"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Preço máximo"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPrecoMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valor máximo: R$ 0"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <SeekBar
+                android:id="@+id/seekBarPrecoMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="5000" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
 

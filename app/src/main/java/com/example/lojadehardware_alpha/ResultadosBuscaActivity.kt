@@ -3,6 +3,7 @@ package com.example.lojadehardware_alpha
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +22,8 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
 
     private var filtroDesconto: Boolean? = null
     private var filtroEstoque: Boolean? = null
+    private var precoMin: Float? = null
+    private var precoMax: Float? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,11 +57,15 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
 
         val buttonFilters = findViewById<Button>(R.id.button_filters)
         buttonFilters.setOnClickListener {
+            Log.d("FiltrosButton", "Criando Intent para FiltrosActivity")
             val intent = Intent(this, FiltrosActivity::class.java).apply {
                 putExtra("FILTRO_DESCONTO", filtroDesconto ?: false)
                 putExtra("FILTRO_ESTOQUE", filtroEstoque ?: false)
+                putExtra("FILTRO_PRECO_MIN", precoMin ?: 0f)
+                putExtra("FILTRO_PRECO_MAX", precoMax ?: 5000f)
             }
             startActivityForResult(intent, REQUEST_CODE_FILTROS)
+            Log.d("FiltrosButton", "Intent enviado para FiltrosActivity")
         }
 
         buscarProdutos()
@@ -69,14 +76,14 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
         if (requestCode == REQUEST_CODE_FILTROS && resultCode == Activity.RESULT_OK) {
             filtroDesconto = data?.getBooleanExtra("FILTRO_DESCONTO", false)
             filtroEstoque = data?.getBooleanExtra("FILTRO_ESTOQUE", false)
+            precoMin = data?.getFloatExtra("FILTRO_PRECO_MIN", 0f)
+            precoMax = data?.getFloatExtra("FILTRO_PRECO_MAX", 5000f)
 
-            // Atualize a busca com os novos filtros
             buscarProdutos()
         }
     }
 
     private fun configurarSearchView() {
-        // Abre o SearchView ao clicar
         searchView.setOnClickListener {
             searchView.isIconified = false
         }
@@ -102,7 +109,7 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
     private fun buscarProdutos() {
         val filtro = filtroSelecionado ?: ""
 
-        apiService.buscarProduto(termoBusca, filtro, filtroDesconto ?: false, filtroEstoque ?: false)
+        apiService.buscarProduto(termoBusca, filtro, filtroDesconto ?: false, filtroEstoque ?: false, precoMin, precoMax )
             .enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
