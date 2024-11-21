@@ -16,6 +16,8 @@ interface ApiService {
         @Query("query") termo: String,
         @Query("filter") filter: String,
         @Query("comDesconto") comDesconto: Boolean,
-        @Query("emEstoque") emEstoque: Boolean
+        @Query("emEstoque") emEstoque: Boolean,
+        @Query("precoMin") precoMin: Float?,
+        @Query("precoMax") precoMax: Float?
     ): Call<List<Produto>>
 }
