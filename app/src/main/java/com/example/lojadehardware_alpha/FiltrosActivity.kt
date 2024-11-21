@@ -7,6 +7,7 @@
     import android.text.TextWatcher
     import android.widget.Button
     import android.widget.EditText
+    import android.widget.ImageButton
     import android.widget.SeekBar
     import android.widget.TextView
     import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +43,11 @@
             val estoqueInicial = intent.getBooleanExtra("FILTRO_ESTOQUE", false)
             val precoMinAtual = intent.getFloatExtra("FILTRO_PRECO_MIN", 0f)
             val precoMaxAtual = intent.getFloatExtra("FILTRO_PRECO_MAX", 1000f).toInt()
+            val btnVoltar = findViewById<ImageButton>(R.id.btnVoltar)
+
+            btnVoltar.setOnClickListener {
+                finish() // Finaliza a Activity atual e retorna à anterior
+            }
 
             switchDesconto.isChecked = descontoInicial
             switchEstoque.isChecked = estoqueInicial
