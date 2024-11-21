@@ -14,6 +14,8 @@ interface ApiService {
     @GET("busca.php")
     fun buscarProduto(
         @Query("query") termo: String,
-        @Query("filter") filter: String
+        @Query("filter") filter: String,
+        @Query("comDesconto") comDesconto: Boolean,
+        @Query("emEstoque") emEstoque: Boolean
     ): Call<List<Produto>>
 }
