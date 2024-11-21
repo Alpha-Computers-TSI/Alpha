@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchDesconto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apenas produtos com desconto" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchEstoque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apenas produtos em estoque" />
+
+    <Button
+        android:id="@+id/btnAplicarFiltros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aplicar Filtros" />
+
+    <Button
+        android:id="@+id/btnLimparFiltros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Limpar Filtros" />
+
+</LinearLayout>
+
