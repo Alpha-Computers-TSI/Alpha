@@ -83,36 +83,69 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
-    <!-- Switch para "Itens em estoque" -->
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchDesconto"
-        android:layout_width="match_parent"
+    <!-- Switch para "Ofertas" com ícone -->
+    <LinearLayout
+        android:id="@+id/layoutswitchOfertas"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="Ofertas"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:thumbTint="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/viewCinza"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchEstoque"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Somente itens em estoque"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:thumbTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switchDesconto" />
+        app:layout_constraintTop_toBottomOf="@id/viewCinza">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/desconto"
+        android:contentDescription="Ícone de ofertas" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchDesconto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ofertas"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:thumbTint="@color/blue"
+            android:trackTint="@color/gray" />
+    </LinearLayout>
+
+    <!-- Switch para "Somente itens em estoque" com ícone -->
+    <LinearLayout
+        android:id="@+id/layoutswitchEstoque"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutswitchOfertas">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/estoque"
+        android:contentDescription="Ícone de estoque" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchEstoque"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Somente itens em estoque"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:thumbTint="@color/blue"
+            android:trackTint="@color/gray" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textPreco"
@@ -125,7 +158,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switchEstoque" />
+        app:layout_constraintTop_toBottomOf="@id/layoutswitchEstoque" />
 
     <SeekBar
         android:id="@+id/seekBarPrecoMax"
@@ -171,28 +204,31 @@
             android:padding="10dp"
             android:text="R$ 5.000,00"
             android:textSize="14sp" />
+
+
     </LinearLayout>
 
-
+    <!-- EditText Preço Mínimo -->
     <EditText
         android:id="@+id/editPrecoMin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="64dp"
         android:layout_weight="1"
         android:textColor="#000000"
         android:backgroundTint="#000000"
         android:hint="Preço mínimo"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seekBarPrecoMax" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
 
+    <!-- EditText Preço Máximo -->
     <EditText
         android:id="@+id/editPrecoMax"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="36dp"
         android:layout_weight="1"
         android:textColor="#000000"
@@ -200,7 +236,8 @@
         android:hint="Preço máximo"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seekBarPrecoMax" />
-
+        app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

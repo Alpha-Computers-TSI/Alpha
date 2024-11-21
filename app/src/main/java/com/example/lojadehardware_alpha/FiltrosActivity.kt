@@ -2,6 +2,8 @@
 
     import android.app.Activity
     import android.content.Intent
+    import android.content.res.ColorStateList
+    import android.graphics.PorterDuff
     import android.os.Bundle
     import android.text.Editable
     import android.text.TextWatcher
@@ -12,6 +14,7 @@
     import android.widget.TextView
     import androidx.appcompat.app.AppCompatActivity
     import androidx.appcompat.widget.SwitchCompat
+    import androidx.core.content.ContextCompat
 
     class FiltrosActivity : AppCompatActivity() {
 
@@ -38,12 +41,47 @@
             textPrecoMax = findViewById(R.id.textPrecoMax)
             seekBarPrecoMax = findViewById(R.id.seekBarPrecoMax)
 
+            val switchEstoque: SwitchCompat = findViewById(R.id.switchEstoque)
+            val switchDesconto: SwitchCompat = findViewById(R.id.switchDesconto)
+
+            // Manipulando o switch de estoque
+            switchEstoque.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    // Quando o switchEstoque estiver ligado
+                    switchEstoque.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue))
+                    switchEstoque.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue))
+                } else {
+                    // Quando o switchEstoque estiver desligado
+                    switchEstoque.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
+                    switchEstoque.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.gray))
+                }
+            }
+
+            // Manipulando o switch de desconto
+            switchDesconto.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    // Quando o switchDesconto estiver ligado
+                    switchDesconto.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue))
+                    switchDesconto.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue))
+                } else {
+                    // Quando o switchDesconto estiver desligado
+                    switchDesconto.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
+                    switchDesconto.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.gray))
+                }
+            }
+
+            val seekBar: SeekBar = findViewById(R.id.seekBarPrecoMax)
+            // Definir a cor da barra de progresso
+            val progressDrawable = seekBar.progressDrawable.mutate()
+            progressDrawable.setColorFilter(ContextCompat.getColor(this, R.color.blue), PorterDuff.Mode.SRC_IN)
+
             // Configurar valores iniciais
             val descontoInicial = intent.getBooleanExtra("FILTRO_DESCONTO", false)
             val estoqueInicial = intent.getBooleanExtra("FILTRO_ESTOQUE", false)
             val precoMinAtual = intent.getFloatExtra("FILTRO_PRECO_MIN", 0f)
             val precoMaxAtual = intent.getFloatExtra("FILTRO_PRECO_MAX", 1000f).toInt()
             val btnVoltar = findViewById<ImageButton>(R.id.btnVoltar)
+
 
             btnVoltar.setOnClickListener {
                 finish() // Finaliza a Activity atual e retorna à anterior
