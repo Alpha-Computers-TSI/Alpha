@@ -62,20 +62,24 @@
         app:layout_constraintTop_toTopOf="@+id/frameLayout_background"
         app:layout_constraintVertical_bias="0.022" />
 
+
     <!-- Texto quando nenhum produto for encontrado -->
+
     <TextView
         android:id="@+id/tvNenhumProduto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="199dp"
+        android:layout_marginTop="244dp"
         android:text="Nenhum produto encontrado."
+        android:textColor="#000000"
+        android:textSize="15sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewProdutos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewProdutos" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- RecyclerView -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProdutos"
         android:layout_width="0dp"
