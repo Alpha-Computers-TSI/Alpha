@@ -44,30 +44,33 @@ class ListaProdutos : BaseSearchActivity() {
             abrirResultadosBusca(query)
         }
 
+        // Recupera o ID da categoria passada pela intent
+        val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
+
         // Configurar o MenuFiltrosHelper
         val buttonFilters = findViewById<Button>(R.id.button_popular)
         configurarButtonFiltros(buttonFilters) {
             buscarProdutos() // Recarregar a lista de produtos com o filtro aplicado
         }
 
-        // Carrega a lista inicial de produtos
-        carregarProdutos()
+        // Carrega produtos com base na categoria selecionada
+        carregarProdutos(filtroCategoria)
     }
 
-    private fun carregarProdutos() {
-        apiService.getProdutos().enqueue(object : Callback<List<Produto>> {
+    private fun carregarProdutos(categoriaId: Int) {
+        apiService.getProdutosPorCategoria(categoriaId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
-                    produtosOriginais = response.body() ?: emptyList()
-                    if (produtosOriginais.isNotEmpty()) {
-                        adapter.atualizarLista(produtosOriginais)
+                    val produtos = response.body() ?: emptyList()
+                    if (produtos.isNotEmpty()) {
+                        adapter.atualizarLista(produtos)
                         tvNenhumProduto.visibility = View.GONE
                     } else {
-                        tvNenhumProduto.text = "Nenhum produto encontrado."
+                        tvNenhumProduto.text = "Nenhum produto encontrado para esta categoria."
                         tvNenhumProduto.visibility = View.VISIBLE
                     }
                 } else {
-                    Log.e("API Error", "Response not successful. Code: ${response.code()}")
+                    Log.e("API Error", "Erro ao carregar produtos. Código: ${response.code()}")
                     tvNenhumProduto.text = "Erro ao carregar produtos."
                     tvNenhumProduto.visibility = View.VISIBLE
                 }

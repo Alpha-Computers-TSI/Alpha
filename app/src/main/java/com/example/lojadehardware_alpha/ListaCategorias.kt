@@ -76,12 +76,9 @@ class ListaCategorias : BaseSearchActivity() {
     }
 
     private fun iniciarBuscaPorCategoria(categoria: Categoria) {
-        termoBusca = "" // Reseta o termo de busca para apenas o filtro
-        filtroSelecionado = categoria.CATEGORIA_ID.toString()
-
-        // Iniciar a próxima tela (por exemplo, lista de produtos)
+        // Iniciar a próxima tela (ListaProdutos) com o filtro da categoria
         val intent = Intent(this, ListaProdutos::class.java)
-        intent.putExtra("filtroCategoria", filtroSelecionado)
+        intent.putExtra("filtroCategoria", categoria.CATEGORIA_ID)
         intent.putExtra("nomeCategoria", categoria.CATEGORIA_NOME)
         startActivity(intent)
     }

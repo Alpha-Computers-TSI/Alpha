@@ -23,4 +23,9 @@ interface ApiService {
 
     @GET("categoria.php")
     fun getCategorias(): Call<List<Categoria>>
+
+    @GET("produtos_por_categoria.php")
+    fun getProdutosPorCategoria(
+        @Query("categoriaId") categoriaId: Int
+    ): Call<List<Produto>>
 }
