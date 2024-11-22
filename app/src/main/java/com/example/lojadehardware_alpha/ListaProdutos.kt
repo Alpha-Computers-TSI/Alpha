@@ -3,29 +3,24 @@ package com.example.lojadehardware_alpha
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.lojadehardware_alpha.util.MenuFiltrosHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
-
 
 class ListaProdutos : BaseSearchActivity() {
 
     private lateinit var tvNenhumProduto: TextView
     private var produtosOriginais: List<Produto> = listOf() // Lista original de produtos
+    private var filtroDesconto: Boolean? = null
+    private var filtroEstoque: Boolean? = null
+    private var precoMin: Float? = null
+    private var precoMax: Float? = null
+    private var filtroOrdenacao: String? = null // Filtro de ordenação
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,28 +39,41 @@ class ListaProdutos : BaseSearchActivity() {
             abrirResultadosBusca(query)
         }
 
-        // Recupera o ID da categoria passada pela intent
+        // Recupera os dados intent categoria
         val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
-
-        // Recupera o nome da categoria passada pela intent
         val nomeCategoria = intent.getStringExtra("nomeCategoria")
 
-        // Atualiza o texto do TextView no FrameLayout
+        // Atualiza o texto da categoria na interface
         val textViewInsideView = findViewById<TextView>(R.id.textViewInsideView)
         textViewInsideView.text = nomeCategoria ?: "Categoria"
 
-        // Configurar o MenuFiltrosHelper
-        val buttonFilters = findViewById<Button>(R.id.button_popular)
-        configurarButtonFiltros(buttonFilters) {
-            buscarProdutos() // Recarregar a lista de produtos com o filtro aplicado
+        // Configura o botão de filtros
+        val buttonMenuFiltros = findViewById<Button>(R.id.button_popular)
+        configurarButtonFiltrosCategoria(buttonMenuFiltros) {
+            carregarOuBuscarProdutos(filtroCategoria, filtroOrdenacao)
         }
 
-        // Carrega produtos com base na categoria selecionada
-        carregarProdutos(filtroCategoria)
+        // Carrega produtos da categoria
+        carregarOuBuscarProdutos(filtroCategoria)
     }
 
-    private fun carregarProdutos(categoriaId: Int) {
-        apiService.getProdutosPorCategoria(categoriaId).enqueue(object : Callback<List<Produto>> {
+    private fun configurarButtonFiltrosCategoria(button: Button, onFiltroAplicado: () -> Unit) {
+        val helper = MenuFiltrosHelper(this, button) { filtroSelecionado ->
+            filtroOrdenacao = when (filtroSelecionado) {
+                "Preço maior" -> "maior_preco"
+                "Preço menor" -> "menor_preco"
+                "Mais recentes" -> "mais_recentes"
+                "Mais vendidos" -> "mais_vendidos"
+                else -> null
+            }
+            onFiltroAplicado()
+        }
+
+        button.setOnClickListener { helper.mostrarMenuFiltros(it) }
+    }
+
+    private fun carregarOuBuscarProdutos(categoriaId: Int, ordem: String? = null) {
+        apiService.getProdutosPorCategoria(categoriaId, ordem).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
@@ -89,29 +97,6 @@ class ListaProdutos : BaseSearchActivity() {
                 tvNenhumProduto.visibility = View.VISIBLE
             }
         })
-    }
-
-    private fun buscarProdutos() {
-        val filtro = filtroSelecionado.orEmpty() // Garante que o filtro não seja nulo
-
-        // Aplica o filtro à lista de produtos originais
-        val produtosFiltrados = when (filtro) {
-            "Preço maior" -> produtosOriginais.sortedByDescending { it.produtoPreco }
-            "Preço menor" -> produtosOriginais.sortedBy { it.produtoPreco }
-            "Mais recentes" -> produtosOriginais.sortedByDescending { it.produtoId }
-            "Mais vendidos" -> produtosOriginais.sortedBy { it.produtudoQtd }
-            else -> produtosOriginais // Sem filtro
-        }
-
-        // Atualiza o adapter com a lista filtrada
-        if (produtosFiltrados.isNotEmpty()) {
-            adapter.atualizarLista(produtosFiltrados)
-            tvNenhumProduto.visibility = View.GONE
-        } else {
-            adapter.atualizarLista(emptyList())
-            tvNenhumProduto.text = "Nenhum produto encontrado."
-            tvNenhumProduto.visibility = View.VISIBLE
-        }
     }
 
     private fun abrirResultadosBusca(query: String) {

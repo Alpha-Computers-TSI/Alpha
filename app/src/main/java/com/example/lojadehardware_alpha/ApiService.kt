@@ -26,6 +26,8 @@ interface ApiService {
 
     @GET("produtos_por_categoria.php")
     fun getProdutosPorCategoria(
-        @Query("categoriaId") categoriaId: Int
+        @Query("categoriaId") categoriaId: Int,
+        @Query("ordem") ordem: String? = null // Parâmetro de ordenação
     ): Call<List<Produto>>
+
 }
