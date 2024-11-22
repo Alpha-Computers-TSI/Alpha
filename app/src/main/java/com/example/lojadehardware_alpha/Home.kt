@@ -50,7 +50,7 @@ class Home : AppCompatActivity() {
                     true
                 }
                 R.id.nav_categories -> {
-                    startActivity(Intent(this, ListaProdutos::class.java))
+                    startActivity(Intent(this, ListaCategorias::class.java))
                     true
                 }
                 R.id.nav_account -> {
