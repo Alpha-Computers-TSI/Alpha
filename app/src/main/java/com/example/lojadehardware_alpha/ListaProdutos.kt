@@ -47,6 +47,13 @@ class ListaProdutos : BaseSearchActivity() {
         // Recupera o ID da categoria passada pela intent
         val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
 
+        // Recupera o nome da categoria passada pela intent
+        val nomeCategoria = intent.getStringExtra("nomeCategoria")
+
+        // Atualiza o texto do TextView no FrameLayout
+        val textViewInsideView = findViewById<TextView>(R.id.textViewInsideView)
+        textViewInsideView.text = nomeCategoria ?: "Categoria"
+
         // Configurar o MenuFiltrosHelper
         val buttonFilters = findViewById<Button>(R.id.button_popular)
         configurarButtonFiltros(buttonFilters) {
