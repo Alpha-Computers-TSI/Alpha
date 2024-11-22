@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 
 class ListaCategorias : BaseSearchActivity() {
@@ -20,6 +21,31 @@ class ListaCategorias : BaseSearchActivity() {
 
         // Configurar o LayoutManager para o RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Configuração da barra de pesquisa
+        val searchView = findViewById<SearchView>(R.id.search_view)
+
+        // Ao clicar na barra de pesquisa, ela abre
+        searchView.setOnClickListener {
+            searchView.isIconified = false
+        }
+
+        // Configuração do ouvinte de pesquisa
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    // Passa o termo de busca para a tela de resultados
+                    val intent = Intent(this@ListaCategorias, ResultadosBuscaActivity::class.java)
+                    intent.putExtra("TEXTO_BUSCA", it)
+                    startActivity(intent)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
 
         // Chamar o Retrofit para buscar categorias
         carregarCategorias()
