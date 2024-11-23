@@ -26,7 +26,7 @@ abstract class BaseSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        apiService = createRetrofitService("https://61f4559c-fda2-4b81-b04b-99f5809d3560-00-13l38vn6vc74a.worf.replit.dev/")
+        apiService = createRetrofitService("https://eb995d1f-dfff-4a7b-90f7-7ebe2438ad50-00-8qvsbwqugcqv.kirk.replit.dev/")
     }
 
     protected fun configurarSearchView(searchView: SearchView, onSearch: (String) -> Unit) {

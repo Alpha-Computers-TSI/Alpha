@@ -135,19 +135,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:backgroundTint="#0C18F9"
-        android:text="Entrar"
-        app:cornerRadius="16px"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="55dp"
@@ -157,5 +144,15 @@
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
