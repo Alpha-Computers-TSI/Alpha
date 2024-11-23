@@ -25,6 +25,7 @@
         private lateinit var btnAplicarFiltros: Button
         private lateinit var btnLimparFiltros: Button
         private lateinit var textPrecoMax: TextView
+        private lateinit var textPrecoMin: TextView
         private lateinit var seekBarPrecoMax: SeekBar
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,7 @@
             btnAplicarFiltros = findViewById(R.id.btnAplicarFiltros)
             btnLimparFiltros = findViewById(R.id.btnLimparFiltros)
             textPrecoMax = findViewById(R.id.textPrecoMax)
+            textPrecoMin = findViewById(R.id.textPrecoMin)
             seekBarPrecoMax = findViewById(R.id.seekBarPrecoMax)
 
             val switchEstoque: SwitchCompat = findViewById(R.id.switchEstoque)
@@ -92,12 +94,12 @@
             editPrecoMin.setText(if (precoMinAtual > 0f) precoMinAtual.toString() else "")
             editPrecoMax.setText(precoMaxAtual.toString())
             seekBarPrecoMax.progress = precoMaxAtual
-            textPrecoMax.text = "Valor máximo: R$ $precoMaxAtual"
+            textPrecoMax.text = "R$ $precoMaxAtual"
 
             // Sincronizar SeekBar com TextView e EditText
             seekBarPrecoMax.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    textPrecoMax.text = "Valor máximo: R$ $progress"
+                    textPrecoMax.text = "R$ $progress"
                     if (fromUser) {
                         editPrecoMax.setText(progress.toString())
                     }
@@ -127,6 +129,23 @@
                 }
             })
 
+            editPrecoMin.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    val input = s.toString().toFloatOrNull()
+                    if (input != null) {
+                        // Atualize o TextView relacionado com o novo valor
+                        textPrecoMin.text = "R$ ${"%.2f".format(input)}"
+                    } else {
+                        // Caso o campo esteja vazio ou inválido, exiba um valor padrão ou limpe o TextView
+                        textPrecoMin.text = "R$ 0.00"
+                    }
+                }
+            })
+
             // Botão para aplicar filtros
             btnAplicarFiltros.setOnClickListener {
                 val precoMin = editPrecoMin.text.toString().toFloatOrNull() ?: 0f
@@ -149,7 +168,6 @@
                 editPrecoMin.text.clear()
                 editPrecoMax.text.clear()
                 seekBarPrecoMax.progress = 5000 // Valor padrão
-                textPrecoMax.text = "Valor máximo: R$ 5000"
             }
         }
     }

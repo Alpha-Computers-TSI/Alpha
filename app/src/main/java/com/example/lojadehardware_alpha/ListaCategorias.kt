@@ -18,6 +18,8 @@ class ListaCategorias : BaseSearchActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewCategorias)
         searchResultsMessage = findViewById(R.id.searchResultsMessage)
+        progressBar = findViewById(R.id.progressBar)
+
 
         // Configurar o LayoutManager para o RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -52,8 +54,11 @@ class ListaCategorias : BaseSearchActivity() {
     }
 
     private fun carregarCategorias() {
+        progressBar.visibility = View.VISIBLE
+
         apiService.getCategorias().enqueue(object : retrofit2.Callback<List<Categoria>> {
             override fun onResponse(call: retrofit2.Call<List<Categoria>>, response: retrofit2.Response<List<Categoria>>) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val categorias = response.body() ?: emptyList()
                     configurarRecyclerView(categorias)

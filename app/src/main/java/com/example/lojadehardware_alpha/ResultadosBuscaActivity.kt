@@ -49,6 +49,9 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
             buscarProdutos()
         }
 
+        progressBar = findViewById(R.id.progressBar)
+
+
         // Configura o botão de filtros
         val buttonPopular = findViewById<Button>(R.id.button_popular)
         configurarButtonFiltros(buttonPopular) {
@@ -107,11 +110,15 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
     }
 
     private fun buscarProdutos() {
+        progressBar.visibility = View.VISIBLE
+
         val filtro = filtroSelecionado ?: ""
 
         apiService.buscarProduto(termoBusca, filtro, filtroDesconto ?: false, filtroEstoque ?: false, precoMin, precoMax )
             .enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
+                progressBar.visibility = View.GONE
+
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
                     if (produtos.isNotEmpty()) {

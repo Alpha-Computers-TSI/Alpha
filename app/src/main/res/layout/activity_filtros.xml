@@ -189,8 +189,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#000000"
+            android:textColor="@color/gray"
             android:padding="10dp"
+            android:layout_marginLeft="10dp"
             android:text="R$ 00,00"
             android:textSize="14sp" />
 
@@ -200,8 +201,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:textColor="#000000"
+            android:textColor="@color/gray"
             android:padding="10dp"
+            android:layout_marginRight="10dp"
             android:text="R$ 5.000,00"
             android:textSize="14sp" />
 

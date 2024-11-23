@@ -42,6 +42,9 @@ class ListaProdutos : BaseSearchActivity() {
             abrirResultadosBusca(query)
         }
 
+        progressBar = findViewById(R.id.progressBar)
+
+
         // Recupera os dados da intent de categoria
         val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
         val nomeCategoria = intent.getStringExtra("nomeCategoria")
@@ -90,6 +93,8 @@ class ListaProdutos : BaseSearchActivity() {
     }
 
     private fun carregarOuBuscarProdutos(categoriaId: Int, ordem: String? = null) {
+        progressBar.visibility = View.VISIBLE
+
         apiService.getProdutosPorCategoria(
             categoriaId = categoriaId,
             ordem = ordem,
@@ -98,23 +103,26 @@ class ListaProdutos : BaseSearchActivity() {
             precoMax = precoMax
         ).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
                     if (produtos.isNotEmpty()) {
                         adapter.atualizarLista(produtos)
                         tvNenhumProduto.visibility = View.GONE
                     } else {
+                        adapter.atualizarLista(emptyList())
                         tvNenhumProduto.text = "Nenhum produto encontrado para esta categoria."
                         tvNenhumProduto.visibility = View.VISIBLE
                     }
                 } else {
+                    adapter.atualizarLista(emptyList())
                     Log.e("API Error", "Erro ao carregar produtos. Código: ${response.code()}")
                     tvNenhumProduto.text = "Erro ao carregar produtos."
                     tvNenhumProduto.visibility = View.VISIBLE
                 }
             }
-
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
+                adapter.atualizarLista(emptyList())
                 Log.e("API Failure", "Erro ao buscar produtos", t)
                 tvNenhumProduto.text = "Erro ao carregar produtos."
                 tvNenhumProduto.visibility = View.VISIBLE
