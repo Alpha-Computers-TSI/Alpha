@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2F2F2"
     tools:context=".OrderPlaced">
 
     <androidx.appcompat.widget.Toolbar
@@ -47,18 +48,21 @@
 
     <LinearLayout
         android:id="@+id/linearLayout10"
-        android:layout_width="405dp"
+        android:layout_width="409dp"
         android:layout_height="39dp"
+        android:background="#34C9FF"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        tools:layout_editor_absoluteX="2dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
         <TextView
             android:id="@+id/textView43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Agradecemos pela sua compra!"
+            android:textColor="#FFFFFF"
             android:textSize="16dp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -68,7 +72,7 @@
         android:layout_width="261dp"
         android:layout_height="53dp"
         android:layout_marginTop="32dp"
-        android:text="Seu pedido de Nº 3618 foi realizado com sucesso."
+        android:text="Seu pedido foi realizado com sucesso."
         android:textAlignment="center"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -79,10 +83,12 @@
     <TextView
         android:id="@+id/textView45"
         android:layout_width="346dp"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Assim que o pagamento for processado por nosso sistema, enviaremos o pedido em até 2 dias úteis."
         android:textAlignment="center"
+        android:textColor="#404040"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,21 +111,21 @@
             android:id="@+id/imageView4"
             android:layout_width="56dp"
             android:layout_height="38dp"
-            android:tint="#34C9FF"
-            app:srcCompat="@drawable/doc_svg" />
+            app:srcCompat="@drawable/doc_svg"
+            app:tint="#34C9FF" />
 
         <TextView
             android:id="@+id/textView46"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="RESUMO DO PEDIDO"
-            android:textSize="16dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView3"
+        android:id="@+id/resumoPedidoRecyclerView"
         android:layout_width="410dp"
         android:layout_height="177dp"
         android:layout_marginTop="24dp"
@@ -138,7 +144,7 @@
         app:cornerRadius="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView3"
+        app:layout_constraintTop_toBottomOf="@+id/resumoPedidoRecyclerView"
         app:strokeColor="#34C9FF"
         app:strokeWidth="1dp" />
 

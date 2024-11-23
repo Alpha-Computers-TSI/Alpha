@@ -1,6 +1,7 @@
 package com.example.lojadehardware_alpha
 
 data class ResponseCompra(
-    val success: Boolean,
+    val status: String,
+    val code: Int,
     val message: String
 )

@@ -41,7 +41,7 @@ class ListaProdutos : AppCompatActivity(){
 
         // Configura Retrofit
         val apiServiceListar = createRetrofitService("http://thyagoquintas.com.br/ALPHA/")
-        val apiServiceBusca = createRetrofitService("https://027c2e5f-4e20-4907-8ddb-002cce23454a-00-2bk0k8130zh8s.kirk.replit.dev/")
+        val apiServiceBusca = createRetrofitService("https://61f4559c-fda2-4b81-b04b-99f5809d3560-00-13l38vn6vc74a.worf.replit.dev/")
 
         // Configura a barra de pesquisa
         setupSearchView(apiServiceBusca)

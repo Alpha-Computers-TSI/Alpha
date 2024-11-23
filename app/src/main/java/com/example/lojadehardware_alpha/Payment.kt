@@ -1,64 +1,84 @@
 package com.example.lojadehardware_alpha
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.content.Intent
-import android.content.SharedPreferences
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
-import android.widget.Toast
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
 import com.google.gson.GsonBuilder
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import java.text.NumberFormat
+import java.util.Locale
 
 class Payment : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var radioGroup: RadioGroup
+    private lateinit var qrCodeTitleContainer: LinearLayout
+    private lateinit var boletoTitleContainer: LinearLayout
+    private lateinit var cardTitleContainer: LinearLayout
+    private lateinit var qrCodeContainer: LinearLayout
+    private lateinit var boletoContainer: LinearLayout
+    private lateinit var cardContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_payment)
 
+        // Configuração do layout para considerar barras do sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        // Inicialização de SharedPreferences
         sharedPreferences = getSharedPreferences("Dados", MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", 0)
 
+        // Receber dados da Intent
         val totalValue = intent.getStringExtra("TOTAL")?.toDoubleOrNull()
-        val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST") // Recebe a lista de produtos do Intent
+        val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST")
 
-        findViewById<TextView>(R.id.totalValueText).text = "Total: $totalValue"
+        // Exibir valor total formatado
+        val totalValueFormatted = NumberFormat.getCurrencyInstance(Locale("pt", "BR")).format(totalValue)
+        findViewById<TextView>(R.id.totalValueText).text = "Total: $totalValueFormatted"
 
-        val cardNumberInput: EditText = findViewById(R.id.cardNumberInput)
-        val cardExpirationInput: EditText = findViewById(R.id.cardExpirationInput)
-        val cardCVCInput: EditText = findViewById(R.id.cardCVCInput)
-        val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
-
+        // Configuração de views
         radioGroup = findViewById(R.id.addressRadioGroup)
+        qrCodeTitleContainer = findViewById(R.id.qrCodeTitleContainer)
+        boletoTitleContainer = findViewById(R.id.boletoTitleContainer)
+        cardTitleContainer = findViewById(R.id.cardTitleContainer)
 
-        // Carregar endereços
+        qrCodeContainer = findViewById(R.id.qrCodeContainer)
+        boletoContainer = findViewById(R.id.boletoContainer)
+        cardContainer = findViewById(R.id.cardContainer)
+
+        val allContainers = listOf(qrCodeContainer, boletoContainer, cardContainer)
+
+        // Configuração de alternância entre métodos de pagamento
+        qrCodeTitleContainer.setOnClickListener {
+            toggleVisibility(qrCodeContainer, allContainers)
+        }
+
+        boletoTitleContainer.setOnClickListener {
+            toggleVisibility(boletoContainer, allContainers)
+        }
+
+        cardTitleContainer.setOnClickListener {
+            toggleVisibility(cardContainer, allContainers)
+        }
+
+        // Carregar endereços do usuário
         loadUserAddresses(userId)
 
-        // Configurar botão para finalizar pagamento
+        // Configurar botão de finalização do pagamento
+        val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
         finishPaymentButton.setOnClickListener {
             val selectedRadioButtonId = radioGroup.checkedRadioButtonId
             if (selectedRadioButtonId != -1) {
@@ -71,6 +91,18 @@ class Payment : AppCompatActivity() {
         }
     }
 
+    // Alterna visibilidade dos containers
+    private fun toggleVisibility(containerToShow: LinearLayout, allContainers: List<LinearLayout>) {
+        allContainers.forEach { container ->
+            container.visibility = if (container == containerToShow && container.visibility == View.GONE) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+    }
+
+    // Carrega endereços do usuário via API
     private fun loadUserAddresses(userId: Int) {
         val gson = GsonBuilder().setLenient().create()
         val retrofit = Retrofit.Builder()
@@ -97,15 +129,18 @@ class Payment : AppCompatActivity() {
         })
     }
 
+    // Popula RadioGroup com endereços do usuário
     private fun populateAddressRadioButtons(addresses: List<Endereco>) {
         addresses.forEach { address ->
             val radioButton = RadioButton(this)
-            radioButton.text = "${address.enderecoLogradouro}, ${address.enderecoNumero} - ${address.enderecoComplemento}, ${address.enderecoCidade} - ${address.enderecoEstado}, ${address.enderecoCep}"
+            radioButton.text =
+                "${address.enderecoLogradouro}, ${address.enderecoNumero} - ${address.enderecoComplemento}, ${address.enderecoCidade} - ${address.enderecoEstado}, ${address.enderecoCep}"
             radioButton.tag = address.enderecoId
             radioGroup.addView(radioButton)
         }
     }
 
+    // Envia ordem de compra via API
     private fun enviaOrdem(userId: Int, total: Double, products: ArrayList<Produto>?, addressId: Int) {
         val gson = GsonBuilder().setLenient().create()
         val retrofit = Retrofit.Builder()
@@ -120,7 +155,16 @@ class Payment : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseCompra>, response: Response<ResponseCompra>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@Payment, "Pedido realizado com sucesso!", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this@Payment, Home::class.java))
+
+                    // Cria a Intent para a próxima tela
+                    val intent = Intent(this@Payment, OrderPlaced::class.java)
+
+                    // Passa a lista de produtos pela Intent
+                    if (!products.isNullOrEmpty()) {
+                        intent.putParcelableArrayListExtra("PRODUCT_LIST", products)
+                    }
+
+                    startActivity(intent)
                     finish()
                 } else {
                     Toast.makeText(this@Payment, "Erro ao realizar pedido", Toast.LENGTH_LONG).show()
@@ -133,11 +177,13 @@ class Payment : AppCompatActivity() {
         })
     }
 
+
+    // Interface para chamadas da API
     interface OrderApiService {
         @GET("ALPHA/finalizar_compra/getUserAddresses")
         fun getUserAddresses(@Query("userId") userId: Int): Call<List<Endereco>>
 
-        @POST("ALPHA/finalizar_compra/createOrder")
+        @POST("ALPHA/finalizar_compra/createOrder/index.php")
         fun createOrder(@Body orderRequest: OrderRequest): Call<ResponseCompra>
     }
 }

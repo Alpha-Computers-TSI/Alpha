@@ -1,69 +1,232 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Payment"
-    android:id="@+id/main">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Título QR Code -->
         <LinearLayout
+            android:id="@+id/qrCodeTitleContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
-                android:id="@+id/totalValueText"
-                android:layout_width="match_parent"
+                android:id="@+id/qrCodeTitle"
+                android:layout_width="302dp"
                 android:layout_height="wrap_content"
-                android:text="Total"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:text="PIX"
+                android:textAlignment="viewStart"
+                android:textColor="#000000"
                 android:textSize="18sp"
-                android:gravity="center_horizontal"
-                android:minHeight="48dp"
-                android:layout_marginBottom="16dp" />
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/qrCodeArrow"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="8dp"
+                android:rotation="90"
+                android:src="@drawable/pixicon" />
+        </LinearLayout>
+
+        <!-- Container QR Code -->
+        <LinearLayout
+            android:id="@+id/qrCodeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/qrCodeImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/payment_qr_code" />
+        </LinearLayout>
+
+        <!-- Título Boleto -->
+        <LinearLayout
+            android:id="@+id/boletoTitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/boletoTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:text="Boleto"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/boletoArrow"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/boleto" />
+        </LinearLayout>
+
+        <!-- Container Boleto -->
+        <LinearLayout
+            android:id="@+id/boletoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#F0F0F0"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/boleto_fatura" />
+
+        </LinearLayout>
+
+        <!-- Título Cartão -->
+        <LinearLayout
+            android:id="@+id/cardTitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/cardTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:text="Cartão"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/cardArrow"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/creditcardicon" />
+        </LinearLayout>
+
+        <!-- Container Cartão -->
+        <LinearLayout
+            android:id="@+id/cardContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/cardNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:hint="Número do Cartão"
-                android:inputType="number"
-                android:minHeight="48dp" />
+                android:inputType="number" />
 
             <EditText
-                android:id="@+id/cardExpirationInput"
+                android:id="@+id/cardHolderInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome no Cartão"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/cardExpiryInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Validade (MM/AA)"
-                android:inputType="date"
-                android:minHeight="48dp"
-                android:layout_marginBottom="16dp" />
+                android:inputType="date" />
 
             <EditText
-                android:id="@+id/cardCVCInput"
+                android:id="@+id/cardCvvInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="CVC"
-                android:inputType="number"
-                android:minHeight="48dp"
-                android:layout_marginBottom="16dp" />
-
-            <RadioGroup
-                android:id="@+id/addressRadioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/finishPaymentButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Finalizar Pagamento" />
+                android:hint="CVV"
+                android:inputType="number" />
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+
+        <TextView
+            android:id="@+id/totalValueText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Valor"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Escolha o Endereço da Entrega:"
+            android:textAlignment="center"
+            android:textColor="#181818"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/addressRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/finishPaymentButton"
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#34C9FF"
+            android:text="Finalizar Compra"
+            app:cornerRadius="0dp" />
+
+        <Button
+            android:id="@+id/goBackBtn"
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#0034C9FF"
+            android:text="Voltar"
+            android:textColor="#34C9FF"
+            app:cornerRadius="0dp"
+            app:strokeColor="#34C9FF"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+</ScrollView>
