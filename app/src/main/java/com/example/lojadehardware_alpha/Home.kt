@@ -2,6 +2,8 @@ package com.example.lojadehardware_alpha
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -54,7 +56,7 @@ class Home : AppCompatActivity() {
                     true
                 }
                 R.id.nav_account -> {
-                    //startActivity(Intent(this, AccountActivity::class.java))
+                    startActivity(Intent(this, MyAccount::class.java))
                     true
                 }
                 else -> false

@@ -1,6 +1,5 @@
 package com.example.lojadehardware_alpha
 
-import Profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle

@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/myOrdersTextView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#03A9F4"
@@ -32,7 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar4">
 
-        <!--Campo Nome-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,14 +39,13 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/nomeEditText"
+            android:id="@+id/userEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
             android:hint="Digite seu nome"
             android:padding="12dp" />
 
-        <!--Campo CPF-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,24 +62,6 @@
             android:hint="Digite seu CPF"
             android:padding="12dp" />
 
-        <!--Campo Telefone-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:text="Telefone"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/telefoneEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:hint="Digite seu telefone"
-            android:padding="12dp" />
-
-        <!--Campo Email-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,19 +80,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView51"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="MEUS DADOS"
-        android:textColor="#03A9F4"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--Botão-->
     <Button
         android:id="@+id/button10"
         android:layout_width="wrap_content"
@@ -127,5 +93,18 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout16"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MEUS DADOS"
+        android:textColor="#03A9F4"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.432" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
