@@ -21,6 +21,9 @@ interface ApiService {
         @Query("precoMax") precoMax: Float?
     ): Call<List<Produto>>
 
+    @GET("produtosComDesconto.php")
+        fun buscaDescontos(): Call<List<Produto>>
+
     @GET("categoria.php")
     fun getCategorias(): Call<List<Categoria>>
 
