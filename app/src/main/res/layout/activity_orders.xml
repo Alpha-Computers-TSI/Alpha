@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="MEUS PEDIDOS"
-        android:textColor="#03A9F4"
+        android:textColor="#34C9FF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
         app:layout_constraintEnd_toEndOf="parent"

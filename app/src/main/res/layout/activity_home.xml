@@ -35,14 +35,4 @@
         app:itemTextColor="@android:color/white"
         app:menu="@menu/bottom_nav_menu" />
 
-    <!-- Botão central temporario -->
-    <Button
-        android:id="@+id/button_central"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clique Aqui"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

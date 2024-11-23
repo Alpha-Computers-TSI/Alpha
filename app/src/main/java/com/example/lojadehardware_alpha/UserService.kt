@@ -15,9 +15,16 @@ interface UserService {
     @GET("usuario.php")
     fun getUsuario(@Query("id") id: Int): Call<Usuario>
 
-
     // Atualiza os dados de um usuário pelo ID via POST
     @POST("usuario.php")
     fun updateUser(@Query("id") id: Int, @Body usuario: Usuario): Call<ResponseBody>
 
+    // Lista todos os endereços
+    @GET("endereco.php")
+    fun listEnderecos(@Query("id") id: Int): Call<Endereco>
+
+    // Atualiza os dados de um endereço específico
+    @POST("endereco.php")
+    fun updateEndereco(@Query("id") id: Int, @Body endereco: Endereco): Call<ResponseBody>
 }
+

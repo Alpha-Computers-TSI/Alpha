@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="MEU ENDEREÇO"
-        android:textColor="#03A9F4"
+        android:textColor="#34C9FF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.114"
@@ -55,6 +55,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/cepEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
@@ -70,6 +71,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/roadEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
@@ -86,6 +88,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/numberEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
@@ -94,16 +97,17 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/buttonUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
-        android:background="@drawable/profile_button"
-        android:backgroundTint="#03A9F4"
+        android:backgroundTint="#34C9FF"
         android:text="ATUALIZAR"
+        android:theme="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout15"
         tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
