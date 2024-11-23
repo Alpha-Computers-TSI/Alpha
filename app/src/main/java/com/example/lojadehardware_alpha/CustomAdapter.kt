@@ -103,6 +103,7 @@ class CustomAdapter(private var dataSet: List<Produto>) :
                 intent.putExtra("NOME_PRODUTO", produto.produtoNome)
                 intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
                 intent.putExtra("PRECO_PRODUTO", produto.produtoPreco)
+                intent.putExtra("DESCONTO_PRODUTO", produto.produtoDesconto)
                 intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
                 intent.putExtra("IMAGEM_URL", produto.imagemUrl)
 
