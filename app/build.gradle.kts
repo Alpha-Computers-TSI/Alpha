@@ -91,6 +91,9 @@ dependencies {
 
     //Scalars
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+
+    // Viewpager 2
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 }
 
 

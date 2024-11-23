@@ -8,13 +8,29 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.os.Handler
+
 
 class Home : BaseSearchActivity() {
+
+    private lateinit var viewPager: ViewPager2
+    private lateinit var bannerAdapter: BannerAdapter
+    private val bannerImages = listOf(R.drawable.banner_modelo, R.drawable.banner_modelo)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // Configurar o ViewPager2
+        viewPager = findViewById(R.id.viewPagerBanner)
+
+        // Configurar o Adapter
+        bannerAdapter = BannerAdapter(this, bannerImages)
+        viewPager.adapter = bannerAdapter
+
+
 
         // Configuração da RecyclerView
         recyclerView = findViewById(R.id.recyclerViewProdutos)
