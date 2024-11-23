@@ -5,96 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <!-- Barra preta (Background) -->
-    <View
-        android:id="@+id/background_barra"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Barra de pesquisa -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Pesquisar..."
-        android:background="@drawable/rounded_search_background"
-        android:textColor="@android:color/black"
-        android:focusable="false"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintEnd_toStartOf="@+id/cart_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background_barra"
-        app:layout_constraintBottom_toBottomOf="@+id/background_barra" />
-
-        <!-- Ícone do carrinho (acima da barra preta) -->
-    <ImageView
-        android:id="@+id/cart_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
-        android:padding="8dp"
-        android:src="@drawable/carrinho"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background_barra"
-        app:layout_constraintBottom_toBottomOf="@+id/background_barra" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <include
+        android:id="@+id/barra_pesquisa"
+        layout="@layout/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/background_barra"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Botão de filtros -->
-        <Button
-            android:id="@+id/button_filters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Filtros"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/filtro" />
+    <include
+        android:id="@+id/include_filters"
+        layout="@layout/filter_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/barra_pesquisa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Botão de mais procurados -->
-        <Button
-            android:id="@+id/button_popular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Mais procurados"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ordenar" />
-
-
-    </LinearLayout>
-
-
-<!--    caixa azul dizendo qual a categoria-->
+    <!-- Caixa azul dizendo a categoria -->
     <FrameLayout
         android:id="@+id/frameLayout_background"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:background="#34C9FF"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@id/include_filters">
 
-        <!-- TextView dentro da View -->
+        <!-- Texto dentro da View -->
         <TextView
             android:id="@+id/textViewInsideView"
             android:layout_width="wrap_content"
@@ -107,7 +48,6 @@
 
     <!--   texto simples de resultado da busca-->
 
-    <!--    Recicle view-->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -122,25 +62,45 @@
         app:layout_constraintTop_toTopOf="@+id/frameLayout_background"
         app:layout_constraintVertical_bias="0.022" />
 
+
+    <!-- Texto quando nenhum produto for encontrado -->
+
+    <TextView
+        android:id="@+id/tvNenhumProduto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="244dp"
+        android:text="Nenhum produto encontrado."
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- RecyclerView -->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProdutos"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="390dp"
         android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

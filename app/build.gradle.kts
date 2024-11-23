@@ -58,7 +58,7 @@ dependencies {
     implementation(libs.androidx.activity)
     debugImplementation ("androidx.compose.ui:ui-tooling:1.0.0")
     implementation ("androidx.compose.material3:material3:1.0.0")
-
+    implementation ("com.google.android.material:material:1.9.0")
 
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -91,8 +91,6 @@ dependencies {
 
     //Scalars
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
-
-
 }
 
 

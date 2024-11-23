@@ -4,16 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -22,67 +24,34 @@ class SingleProduct : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_produto_detalhes)
 
-        // Recebe os dados do produto
+        val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
+        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
-        val nomeProduto = intent.getStringExtra("PRODUTO_NOME")
-        val categoriaProduto = intent.getStringExtra("CATEGORIA_ID")
-        val descricaoProduto = intent.getStringExtra("PRODUTO_DESC")
-        val precoProduto = intent.getDoubleExtra("PRECO_PRODUTO", 0.0)
+        val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
 
-        val quantidadeDesejada = 1
+        findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
+        findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
+        findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
 
-        // Pega o ID do usuário logado do armazenamento local
+        val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
+        val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
+
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", 0)
 
-        findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
-        //findViewById<TextView>(R.id.txtCategoriaProduto).text = categoriaProduto
-        findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
-
-        //Formata o valor do produto para o Real
-        val numberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
-        findViewById<TextView>(R.id.txtPrecoProduto).text = numberFormat.format(precoProduto)
-
-
-        // Adiciona o produto ao carrinho
-        findViewById<Button>(R.id.btnAdicionarAoCarrinho).setOnClickListener {
+        btnAdicionarCarrinho.setOnClickListener {
+            val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
+
             val intent = Intent(this@SingleProduct, ProductCart::class.java)
             startActivity(intent)
-        }
-
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    startActivity(Intent(this, Home::class.java))
-                    true
-                }
-                R.id.nav_categories -> {
-                    startActivity(Intent(this, ListaProdutos::class.java))
-                    true
-                }
-                R.id.nav_account -> {
-                    //startActivity(Intent(this, AccountActivity::class.java))
-                    true
-                }
-                else -> false
-            }
-        }
-
-        val backButton: ImageView = findViewById(R.id.btnBack)
-
-        backButton.setOnClickListener {
-            val intent = Intent(this@SingleProduct,  ListaProdutos::class.java)
-            startActivity(intent)
-            finish()
-        }
+      }
     }
 
     // Função para adicionar o produto ao carrinho
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
+            .baseUrl("http://www.thyagoquintas.com.br/ALPHA/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
@@ -92,7 +61,7 @@ class SingleProduct : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@SingleProduct, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@SingleProduct, "Resposta mal sucedida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SingleProduct, "Resposta mal-sucedida", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -103,12 +72,12 @@ class SingleProduct : AppCompatActivity() {
     }
 
     interface ApiService {
-        @retrofit2.http.FormUrlEncoded
-        @retrofit2.http.POST("getCartItems/")
+        @FormUrlEncoded
+        @POST("manter_produto_ao_carrinho/")
         fun adicionarAoCarrinho(
-            @retrofit2.http.Field("userId") userId: Int,
-            @retrofit2.http.Field("produtoId") produtoId: Int,
-            @retrofit2.http.Field("quantidade") quantidade: Int
+            @Field("userId") userId: Int,
+            @Field("produtoId") produtoId: Int,
+            @Field("quantidade") quantidade: Int
         ): Call<String>
     }
 }

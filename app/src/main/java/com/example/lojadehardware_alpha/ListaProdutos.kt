@@ -3,88 +3,152 @@ package com.example.lojadehardware_alpha
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.lojadehardware_alpha.util.MenuFiltrosHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
 
+class ListaProdutos : BaseSearchActivity() {
 
-class ListaProdutos : AppCompatActivity(){
+    companion object {
+        const val REQUEST_CODE_FILTROS = 1
+    }
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CustomAdapter
+    private lateinit var tvNenhumProduto: TextView
+    private var filtroDesconto: Boolean? = null
+    private var filtroEstoque: Boolean? = null
+    private var precoMin: Float? = null
+    private var precoMax: Float? = null
+    private var filtroOrdenacao: String? = null // Filtro de ordenação
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_produtos)
 
+        // Inicializa os componentes
+        tvNenhumProduto = findViewById(R.id.tvNenhumProduto)
         recyclerView = findViewById(R.id.recyclerViewProdutos)
+        searchView = findViewById(R.id.search_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = CustomAdapter(emptyList()) // Inicializa o adapter com uma lista vazia
+        recyclerView.adapter = adapter
 
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://thyagoquintas.com.br/ALPHA/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(ApiService::class.java)
-
-        val searchView = findViewById<SearchView>(R.id.search_view)
-        searchView.setOnClickListener {
-            searchView.isIconified = false
+        // Configura a barra de pesquisa
+        configurarSearchView(searchView) { query ->
+            abrirResultadosBusca(query)
         }
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    startActivity(Intent(this, Home::class.java))
-                    true
-                }
-                R.id.nav_categories -> {
-                    //startActivity(Intent(this, ListaProdutos::class.java))
-                    true
-                }
-                R.id.nav_account -> {
-                    //startActivity(Intent(this, AccountActivity::class.java))
-                    true
-                }
-                else -> false
+        progressBar = findViewById(R.id.progressBar)
+
+
+        // Recupera os dados da intent de categoria
+        val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
+        val nomeCategoria = intent.getStringExtra("nomeCategoria")
+
+        // Atualiza o texto da categoria na interface
+        val textViewInsideView = findViewById<TextView>(R.id.textViewInsideView)
+        textViewInsideView.text = nomeCategoria ?: "Categoria"
+
+        // Configura o botão de filtros de ordenação
+        val buttonMenuFiltros = findViewById<Button>(R.id.button_popular)
+        configurarButtonFiltrosCategoria(buttonMenuFiltros) {
+            carregarOuBuscarProdutos(filtroCategoria, filtroOrdenacao)
+        }
+
+        // Configura o botão para abrir os filtros avançados
+        val buttonFilters = findViewById<Button>(R.id.button_filters)
+        buttonFilters.setOnClickListener {
+            Log.d("FiltrosButton", "Criando Intent para FiltrosActivity")
+            val intent = Intent(this, FiltrosActivity::class.java).apply {
+                putExtra("FILTRO_DESCONTO", filtroDesconto ?: false)
+                putExtra("FILTRO_ESTOQUE", filtroEstoque ?: false)
+                putExtra("FILTRO_PRECO_MIN", precoMin ?: 0f)
+                putExtra("FILTRO_PRECO_MAX", precoMax ?: 5000f)
             }
+            startActivityForResult(intent, REQUEST_CODE_FILTROS)
+            Log.d("FiltrosButton", "Intent enviado para FiltrosActivity")
         }
 
-        apiService.getProdutos().enqueue(object : Callback<List<Produto>> {
+        // Carrega os produtos iniciais com base na categoria
+        carregarOuBuscarProdutos(filtroCategoria)
+    }
+
+    private fun configurarButtonFiltrosCategoria(button: Button, onFiltroAplicado: () -> Unit) {
+        val helper = MenuFiltrosHelper(this, button) { filtroSelecionado ->
+            filtroOrdenacao = when (filtroSelecionado) {
+                "Preço maior" -> "maior_preco"
+                "Preço menor" -> "menor_preco"
+                "Mais recentes" -> "mais_recentes"
+                "Mais vendidos" -> "mais_vendidos"
+                else -> null
+            }
+            onFiltroAplicado()
+        }
+
+        button.setOnClickListener { helper.mostrarMenuFiltros(it) }
+    }
+
+    private fun carregarOuBuscarProdutos(categoriaId: Int, ordem: String? = null) {
+        progressBar.visibility = View.VISIBLE
+
+        apiService.getProdutosPorCategoria(
+            categoriaId = categoriaId,
+            ordem = ordem,
+            filtroDesconto ?: false, filtroEstoque ?: false,
+            precoMin = precoMin,
+            precoMax = precoMax
+        ).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
-                    adapter = CustomAdapter(produtos)
-                    recyclerView.adapter = adapter
+                    if (produtos.isNotEmpty()) {
+                        adapter.atualizarLista(produtos)
+                        tvNenhumProduto.visibility = View.GONE
+                    } else {
+                        adapter.atualizarLista(emptyList())
+                        tvNenhumProduto.text = "Nenhum produto encontrado para esta categoria."
+                        tvNenhumProduto.visibility = View.VISIBLE
+                    }
                 } else {
-                    Log.e("API Error", "Response not successful. Code: ${response.code()}")
+                    adapter.atualizarLista(emptyList())
+                    Log.e("API Error", "Erro ao carregar produtos. Código: ${response.code()}")
+                    tvNenhumProduto.text = "Erro ao carregar produtos."
+                    tvNenhumProduto.visibility = View.VISIBLE
                 }
             }
-
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                Log.e("API Failure", "Error fetching products", t)
+                adapter.atualizarLista(emptyList())
+                Log.e("API Failure", "Erro ao buscar produtos", t)
+                tvNenhumProduto.text = "Erro ao carregar produtos."
+                tvNenhumProduto.visibility = View.VISIBLE
             }
         })
     }
 
-
-
-    interface ApiService {
-        @GET("lista_de_produtos/")
-        fun getProdutos(): Call<List<Produto>>
-
+    private fun abrirResultadosBusca(query: String) {
+        if (query.isNotEmpty()) {
+            val intent = Intent(this, ResultadosBuscaActivity::class.java)
+            intent.putExtra("TEXTO_BUSCA", query) // Envia o termo da busca para a próxima Activity
+            startActivity(intent)
+        }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_FILTROS && resultCode == RESULT_OK) {
+            filtroDesconto = data?.getBooleanExtra("FILTRO_DESCONTO", false)
+            filtroEstoque = data?.getBooleanExtra("FILTRO_ESTOQUE", false)
+            precoMin = data?.getFloatExtra("FILTRO_PRECO_MIN", 0f)
+            precoMax = data?.getFloatExtra("FILTRO_PRECO_MAX", 5000f)
+
+            // Recarrega os produtos com os novos filtros
+            val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
+            carregarOuBuscarProdutos(filtroCategoria, filtroOrdenacao)
+        }
     }
+}
