@@ -27,7 +27,10 @@ interface ApiService {
     @GET("produtos_por_categoria.php")
     fun getProdutosPorCategoria(
         @Query("categoriaId") categoriaId: Int,
-        @Query("ordem") ordem: String? = null // Parâmetro de ordenação
+        @Query("ordem") ordem: String? = null,
+        @Query("comDesconto") comDesconto: Boolean = false,
+        @Query("emEstoque") emEstoque: Boolean = false,
+        @Query("precoMin") precoMin: Float? = null,
+        @Query("precoMax") precoMax: Float? = null
     ): Call<List<Produto>>
-
 }
