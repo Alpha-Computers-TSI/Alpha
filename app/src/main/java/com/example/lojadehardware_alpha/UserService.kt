@@ -1,5 +1,6 @@
 package com.example.lojadehardware_alpha
 
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,6 +18,6 @@ interface UserService {
 
     // Atualiza os dados de um usuário pelo ID via POST
     @POST("usuario.php")
-    fun updateUser(@Query("id") id: Int, @Body usuario: Usuario): Call<Void>
+    fun updateUser(@Query("id") id: Int, @Body usuario: Usuario): Call<ResponseBody>
 
 }

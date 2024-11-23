@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,26 +69,19 @@ class Profile : AppCompatActivity() {
             return
         }
 
-        // Cria um objeto Usuario com os dados atualizados
-        val usuarioAtualizado = Usuario(
-            USUARIO_NOME = nome,
-            USUARIO_CPF = cpf,
-            USUARIO_EMAIL = email
-        )
+        val usuarioAtualizado = Usuario(nome = nome, cpf = cpf, email = email)
 
-        val call = userService.updateUser(userId, usuarioAtualizado)
-
-        call.enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        userService.updateUser(userId, usuarioAtualizado).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@Profile, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@Profile, "Falha ao atualizar: ${response.message()}", Toast.LENGTH_SHORT).show()
-                    Log.e("Profile", "Falha na atualização: ${response.code()} ${response.message()}")
+                    Log.e("Profile", "Falha na atualização: ${response.code()} ${response.errorBody()?.string()}")
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(this@Profile, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
                 Log.e("Profile", "Erro na API: ${t.message}")
             }
@@ -101,9 +95,9 @@ class Profile : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val usuario = response.body()
                     if (usuario != null) {
-                        nomeEditText.setText(usuario.USUARIO_NOME)
-                        cpfEditText.setText(usuario.USUARIO_CPF)
-                        emailEditText.setText(usuario.USUARIO_EMAIL)
+                        nomeEditText.setText(usuario.nome)
+                        cpfEditText.setText(usuario.cpf)
+                        emailEditText.setText(usuario.email)
                     } else {
                         Log.e("Erro", "Objeto usuário está nulo.")
                     }

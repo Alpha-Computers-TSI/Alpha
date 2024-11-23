@@ -66,7 +66,6 @@ class Login : AppCompatActivity() {
         togglePasswordVisibility.setImageResource(R.drawable.ic_visibility_off)
 
         // Alterna a visibilidade da senha ao clicar no ícone
-        // Alterna a visibilidade da senha ao clicar no ícone
         togglePasswordVisibility.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
