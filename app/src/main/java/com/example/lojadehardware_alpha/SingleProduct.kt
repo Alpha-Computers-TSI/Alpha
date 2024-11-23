@@ -30,8 +30,8 @@ class SingleProduct : AppCompatActivity() {
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
-        val produtoPreco = intent.getFloatExtra("PRECO_PRODUTO", 0f)
-        val produtoDesconto = intent.getFloatExtra("DESCONTO_PRODUTO", 0f)
+        val produtoPreco = intent.getDoubleExtra("PRECO_PRODUTO", 0.0)
+        val produtoDesconto = intent.getDoubleExtra("DESCONTO_PRODUTO", 0.0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
         val imagemURL = intent.getStringExtra("IMAGEM_URL") ?: "https://st4.depositphotos.com/36923632/38547/v/450/depositphotos_385477712-stock-illustration-outline-drug-icon-drug-vector.jpg"
 
@@ -53,7 +53,7 @@ class SingleProduct : AppCompatActivity() {
 
         // Configura o TextView de desconto
         findViewById<TextView>(R.id.txtDescontoProduto).apply {
-            if (produtoDesconto == 0f) {
+            if (produtoDesconto == 0.0) {
                 visibility = View.GONE // Oculta a view se o desconto for 0
             } else {
                 text = descontoFormatado
