@@ -43,8 +43,8 @@ class SingleProduct : AppCompatActivity() {
         val formatoMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
         // Formata os valores como moeda
-        val precoFormatado = formatoMoeda.format(produtoPreco)
-        val descontoFormatado = formatoMoeda.format(produtoDesconto)
+        val precoFormatado = formatoMoeda.format(produtoPreco - produtoDesconto)
+        val descontoFormatado = formatoMoeda.format(produtoPreco)
 
         // Define o texto no TextView de preço
         findViewById<TextView>(R.id.txtPrecoProduto).apply {
