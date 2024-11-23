@@ -1,0 +1,20 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Trilha restante -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="4dp" />
+            <solid android:color="#CCCCCC" />
+        </shape>
+    </item>
+
+    <!-- Trilha de progresso -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="4dp" />
+                <solid android:color="#34C9FF" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
