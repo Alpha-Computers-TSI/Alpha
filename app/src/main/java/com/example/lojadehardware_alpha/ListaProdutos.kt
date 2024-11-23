@@ -14,8 +14,11 @@ import retrofit2.Response
 
 class ListaProdutos : BaseSearchActivity() {
 
+    companion object {
+        const val REQUEST_CODE_FILTROS = 1
+    }
+
     private lateinit var tvNenhumProduto: TextView
-    private var produtosOriginais: List<Produto> = listOf() // Lista original de produtos
     private var filtroDesconto: Boolean? = null
     private var filtroEstoque: Boolean? = null
     private var precoMin: Float? = null
@@ -39,7 +42,7 @@ class ListaProdutos : BaseSearchActivity() {
             abrirResultadosBusca(query)
         }
 
-        // Recupera os dados intent categoria
+        // Recupera os dados da intent de categoria
         val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
         val nomeCategoria = intent.getStringExtra("nomeCategoria")
 
@@ -47,13 +50,27 @@ class ListaProdutos : BaseSearchActivity() {
         val textViewInsideView = findViewById<TextView>(R.id.textViewInsideView)
         textViewInsideView.text = nomeCategoria ?: "Categoria"
 
-        // Configura o botão de filtros
+        // Configura o botão de filtros de ordenação
         val buttonMenuFiltros = findViewById<Button>(R.id.button_popular)
         configurarButtonFiltrosCategoria(buttonMenuFiltros) {
             carregarOuBuscarProdutos(filtroCategoria, filtroOrdenacao)
         }
 
-        // Carrega produtos da categoria
+        // Configura o botão para abrir os filtros avançados
+        val buttonFilters = findViewById<Button>(R.id.button_filters)
+        buttonFilters.setOnClickListener {
+            Log.d("FiltrosButton", "Criando Intent para FiltrosActivity")
+            val intent = Intent(this, FiltrosActivity::class.java).apply {
+                putExtra("FILTRO_DESCONTO", filtroDesconto ?: false)
+                putExtra("FILTRO_ESTOQUE", filtroEstoque ?: false)
+                putExtra("FILTRO_PRECO_MIN", precoMin ?: 0f)
+                putExtra("FILTRO_PRECO_MAX", precoMax ?: 5000f)
+            }
+            startActivityForResult(intent, REQUEST_CODE_FILTROS)
+            Log.d("FiltrosButton", "Intent enviado para FiltrosActivity")
+        }
+
+        // Carrega os produtos iniciais com base na categoria
         carregarOuBuscarProdutos(filtroCategoria)
     }
 
@@ -73,7 +90,13 @@ class ListaProdutos : BaseSearchActivity() {
     }
 
     private fun carregarOuBuscarProdutos(categoriaId: Int, ordem: String? = null) {
-        apiService.getProdutosPorCategoria(categoriaId, ordem).enqueue(object : Callback<List<Produto>> {
+        apiService.getProdutosPorCategoria(
+            categoriaId = categoriaId,
+            ordem = ordem,
+            filtroDesconto ?: false, filtroEstoque ?: false,
+            precoMin = precoMin,
+            precoMax = precoMax
+        ).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
@@ -104,6 +127,20 @@ class ListaProdutos : BaseSearchActivity() {
             val intent = Intent(this, ResultadosBuscaActivity::class.java)
             intent.putExtra("TEXTO_BUSCA", query) // Envia o termo da busca para a próxima Activity
             startActivity(intent)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_FILTROS && resultCode == RESULT_OK) {
+            filtroDesconto = data?.getBooleanExtra("FILTRO_DESCONTO", false)
+            filtroEstoque = data?.getBooleanExtra("FILTRO_ESTOQUE", false)
+            precoMin = data?.getFloatExtra("FILTRO_PRECO_MIN", 0f)
+            precoMax = data?.getFloatExtra("FILTRO_PRECO_MAX", 5000f)
+
+            // Recarrega os produtos com os novos filtros
+            val filtroCategoria = intent.getIntExtra("filtroCategoria", -1)
+            carregarOuBuscarProdutos(filtroCategoria, filtroOrdenacao)
         }
     }
 }

@@ -33,4 +33,5 @@ interface ApiService {
         @Query("precoMin") precoMin: Float? = null,
         @Query("precoMax") precoMax: Float? = null
     ): Call<List<Produto>>
+
 }
