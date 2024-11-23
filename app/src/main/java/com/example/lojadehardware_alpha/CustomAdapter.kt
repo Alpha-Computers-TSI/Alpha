@@ -85,10 +85,16 @@ class CustomAdapter(private var dataSet: List<Produto>) :
             viewHolder.indicadorDesconto.visibility = View.GONE // Esconde se não houver desconto
         }
 
+        val imageUrl = if (produto.imagemUrl.isNullOrEmpty() || produto.imagemUrl == "empty") {
+            "https://st4.depositphotos.com/36923632/38547/v/450/depositphotos_385477712-stock-illustration-outline-drug-icon-drug-vector.jpg" // URL padrão
+        } else {
+            produto.imagemUrl
+        }
+
         Glide.with(viewHolder.itemView.context)
-            .load(produto.imagemUrl)
+            .load(imageUrl)
             .placeholder(R.drawable.ic_launcher_background) // placeholder
-            .error(com.google.android.material.R.drawable.mtrl_ic_error) // indica erro
+            .error(R.drawable.erro) // indica erro
             .into(viewHolder.imagem)
 
             val abrirDetalhes = {
