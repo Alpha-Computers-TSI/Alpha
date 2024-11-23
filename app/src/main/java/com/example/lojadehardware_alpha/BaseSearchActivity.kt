@@ -3,6 +3,7 @@ package com.example.lojadehardware_alpha
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -13,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 abstract class BaseSearchActivity : AppCompatActivity() {
 
+    protected lateinit var progressBar: ProgressBar
     protected lateinit var recyclerView: RecyclerView
     protected lateinit var adapter: CustomAdapter
     protected lateinit var searchView: SearchView
