@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Barra superior -->
+    <View
+        android:id="@+id/barraSuperior"
+        android:layout_width="411dp"
+        android:layout_height="55dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- Botão de voltar -->
+    <ImageButton
+        android:id="@+id/btnVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/arrow_back_svgrepo_com"
+        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/barraSuperior" />
+
+    <!-- Título centralizado -->
+    <TextView
+        android:id="@+id/textTituloFiltros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filtros"
+        android:textColor="#34C9FF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/barraSuperior" />
+
+    <!-- View cinza com os botões -->
+    <LinearLayout
+        android:id="@+id/viewCinza"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#404040"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barraSuperior">
+
+        <!-- Botão Limpar filtros -->
+        <Button
+            android:id="@+id/btnLimparFiltros"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:backgroundTint="#0000"
+            android:text="Limpar filtros"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <!-- Espaçamento entre os botões -->
+        <Space
+            android:layout_width="80dp"
+            android:layout_height="wrap_content" />
+
+        <!-- Botão Filtrar -->
+        <Button
+            android:id="@+id/btnAplicarFiltros"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:backgroundTint="#0000"
+            android:text="Filtrar"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Switch para "Ofertas" com ícone -->
+    <LinearLayout
+        android:id="@+id/layoutswitchOfertas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewCinza">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/desconto"
+        android:contentDescription="Ícone de ofertas" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchDesconto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ofertas"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:thumbTint="@color/blue"
+            android:trackTint="@color/gray" />
+    </LinearLayout>
+
+    <!-- Switch para "Somente itens em estoque" com ícone -->
+    <LinearLayout
+        android:id="@+id/layoutswitchEstoque"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutswitchOfertas">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/estoque"
+        android:contentDescription="Ícone de estoque" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchEstoque"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Somente itens em estoque"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:thumbTint="@color/blue"
+            android:trackTint="@color/gray" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Preço\n intervalo de preço"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutswitchEstoque" />
+
+    <SeekBar
+        android:id="@+id/seekBarPrecoMax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:max="5000"
+        android:progress="50"
+        android:thumb="@drawable/seekbar_thumb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textPreco" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekBarPrecoMax">
+
+        <TextView
+            android:id="@+id/textPrecoMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/gray"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="R$ 00,00"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textPrecoMax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/gray"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            android:text="R$ 5.000,00"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <!-- EditText Preço Mínimo -->
+    <EditText
+        android:id="@+id/editPrecoMin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="36dp"
+        android:layout_weight="1"
+        android:textColor="#000000"
+        android:backgroundTint="#000000"
+        android:hint="Preço mínimo"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
+
+    <!-- EditText Preço Máximo -->
+    <EditText
+        android:id="@+id/editPrecoMax"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="36dp"
+        android:layout_weight="1"
+        android:textColor="#000000"
+        android:backgroundTint="#000000"
+        android:hint="Preço máximo"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
