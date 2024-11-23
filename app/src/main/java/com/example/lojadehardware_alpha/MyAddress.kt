@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,16 +53,15 @@ class MyAddress : AppCompatActivity() {
             Toast.makeText(this, "Erro: ID do usuário não encontrado.", Toast.LENGTH_LONG).show()
         }
 
-//        // Configurar o botão de atualização
-//        updateButton.setOnClickListener {
-//            val endereco = Endereco(
-//                ENDERECO_CEP = cepEdit.text.toString(),
-//                ENDERECO_ID = userId, // Usando o ID do usuário como identificador
-//                ENDERECO_LOGRADOURO = roadEdit.text.toString(),
-//                ENDERECO_NUMERO = numberEdit.text.toString()
-//            )
-//            updateAddress(userId, endereco)
-//        }
+        // Configurar o botão de atualização
+        updateButton.setOnClickListener {
+            val endereco = Endereco(
+                ENDERECO_CEP = cepEdit.text.toString(),
+                ENDERECO_LOGRADOURO = roadEdit.text.toString(),
+                ENDERECO_NUMERO = numberEdit.text.toString()
+            )
+            updateAddress(userId, endereco)
+        }
     }
 
     // Função para carregar o endereço inicial
@@ -90,24 +90,26 @@ class MyAddress : AppCompatActivity() {
     }
 
 
-//    // Função para atualizar o endereço
-//    private fun updateAddress(userId: Int, endereco: Endereco) {
-//        userService.updateEndereco(userId, endereco).enqueue(object : Callback<Void> {
-//            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                if (response.isSuccessful) {
-//                    Toast.makeText(this@MyAddress, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
-//                    Log.d("MyAddress", "Endereço atualizado com sucesso!")
-//                } else {
-//                    Log.e("MyAddress", "Erro ao atualizar endereço: ${response.code()}")
-//                    Toast.makeText(this@MyAddress, "Erro ao atualizar endereço.", Toast.LENGTH_LONG).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Void>, t: Throwable) {
-//                Log.e("MyAddress", "Erro na conexão com a API: ${t.message}")
-//                Toast.makeText(this@MyAddress, "Erro ao atualizar endereço.", Toast.LENGTH_LONG).show()
-//            }
-//        })
-//    }
+    // Função para atualizar o endereço
+    private fun updateAddress(userId: Int, endereco: Endereco) {
+        userService.updateEndereco(userId, endereco).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()?.string() ?: "Resposta vazia"
+                    Toast.makeText(this@MyAddress, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                    Log.d("MyAddress", "Endereço atualizado com sucesso! Resposta: $responseBody")
+                } else {
+                    val errorBody = response.errorBody()?.string() ?: "Erro desconhecido"
+                    Log.e("MyAddress", "Erro ao atualizar endereço: Código ${response.code()}, Erro: $errorBody")
+                    Toast.makeText(this@MyAddress, "Erro ao atualizar endereço: $errorBody", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("MyAddress", "Erro na conexão com a API: ${t.message}")
+                Toast.makeText(this@MyAddress, "Erro na conexão com a API.", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
 
 }

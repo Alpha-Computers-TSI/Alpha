@@ -25,6 +25,9 @@ interface UserService {
 
     // Atualiza os dados de um endereço específico
     @POST("endereco.php")
-    fun updateEndereco(@Query("id") id: Int, @Body endereco: Endereco): Call<ResponseBody>
+    fun updateEndereco(
+        @Query("id") id: Int,
+        @Body endereco: Endereco
+    ): Call<ResponseBody>
 }
 
