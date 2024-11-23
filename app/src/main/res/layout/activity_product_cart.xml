@@ -382,6 +382,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Seu carrinho está vazio"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -393,6 +394,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="Adicione produtos ao carrinho antes de prosseguir para a finalização de compra."
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
 
                 <Button
@@ -402,6 +404,8 @@
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="#34C9FF"
                     android:text="Comece Já"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
                     app:cornerRadius="4dp" />
 
             </LinearLayout>

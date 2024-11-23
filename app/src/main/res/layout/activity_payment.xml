@@ -214,6 +214,8 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="#34C9FF"
             android:text="Finalizar Compra"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             app:cornerRadius="0dp" />
 
         <Button
@@ -224,6 +226,7 @@
             android:backgroundTint="#0034C9FF"
             android:text="Voltar"
             android:textColor="#34C9FF"
+            android:textStyle="bold"
             app:cornerRadius="0dp"
             app:strokeColor="#34C9FF"
             app:strokeWidth="1dp" />
