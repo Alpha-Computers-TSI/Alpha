@@ -81,14 +81,14 @@ class ResumoPedidoAdapter(
             }
             holder.productDiscount.apply {
                 text = String.format("R$ %.2f", precoComDesconto)
-                setTextColor(ContextCompat.getColor(context, R.color.Alpha_blue))
+                setTextColor(ContextCompat.getColor(context, R.color.blue))
                 setTypeface(null, Typeface.BOLD)
                 visibility = View.VISIBLE
             }
         } else {
             holder.productPrice.apply {
                 text = String.format("R$ %.2f", preco)
-                setTextColor(ContextCompat.getColor(context, R.color.Alpha_blue))
+                setTextColor(ContextCompat.getColor(context, R.color.blue))
                 setTypeface(null, Typeface.BOLD)
                 paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             }

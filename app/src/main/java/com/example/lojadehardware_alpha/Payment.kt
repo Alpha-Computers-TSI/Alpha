@@ -148,8 +148,8 @@ class Payment : AppCompatActivity() {
         addresses.forEach { address ->
             val radioButton = RadioButton(this)
             radioButton.text =
-                "${address.enderecoLogradouro}, ${address.enderecoNumero} - ${address.enderecoComplemento}, ${address.enderecoCidade} - ${address.enderecoEstado}, ${address.enderecoCep}"
-            radioButton.tag = address.enderecoId
+                "${address.ENDERECO_LOGRADOURO}, ${address.ENDERECO_NUMERO} - ${address.ENDERECO_NOME}, ${address.ENDERECO_CIDADE} - ${address.ENDERECO_ESTADO}, ${address.ENDERECO_CEP}"
+            radioButton.tag = address.hashCode() // Como o modelo não tem um ID, usamos o hashCode para identificação
             radioGroup.addView(radioButton)
         }
     }

@@ -53,7 +53,7 @@ class Profile : AppCompatActivity() {
     }
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://eb995d1f-dfff-4a7b-90f7-7ebe2438ad50-00-8qvsbwqugcqv.kirk.replit.dev/")
+        .baseUrl("https://77271f8d-5953-4fb8-97c7-a179e7e317e5-00-346q9duyvospq.kirk.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

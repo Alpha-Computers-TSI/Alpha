@@ -98,7 +98,7 @@ class CartAdapter(
                 }
                 holder.productDiscount.apply {
                     text = String.format("R$%.2f", precoComDesconto)
-                    setTextColor(context.getColor(R.color.Alpha_blue))
+                    setTextColor(context.getColor(R.color.blue))
                     setTypeface(null, Typeface.BOLD)
                     visibility = View.VISIBLE
                 }
@@ -106,7 +106,7 @@ class CartAdapter(
             else -> {
                 holder.productPrice.apply {
                     text = String.format("R$%.2f", preco)
-                    setTextColor(context.getColor(R.color.Alpha_blue))
+                    setTextColor(context.getColor(R.color.blue))
                     setTypeface(null, Typeface.BOLD)
                     paintFlags = paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
                 }
