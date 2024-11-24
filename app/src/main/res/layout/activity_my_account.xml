@@ -33,14 +33,16 @@
         app:layout_constraintTop_toTopOf="@id/toolbar3"
         app:layout_constraintVertical_bias="0.432" />
 
+    <!-- Bem-vindo -->
     <LinearLayout
-        android:layout_width="275dp"
-        android:layout_height="208dp"
-        android:layout_marginTop="152dp"
+        android:layout_width="272dp"
+        android:layout_height="151dp"
+        android:layout_marginTop="216dp"
         android:background="@drawable/border_radious_my_account"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar3">
 
@@ -48,15 +50,17 @@
             android:id="@+id/myDocuments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="Meus dados"
-            android:textSize="20sp" />
+            android:textSize="20sp" /> <!-- Espaçamento entre os itens -->
 
         <TextView
             android:id="@+id/myOrdersTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="Meus pedidos"
-            android:textSize="20sp" />
+            android:textSize="20sp" /> <!-- Espaçamento entre os itens -->
 
         <TextView
             android:id="@+id/myAddress"
@@ -65,8 +69,6 @@
             android:text="Meu endereço"
             android:textSize="20sp" />
     </LinearLayout>
-
-    <!-- Bottom Navigation View -->
 
     <TextView
         android:id="@+id/textView50"
@@ -81,6 +83,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
+    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
