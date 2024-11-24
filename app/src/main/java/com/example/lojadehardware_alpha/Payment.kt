@@ -77,6 +77,14 @@ class Payment : AppCompatActivity() {
         // Carregar endereços do usuário
         loadUserAddresses(userId)
 
+        //Volta para a tela de compras
+        val goBackCartBtn: Button = findViewById(R.id.goBackCartBtn)
+        goBackCartBtn.setOnClickListener {
+            val intent = Intent(this, ProductCart::class.java)
+            startActivity(intent)
+        }
+
+
         // Configurar botão de finalização do pagamento
         val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
         finishPaymentButton.setOnClickListener {

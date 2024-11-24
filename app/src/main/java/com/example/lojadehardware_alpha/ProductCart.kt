@@ -51,7 +51,7 @@ class ProductCart : AppCompatActivity() {
         fetchCartItems()
 
         productListBtn.setOnClickListener {
-            val intent = Intent(this, ListaProdutos::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
 

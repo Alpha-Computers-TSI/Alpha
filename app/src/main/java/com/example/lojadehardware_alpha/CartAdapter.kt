@@ -2,6 +2,7 @@ package com.example.lojadehardware_alpha
 
 import android.content.Context
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,7 @@ class CartAdapter(
             productQuantity.text = item.quantidadeDisponivel.toString()
             productSubtotal.text = String.format("Subtotal: R$%.2f", precoFinal * (item.quantidadeDisponivel ?: 1))
 
-            Glide.with(context).load(item.imagemUrl).into(productImage)
+            Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
             decreaseButton.setOnClickListener { alterarQuantidade(item, holder, -1) }
             increaseButton.setOnClickListener { alterarQuantidade(item, holder, 1) }
@@ -146,11 +147,20 @@ class CartAdapter(
         retrofitService.updateCartQuantity(userId, produtoId, quantidade)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    onResult(response.isSuccessful)
+                    if (response.isSuccessful) {
+                        // Exibe o toast de sucesso
+                        Toast.makeText(context, "Quantidade atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                        onResult(true)
+                    } else {
+                        // Exibe o toast de falha
+                        Toast.makeText(context, "Falha ao atualizar quantidade.", Toast.LENGTH_SHORT).show()
+                        onResult(false)
+                    }
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Toast.makeText(context, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
+                    // Exibe o toast de falha
+                    Toast.makeText(context, "Erro de conexão. Tente novamente.", Toast.LENGTH_SHORT).show()
                     onResult(false)
                 }
             })

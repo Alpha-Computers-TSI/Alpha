@@ -20,7 +20,4 @@ interface CartApiService {
         @Field("produtoId") produtoId: Int,
         @Field("novaQuantidade") novaQuantidade: Int
     ): Call<ResponseBody>
-
-    /*@DELETE("ALPHA/carrinho_de_compras/deleteCartItem/index.php")
-    fun deleteCartItem(@Query("produtoId") produtoId: Int, @Query("userId") userId: Int): Call<Void>*/
 }
