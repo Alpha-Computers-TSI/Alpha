@@ -5,7 +5,7 @@
     <solid android:color="@android:color/white" /> <!-- Cor de fundo -->
     <stroke
         android:width="2dp"
-        android:color="#909090" /> <!-- Cor da borda -->
+        android:color="#34C9FF" /> <!-- Cor da borda -->
 
     <corners android:radius="2dp"/> <!-- Raio para bordas arredondadas, ajuste como necessário -->
 </shape>
