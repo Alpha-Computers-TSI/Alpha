@@ -1,282 +1,335 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:background="#F9FFFFFF"
+        tools:context=".Payment">
 
-        <!-- Título QR Code -->
         <LinearLayout
-            android:id="@+id/qrCodeTitleContainer"
+            android:id="@+id/mainContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/qrCodeTitle"
-                android:layout_width="302dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="16dp"
-                android:text="PIX"
-                android:textAlignment="viewStart"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/qrCodeArrow"
-                android:layout_width="28dp"
-                android:layout_height="24dp"
-                android:layout_marginRight="8dp"
-                android:rotation="90"
-                android:src="@drawable/pixicon" />
-        </LinearLayout>
-
-        <!-- Container QR Code -->
-        <LinearLayout
-            android:id="@+id/qrCodeContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F0F0F0"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/qrCodeImage"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:src="@drawable/payment_qr_code" />
-        </LinearLayout>
-
-        <!-- Título Boleto -->
-        <LinearLayout
-            android:id="@+id/boletoTitleContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/boletoTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="16dp"
-                android:text="Boleto"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/boletoArrow"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/boleto" />
-        </LinearLayout>
-
-        <!-- Container Boleto -->
-        <LinearLayout
-            android:id="@+id/boletoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="#F0F0F0"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/boleto_fatura" />
-
-        </LinearLayout>
-
-        <!-- Título Cartão -->
-        <LinearLayout
-            android:id="@+id/cardTitleContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/cardTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="16dp"
-                android:text="Cartão"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/cardArrow"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/creditcardicon" />
-        </LinearLayout>
-
-        <!-- Container Cartão -->
-        <LinearLayout
-            android:id="@+id/cardContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/cardNumberInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Número do Cartão"
-                android:inputType="number"
-                android:textColor="#000000"
-                android:textColorHint="#000000" />
-
-            <EditText
-                android:id="@+id/cardHolderInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome no Cartão"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:textColorHint="#000000" />
-
-            <EditText
-                android:id="@+id/cardExpiryInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Validade (MM/AA)"
-                android:inputType="date"
-                android:textColor="#000000"
-                android:textColorHint="#000000" />
-
-            <EditText
-                android:id="@+id/cardCvvInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="CVV"
-                android:inputType="number"
-                android:textColor="#000000"
-                android:textColorHint="#000000" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/totalValueText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Valor"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_marginTop="62dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar10">
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Escolha o Endereço da Entrega:"
-                android:textAlignment="center"
-                android:textColor="#181818"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/addressRadioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center">
-
-            </RadioGroup>
+            <!-- Título QR Code -->
 
             <LinearLayout
-                android:id="@+id/layoutAddressNotFound"
+                android:id="@+id/qrCodeTitleContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
 
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="263dp"
+                    android:id="@+id/qrCodeTitle"
+                    android:layout_width="302dp"
                     android:layout_height="wrap_content"
-                    android:text="Ops você ainda não possui nenhum Endereço Cadastrado"
-                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:paddingLeft="16dp"
+                    android:text="PIX"
+                    android:textAlignment="viewStart"
                     android:textColor="#000000"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="290dp"
-                    android:layout_height="261dp"
-                    android:layout_marginTop="6dp"
-                    app:srcCompat="@drawable/no_address_found" />
+                    android:id="@+id/qrCodeArrow"
+                    android:layout_width="28dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="8dp"
+                    android:rotation="90"
+                    android:src="@drawable/pixicon" />
             </LinearLayout>
+
+            <!-- Container QR Code -->
+
+            <LinearLayout
+                android:id="@+id/qrCodeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F0F0F0"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/qrCodeImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/payment_qr_code" />
+            </LinearLayout>
+
+            <!-- Título Boleto -->
+            <LinearLayout
+                android:id="@+id/boletoTitleContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/boletoTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="16dp"
+                    android:text="Boleto"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/boletoArrow"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/boleto" />
+            </LinearLayout>
+
+            <!-- Container Boleto -->
+            <LinearLayout
+                android:id="@+id/boletoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#F0F0F0"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/boleto_fatura" />
+
+            </LinearLayout>
+
+            <!-- Título Cartão -->
+            <LinearLayout
+                android:id="@+id/cardTitleContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/cardTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="16dp"
+                    android:text="Cartão"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/cardArrow"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/creditcardicon" />
+            </LinearLayout>
+
+            <!-- Container Cartão -->
+            <LinearLayout
+                android:id="@+id/cardContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/cardNumberInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Número do Cartão"
+                    android:inputType="number"
+                    android:textColor="#000000"
+                    android:textColorHint="#000000" />
+
+                <EditText
+                    android:id="@+id/cardHolderInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nome no Cartão"
+                    android:inputType="text"
+                    android:textColor="#000000"
+                    android:textColorHint="#000000" />
+
+                <EditText
+                    android:id="@+id/cardExpiryInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Validade (MM/AA)"
+                    android:inputType="date"
+                    android:textColor="#000000"
+                    android:textColorHint="#000000" />
+
+                <EditText
+                    android:id="@+id/cardCvvInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="CVV"
+                    android:inputType="number"
+                    android:textColor="#000000"
+                    android:textColorHint="#000000" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/totalValueText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Valor"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Escolha o Endereço da Entrega:"
+                    android:textAlignment="center"
+                    android:textColor="#181818"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/addressRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center">
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/layoutAddressNotFound"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="263dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ops você ainda não possui nenhum Endereço Cadastrado"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="290dp"
+                        android:layout_height="261dp"
+                        android:layout_marginTop="6dp"
+                        app:srcCompat="@drawable/no_address_found" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/finishPaymentButton"
+                android:layout_width="349dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#34C9FF"
+                android:text="Finalizar Compra"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
+
+            <Button
+                android:id="@+id/goBackCartBtn"
+                android:layout_width="349dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="#0034C9FF"
+                android:text="Voltar"
+                android:textColor="#34C9FF"
+                android:textStyle="bold"
+                app:cornerRadius="0dp"
+                app:strokeColor="#34C9FF"
+                app:strokeWidth="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/finishPaymentButton"
-            android:layout_width="349dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#34C9FF"
-            android:text="Finalizar Compra"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:cornerRadius="0dp" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar10"
+            android:layout_width="420dp"
+            android:layout_height="67dp"
+            android:background="@color/black"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/goBackCartBtn"
-            android:layout_width="349dp"
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="#0034C9FF"
-            android:text="Voltar"
+            android:text="Forma de Pagamento"
             android:textColor="#34C9FF"
-            android:textStyle="bold"
-            app:cornerRadius="0dp"
-            app:strokeColor="#34C9FF"
-            app:strokeWidth="1dp" />
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar10" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+        <ImageView
+            android:id="@+id/goBackToProductCart"
+            android:layout_width="43dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:foregroundTint="#34C9FF"
+            android:rotationY="-181"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow"
+            app:tint="#34C9FF" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

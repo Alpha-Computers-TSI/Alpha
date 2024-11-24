@@ -8,7 +8,6 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/myOrdersTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F9F9F9F9"
@@ -83,7 +82,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/goBackToHomeArrow"
             android:layout_width="43dp"
             android:layout_height="34dp"
             android:layout_marginStart="40dp"
@@ -170,6 +169,8 @@
                     android:layout_height="48dp"
                     android:backgroundTint="#34C9FF"
                     android:text="OK"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
                     app:cornerRadius="6dp" />
             </LinearLayout>
 

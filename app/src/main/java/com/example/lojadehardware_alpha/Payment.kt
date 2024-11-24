@@ -25,6 +25,7 @@ class Payment : AppCompatActivity() {
     private lateinit var qrCodeContainer: LinearLayout
     private lateinit var boletoContainer: LinearLayout
     private lateinit var cardContainer: LinearLayout
+    private lateinit var goBackToProductCart: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,13 +78,19 @@ class Payment : AppCompatActivity() {
         // Carregar endereços do usuário
         loadUserAddresses(userId)
 
-        //Volta para a tela de compras
+        // Volta para o Carrinho
+        goBackToProductCart = findViewById(R.id.goBackToProductCart)
+        goBackToProductCart.setOnClickListener {
+            val intent = Intent(this, ProductCart::class.java)
+            startActivity(intent)
+        }
+
+        //Volta para a tela de produtos
         val goBackCartBtn: Button = findViewById(R.id.goBackCartBtn)
         goBackCartBtn.setOnClickListener {
             val intent = Intent(this, ProductCart::class.java)
             startActivity(intent)
         }
-
 
         // Configurar botão de finalização do pagamento
         val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
