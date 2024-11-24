@@ -1,5 +1,6 @@
 package com.example.lojadehardware_alpha
 
+import Pedidos
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -30,7 +31,7 @@ interface UserService {
         @Body endereco: Endereco
     ): Call<ResponseBody>
 
-    @GET("pedido.php")
-    fun listPedidos(@Query("id") usuarioId: Int): Call<List<Pedidos>>
+    @GET("pedidos.php")
+    fun listPedidos(@Query("id") id: Int): Call<List<Pedidos>>
 }
 

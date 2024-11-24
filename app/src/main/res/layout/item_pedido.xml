@@ -44,12 +44,13 @@
                 android:contentDescription="Imagem do Produto" />
 
             <TextView
-                android:id="@+id/produtoDescricao"
+                android:id="@+id/totalPedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:maxLines="3"
-                android:text="Headset Sem Fio Logitech G" />
+                android:layout_marginTop="4dp"
+                android:text="Total: R$ 0,00"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
