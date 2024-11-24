@@ -2,8 +2,10 @@ package com.example.lojadehardware_alpha
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +29,8 @@ class Register : AppCompatActivity() {
     private lateinit var senhaInput: EditText
     private lateinit var confirmaSenhaInput: EditText
     private lateinit var registerBtn: Button
+    private lateinit var loginTxt: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,56 +48,78 @@ class Register : AppCompatActivity() {
         senhaInput = findViewById(R.id.senhaInput)
         confirmaSenhaInput = findViewById(R.id.confirmaSenhaInput)
         registerBtn = findViewById(R.id.registerBtn)
+        loginTxt = findViewById(R.id.loginTxt)
+
+        loginTxt.setOnClickListener{
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         registerBtn.setOnClickListener {
             val nome = nomeInput.text.toString()
             val cpf = cpfInput.text.toString()
             val email = emailInput.text.toString()
             val senha = senhaInput.text.toString()
+            val confirmaSenha = confirmaSenhaInput.text.toString()
 
-            if (nome.isNotEmpty() && cpf.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty()) {
-                val user = User(nome, cpf, email, senha)
-                registerUser(user)
+            // Verifica se todos os campos foram preenchidos
+            if (nome.isNotEmpty() && cpf.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty() && confirmaSenha.isNotEmpty()) {
+                // Verifica se a senha e a confirmação de senha são iguais
+                if (senha == confirmaSenha) {
+                    val user = User(nome, cpf, email, senha)
+                    registerUser(user)
+                } else {
+                    // Exibe um aviso se as senhas não coincidirem
+                    Toast.makeText(this, "As senhas não coincidem.", Toast.LENGTH_SHORT).show()
+                }
             } else {
+                // Exibe um aviso se algum campo estiver vazio
                 Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     private fun registerUser(user: User) {
-        // Configuração do Retrofit diretamente na tela
+        // Configuração do Retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("https://eb995d1f-dfff-4a7b-90f7-7ebe2438ad50-00-8qvsbwqugcqv.kirk.replit.dev/")
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .client(
-                OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .build()
-            )
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val userApi = retrofit.create(UserApi::class.java)
 
+        // Envia a requisição de registro
         userApi.createUser(user).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: retrofit2.Response<ApiResponse>) {
+                // Verifica se a resposta é válida e contém um corpo
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        if (it.success) {
-                            Toast.makeText(this@Register, "Usuário registrado com sucesso!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@Register, Login::class.java)
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(this@Register, it.message, Toast.LENGTH_SHORT).show()
-                        }
+                    val apiResponse = response.body()
+                    if (apiResponse != null && apiResponse.success) {
+                        // Registro bem-sucedido
+                        Toast.makeText(this@Register, "Usuário registrado com sucesso!", Toast.LENGTH_SHORT).show()
+                        // Navega para a tela de login
+                        startActivity(Intent(this@Register, Login::class.java))
+                        finish()
+                    } else {
+                        // Mensagem de erro retornada pela API
+                        val errorMessage = apiResponse?.message ?: "Erro desconhecido ao registrar usuário."
+                        Toast.makeText(this@Register, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(this@Register, "Erro ao registrar usuário.", Toast.LENGTH_SHORT).show()
+                    // Caso a resposta não seja bem-sucedida
+                    val error = "Erro no registro: Código HTTP ${response.code()} - ${response.message()}"
+                    Log.e("RegisterActivity", error)
+                    Toast.makeText(this@Register, error, Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(this@Register, "Falha na conexão: ${t.message}", Toast.LENGTH_SHORT).show()
+                // Falha na conexão
+                val failureMessage = "Falha na conexão: ${t.message}"
+                Log.e("RegisterActivity", failureMessage)
+                Toast.makeText(this@Register, failureMessage, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -104,7 +130,7 @@ class Register : AppCompatActivity() {
         fun createUser(@Body user: User): Call<ApiResponse>
     }
 
-    // Modelo de dados para o usuário
+    // Modelo de dados do usuário
     data class User(
         @SerializedName("nome") val nome: String,
         @SerializedName("cpf") val cpf: String,
@@ -112,7 +138,7 @@ class Register : AppCompatActivity() {
         @SerializedName("senha") val senha: String
     )
 
-    // Modelo para a resposta da API
+    // Modelo da resposta da API
     data class ApiResponse(
         val success: Boolean,
         val message: String

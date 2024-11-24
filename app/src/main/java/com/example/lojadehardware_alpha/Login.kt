@@ -32,7 +32,7 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.myOrdersTextView)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -89,7 +89,7 @@ class Login : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://thyagoquintas.com.br/ALPHA/autenticacao/")
+            .baseUrl("https://eb995d1f-dfff-4a7b-90f7-7ebe2438ad50-00-8qvsbwqugcqv.kirk.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -131,7 +131,7 @@ class Login : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("login")
+        @GET("userLogin.php")
         fun login(
             @Query("usuario") usuario: String,
             @Query("senha") senha: String
