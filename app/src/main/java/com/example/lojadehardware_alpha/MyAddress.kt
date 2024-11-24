@@ -40,6 +40,14 @@ class MyAddress : AppCompatActivity() {
         numberEdit = findViewById(R.id.numberEdit)
         updateButton = findViewById(R.id.buttonUpdate)
 
+      // Adicionando clique ao TextView para abrir RegisterAddress
+        val textregister: TextView = findViewById(R.id.textregister)
+        textregister.setOnClickListener {
+            val intent = Intent(this, RegisterAddress::class.java)
+            startActivity(intent)
+        }
+
+
         // Recuperar o ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", -1)
@@ -49,7 +57,6 @@ class MyAddress : AppCompatActivity() {
         // Verificar se o userId é válido
         if (userId != -1) {
             loadInitialAddress(userId) // Carregar os dados iniciais do endereço
-            Log.d("MyAddress", "Recuperado userId: $userId")
         } else {
             Log.e("MyAddress", "Erro: ID do usuário não encontrado.")
             Toast.makeText(this, "Erro: ID do usuário não encontrado.", Toast.LENGTH_LONG).show()
@@ -100,14 +107,12 @@ class MyAddress : AppCompatActivity() {
         })
     }
 
-
     // Função para atualizar o endereço
     private fun updateAddress(userId: Int, endereco: Endereco) {
         userService.updateEndereco(userId, endereco).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@MyAddress, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
-                    Log.d("MyAddress", "Endereço atualizado com sucesso! Resposta: ${response.body()?.string()}")
                 } else {
                     val errorMessage = when (response.code()) {
                         400 -> "Requisição inválida. Verifique os dados enviados."
@@ -116,16 +121,12 @@ class MyAddress : AppCompatActivity() {
                         else -> "Erro inesperado: ${response.code()}"
                     }
                     Toast.makeText(this@MyAddress, errorMessage, Toast.LENGTH_LONG).show()
-                    Log.e("MyAddress", "Erro ao atualizar endereço: $errorMessage")
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.e("MyAddress", "Erro na conexão com a API: ${t.message}")
                 Toast.makeText(this@MyAddress, "Erro na conexão com a API.", Toast.LENGTH_LONG).show()
             }
         })
     }
-
-
 }

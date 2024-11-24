@@ -44,7 +44,6 @@
         tools:ignore="MissingConstraints" />
 
 
-
     <LinearLayout
         android:id="@+id/linearLayout15"
         android:layout_width="413dp"
