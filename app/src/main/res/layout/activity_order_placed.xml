@@ -1,145 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderPlaced">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Pedido Realizado"
-        android:textColor="#34C9FF"
-        android:textSize="22dp"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="43dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:foregroundTint="#34C9FF"
-        android:rotationY="-181"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow"
-        app:tint="#34C9FF" />
+    android:fillViewport="true">
 
     <LinearLayout
-        android:id="@+id/linearLayout10"
-        android:layout_width="405dp"
-        android:layout_height="39dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        tools:layout_editor_absoluteX="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView43"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Agradecemos pela sua compra!"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView44"
-        android:layout_width="261dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="32dp"
-        android:text="Seu pedido de Nº 3618 foi realizado com sucesso."
-        android:textAlignment="center"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
-
-    <TextView
-        android:id="@+id/textView45"
-        android:layout_width="346dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="20dp"
-        android:text="Assim que o pagamento for processado por nosso sistema, enviaremos o pedido em até 2 dias úteis."
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView44" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout11"
-        android:layout_width="414dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView45">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="56dp"
-            android:layout_height="38dp"
-            android:tint="#34C9FF"
-            app:srcCompat="@drawable/doc_svg" />
-
-        <TextView
-            android:id="@+id/textView46"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RESUMO DO PEDIDO"
-            android:textSize="16dp"
-            android:textStyle="bold" />
+            android:background="#FFFFFF"
+            tools:context=".OrderPlaced">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar2"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Pedido Realizado"
+                android:textColor="#34C9FF"
+                android:textSize="22dp"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="43dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:foregroundTint="#34C9FF"
+                android:rotationY="-181"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/arrow"
+                app:tint="#34C9FF" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout10"
+                android:layout_width="415dp"
+                android:layout_height="37dp"
+                android:background="#34C9FF"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+                <TextView
+                    android:id="@+id/textView43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agradecemos pela sua compra!"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="261dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="32dp"
+                android:text="Seu pedido foi realizado com sucesso."
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="346dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Assim que o pagamento for processado por nosso sistema, enviaremos o pedido em até 2 dias úteis."
+                android:textAlignment="center"
+                android:textColor="#383838"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.492"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="414dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.333"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView45">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="56dp"
+                    android:layout_height="38dp"
+                    app:srcCompat="@drawable/doc_svg"
+                    app:tint="#34C9FF" />
+
+                <TextView
+                    android:id="@+id/textView46"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RESUMO DO PEDIDO"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/resumoPedidoRecyclerView"
+                android:layout_width="410dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
+
+            <Button
+                android:id="@+id/goBackToProductsBtn"
+                android:layout_width="311dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="#34C9FF"
+                android:text="Voltar"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resumoPedidoRecyclerView"
+                app:strokeColor="#34C9FF"
+                app:strokeWidth="1dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView3"
-        android:layout_width="410dp"
-        android:layout_height="177dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="311dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#00FFFFFF"
-        android:text="Voltar"
-        android:textColor="#34C9FF"
-        app:cornerRadius="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView3"
-        app:strokeColor="#34C9FF"
-        app:strokeWidth="1dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

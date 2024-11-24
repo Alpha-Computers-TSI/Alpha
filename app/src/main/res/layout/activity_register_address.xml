@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".RegisterAddress">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar6"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CADASTRAR ENDEREÇO"
+        android:textColor="#34C9FF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar6"
+        app:layout_constraintEnd_toEndOf="@id/toolbar6"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbar6"
+        app:layout_constraintVertical_bias="0.432" />
+
+    <TextView
+        android:id="@+id/textmyaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Meu endereço"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar6" />
+
+    <TextView
+        android:id="@+id/textregister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:lineSpacingExtra="8sp"
+        android:text="Cadastrar"
+        android:textColor="#34C9FF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar6" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar6">
+
+        <!-- Campo CEP -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="CEP"
+            android:textSize="14sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/cepInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite seu CEP"
+            android:padding="12dp"
+            android:textColor="#000000"/>
+
+        <!-- Campo Rua -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Logradouro"
+            android:textSize="14sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/logradouroInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite o logradouro"
+            android:padding="12dp"
+            android:textColor="#000000"/>
+
+        <!-- Campo Número -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Número"
+            android:textSize="14sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/numeroInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite o número"
+            android:padding="12dp"
+            android:textColor="#000000"/>
+
+        <!-- Campo Nome -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Nome"
+            android:textSize="14sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/nomeInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite o nome"
+            android:padding="12dp"
+            android:textColor="#000000"/>
+
+        <!-- Campo Cidade -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Cidade"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/cidadeInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite a cidade"
+            android:padding="12dp"
+            android:textColor="#000000"/>
+
+        <!-- Campo Estado -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Estado"
+            android:textSize="14sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/estadoInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite o estado"
+            android:padding="12dp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#34C9FF"
+        android:text="CADASTRAR"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
