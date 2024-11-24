@@ -110,6 +110,7 @@ class ResultadosBuscaActivity : BaseSearchActivity() {
     }
 
     private fun buscarProdutos() {
+        adapter.atualizarLista(emptyList())
         progressBar.visibility = View.VISIBLE
 
         val filtro = filtroSelecionado ?: ""

@@ -6,11 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 interface ApiService {
-    @GET("lista_de_produtos/")
-    fun getProdutos(): Call<List<Produto>>
-
     @GET("busca.php")
     fun buscarProduto(
         @Query("query") termo: String,
@@ -36,5 +32,4 @@ interface ApiService {
         @Query("precoMin") precoMin: Float? = null,
         @Query("precoMax") precoMax: Float? = null
     ): Call<List<Produto>>
-
 }
