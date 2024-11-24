@@ -3,11 +3,14 @@ package com.example.lojadehardware_alpha
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,20 +30,52 @@ class SingleProduct : AppCompatActivity() {
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
+        val produtoPreco = intent.getFloatExtra("PRECO_PRODUTO", 0f)
+        val produtoDesconto = intent.getFloatExtra("DESCONTO_PRODUTO", 0f)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
+        val imagemURL = intent.getStringExtra("IMAGEM_URL") ?: "https://st4.depositphotos.com/36923632/38547/v/450/depositphotos_385477712-stock-illustration-outline-drug-icon-drug-vector.jpg"
 
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
-        findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
 
-        val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
+
+        // Define o formato de moeda para o Brasil
+        val formatoMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+
+        // Formata os valores como moeda
+        val precoFormatado = formatoMoeda.format(produtoPreco - produtoDesconto)
+        val descontoFormatado = formatoMoeda.format(produtoPreco)
+
+        // Define o texto no TextView de preço
+        findViewById<TextView>(R.id.txtPrecoProduto).apply {
+            text = precoFormatado
+        }
+
+        // Configura o TextView de desconto
+        findViewById<TextView>(R.id.txtDescontoProduto).apply {
+            if (produtoDesconto == 0f) {
+                visibility = View.GONE // Oculta a view se o desconto for 0
+            } else {
+                text = descontoFormatado
+                visibility = View.VISIBLE // Mostra a view caso tenha um desconto válido
+            }
+        }
+
+        //findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
+
+        //val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
         val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
+        val imagemProduto = findViewById<ImageView>(R.id.imagem_produto)
 
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", 0)
 
+        Glide.with(this)
+            .load(imagemURL)
+            .into(imagemProduto)
+
         btnAdicionarCarrinho.setOnClickListener {
-            val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
+            val quantidadeDesejada = 1//editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
 
             val intent = Intent(this@SingleProduct, ProductCart::class.java)
