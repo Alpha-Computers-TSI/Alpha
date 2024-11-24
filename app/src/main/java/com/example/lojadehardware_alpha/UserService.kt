@@ -29,5 +29,8 @@ interface UserService {
         @Query("id") id: Int,
         @Body endereco: Endereco
     ): Call<ResponseBody>
+
+    @GET("pedido.php")
+    fun listPedidos(@Query("id") usuarioId: Int): Call<List<Pedidos>>
 }
 
