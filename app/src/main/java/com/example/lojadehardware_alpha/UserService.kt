@@ -33,5 +33,12 @@ interface UserService {
 
     @GET("pedidos.php")
     fun listPedidos(@Query("id") id: Int): Call<List<Pedidos>>
-}
 
+    @GET("pedidoDetalhe.php")
+    fun listPedidoItens(@Query("id") pedidoId: Int): Call<List<PedidoItem>>
+
+    @POST("cadastrarEndereco.php")
+        fun cadastrarEndereco(@Query("id") userId: Int,
+            @Body endereco: Endereco
+        ): Call<ResponseModel>
+}
