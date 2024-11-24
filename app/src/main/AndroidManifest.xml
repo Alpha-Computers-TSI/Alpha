@@ -20,7 +20,7 @@
             android:name=".PedidoDetalhe"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".RegisterAddress"
             android:exported="false" />
         <activity
             android:name=".Orders"
@@ -55,7 +55,7 @@
             android:name=".MyAccount"
             android:exported="false" />
         <activity
-            android:name=".RegisterAddress"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

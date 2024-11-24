@@ -2,8 +2,10 @@ package com.example.lojadehardware_alpha
 
 import Pedidos
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +29,6 @@ class Orders : AppCompatActivity() {
 
     private val userService = retrofit.create(UserService::class.java)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
@@ -36,12 +37,15 @@ class Orders : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", -1)
 
+        // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = OrdersAdapter(pedidosList)
         recyclerView.adapter = adapter
 
+        // Chamar a função para buscar os pedidos
         fetchPedidos(userId) // Substitua pelo ID real do usuário
+
     }
 
     private fun fetchPedidos(userId: Int) {
