@@ -194,26 +194,60 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Escolha o Endereço da Entrega:"
-            android:textAlignment="center"
-            android:textColor="#181818"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/addressRadioGroup"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-        </RadioGroup>
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Escolha o Endereço da Entrega:"
+                android:textAlignment="center"
+                android:textColor="#181818"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/addressRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center">
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/layoutAddressNotFound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="263dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ops você ainda não possui nenhum Endereço Cadastrado"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="290dp"
+                    android:layout_height="261dp"
+                    android:layout_marginTop="6dp"
+                    app:srcCompat="@drawable/no_address_found" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/finishPaymentButton"
@@ -238,6 +272,11 @@
             app:cornerRadius="0dp"
             app:strokeColor="#34C9FF"
             app:strokeWidth="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
 
     </LinearLayout>
 </ScrollView>

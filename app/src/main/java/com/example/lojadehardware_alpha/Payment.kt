@@ -124,7 +124,13 @@ class Payment : AppCompatActivity() {
             override fun onResponse(call: Call<List<Endereco>>, response: Response<List<Endereco>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { addresses ->
-                        populateAddressRadioButtons(addresses)
+                        if (addresses.isEmpty()) {
+                            // Se não houver endereços, mostra o layout de "endereço não encontrado"
+                            findViewById<LinearLayout>(R.id.layoutAddressNotFound).visibility = View.VISIBLE
+                        } else {
+                            // Se houver endereços, popula o RadioGroup e esconde o layout de "endereço não encontrado"
+                            populateAddressRadioButtons(addresses)
+                        }
                     }
                 } else {
                     Toast.makeText(this@Payment, "Erro ao carregar endereços", Toast.LENGTH_LONG).show()

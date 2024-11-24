@@ -2,6 +2,7 @@ package com.example.lojadehardware_alpha
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -26,6 +27,7 @@ class ProductCart : AppCompatActivity() {
     private lateinit var goToListagemProdutos: Button
     private lateinit var productsValueTextView: TextView
     private lateinit var parcelamentoTextView: TextView
+    private lateinit var forgottenCepTextView: TextView
     private lateinit var cartAdapter: CartAdapter
     private var total: Double = 0.0
     private var productsValue: Double = 0.0
@@ -44,11 +46,18 @@ class ProductCart : AppCompatActivity() {
         parcelamentoTextView = findViewById(R.id.parcelamentoTextView)
         goToPaymentButton = findViewById(R.id.goToPaymentButton)
         goToListagemProdutos = findViewById(R.id.goToListagemProdutos)
+        forgottenCepTextView = findViewById(R.id.forgottenCepTextView)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         //Busca os itens do carrinho
         fetchCartItems()
+
+        forgottenCepTextView.setOnClickListener {
+            val url = "https://buscacepinter.correios.com.br/app/endereco/index.php"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
 
         productListBtn.setOnClickListener {
             val intent = Intent(this, Home::class.java)
