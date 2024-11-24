@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -29,6 +30,8 @@ class ProductCart : AppCompatActivity() {
     private lateinit var parcelamentoTextView: TextView
     private lateinit var forgottenCepTextView: TextView
     private lateinit var cartAdapter: CartAdapter
+    private lateinit var goBackToHomeArrow: ImageView
+
     private var total: Double = 0.0
     private var productsValue: Double = 0.0
 
@@ -47,11 +50,18 @@ class ProductCart : AppCompatActivity() {
         goToPaymentButton = findViewById(R.id.goToPaymentButton)
         goToListagemProdutos = findViewById(R.id.goToListagemProdutos)
         forgottenCepTextView = findViewById(R.id.forgottenCepTextView)
+        goBackToHomeArrow = findViewById(R.id.goBackToHomeArrow)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         //Busca os itens do carrinho
         fetchCartItems()
+
+        goBackToHomeArrow.setOnClickListener{
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         forgottenCepTextView.setOnClickListener {
             val url = "https://buscacepinter.correios.com.br/app/endereco/index.php"
