@@ -135,6 +135,11 @@ class Payment : AppCompatActivity() {
                             // Se não houver endereços, mostra o layout de "endereço não encontrado"
                             findViewById<LinearLayout>(R.id.layoutAddressNotFound).visibility = View.VISIBLE
                         } else {
+                            // Loga os endereços retornados
+                            addresses.forEach { address ->
+                                Log.d("Address_Debug", "Endereço capturado: $address")
+                            }
+
                             // Se houver endereços, popula o RadioGroup e esconde o layout de "endereço não encontrado"
                             populateAddressRadioButtons(addresses)
                         }
@@ -156,7 +161,7 @@ class Payment : AppCompatActivity() {
             val radioButton = RadioButton(this)
             radioButton.text =
                 "${address.ENDERECO_LOGRADOURO}, ${address.ENDERECO_NUMERO} - ${address.ENDERECO_NOME}, ${address.ENDERECO_CIDADE} - ${address.ENDERECO_ESTADO}, ${address.ENDERECO_CEP}"
-            radioButton.tag = address.hashCode() // Como o modelo não tem um ID, usamos o hashCode para identificação
+            radioButton.tag = address.ENDERECO_ID
             radioGroup.addView(radioButton)
         }
     }
@@ -174,21 +179,16 @@ class Payment : AppCompatActivity() {
         val call = api.createOrder(orderRequest)
         call.enqueue(object : Callback<ResponseCompra> {
             override fun onResponse(call: Call<ResponseCompra>, response: Response<ResponseCompra>) {
+                Log.d("RESPONSE_CODE", response.code().toString())
+                Log.d("RESPONSE_BODY", response.body()?.toString() ?: "Corpo vazio")
+                Log.d("RESPONSE_ERROR", response.errorBody()?.string() ?: "Sem erro")
+
                 if (response.isSuccessful) {
                     Toast.makeText(this@Payment, "Pedido realizado com sucesso!", Toast.LENGTH_LONG).show()
-
-                    // Cria a Intent para a próxima tela
-                    val intent = Intent(this@Payment, OrderPlaced::class.java)
-
-                    // Passa a lista de produtos pela Intent
-                    if (!products.isNullOrEmpty()) {
-                        intent.putParcelableArrayListExtra("PRODUCT_LIST", products)
-                    }
-
-                    startActivity(intent)
+                    startActivity(Intent(this@Payment, OrderPlaced::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this@Payment, "Erro ao realizar pedido", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@Payment, "Erro ao realizar pedido: ${response.code()}", Toast.LENGTH_LONG).show()
                 }
             }
 

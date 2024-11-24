@@ -71,7 +71,7 @@ class MyAddress : AppCompatActivity() {
                 ENDERECO_NUMERO = numeroEdit.text.toString().trim(),
                 ENDERECO_NOME = nomeEdit.text.toString().trim(),
                 ENDERECO_CIDADE = cidadeEdit.text.toString().trim(),
-                ENDERECO_ESTADO = estadoEdit.text.toString().trim()
+                ENDERECO_ESTADO = estadoEdit.text.toString().trim(),
             )
 
             updateAddress(userId, endereco)

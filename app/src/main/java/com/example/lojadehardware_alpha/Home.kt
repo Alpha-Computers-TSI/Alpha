@@ -46,19 +46,31 @@ class Home : BaseSearchActivity() {
 
         // Configurar BottomNavigationView
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> true
+                R.id.nav_home -> {
+                    // Navegação para a HomeActivity
+                    startActivity(Intent(this, Home::class.java))
+                    true
+                }
+
                 R.id.nav_categories -> {
+                    // Navegação para a ListaCategorias
                     startActivity(Intent(this, ListaCategorias::class.java))
                     true
                 }
 
-                R.id.nav_account -> true
+                R.id.nav_account -> {
+                    // Navegação para a ContaActivity
+                    startActivity(Intent(this, MyAccount::class.java))
+                    true
+                }
+
                 else -> false
             }
         }
-
         // Configurar barra de pesquisa
         val searchView = findViewById<SearchView>(R.id.search_view)
         configurarSearchView(searchView) { termo ->
