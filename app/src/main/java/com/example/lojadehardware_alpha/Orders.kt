@@ -44,7 +44,7 @@ class Orders : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         // Chamar a função para buscar os pedidos
-        fetchPedidos(userId) // Substitua pelo ID real do usuário
+        fetchPedidos(userId)
 
     }
 
