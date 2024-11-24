@@ -55,10 +55,19 @@ class MyAddress : AppCompatActivity() {
 
         // Configurar o botão de atualização
         updateButton.setOnClickListener {
+            val cep = cepEdit.text.toString().trim()
+            val logradouro = roadEdit.text.toString().trim()
+            val numero = numberEdit.text.toString().trim()
+
+            if (cep.isEmpty() || logradouro.isEmpty() || numero.isEmpty()) {
+                Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val endereco = Endereco(
-                ENDERECO_CEP = cepEdit.text.toString(),
-                ENDERECO_LOGRADOURO = roadEdit.text.toString(),
-                ENDERECO_NUMERO = numberEdit.text.toString()
+                ENDERECO_CEP = cep,
+                ENDERECO_LOGRADOURO = logradouro,
+                ENDERECO_NUMERO = numero
             )
             updateAddress(userId, endereco)
         }
@@ -95,13 +104,17 @@ class MyAddress : AppCompatActivity() {
         userService.updateEndereco(userId, endereco).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    val responseBody = response.body()?.string() ?: "Resposta vazia"
                     Toast.makeText(this@MyAddress, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
-                    Log.d("MyAddress", "Endereço atualizado com sucesso! Resposta: $responseBody")
+                    Log.d("MyAddress", "Endereço atualizado com sucesso! Resposta: ${response.body()?.string()}")
                 } else {
-                    val errorBody = response.errorBody()?.string() ?: "Erro desconhecido"
-                    Log.e("MyAddress", "Erro ao atualizar endereço: Código ${response.code()}, Erro: $errorBody")
-                    Toast.makeText(this@MyAddress, "Erro ao atualizar endereço: $errorBody", Toast.LENGTH_LONG).show()
+                    val errorMessage = when (response.code()) {
+                        400 -> "Requisição inválida. Verifique os dados enviados."
+                        404 -> "Usuário não encontrado. Tente novamente."
+                        500 -> "Erro no servidor. Tente mais tarde."
+                        else -> "Erro inesperado: ${response.code()}"
+                    }
+                    Toast.makeText(this@MyAddress, errorMessage, Toast.LENGTH_LONG).show()
+                    Log.e("MyAddress", "Erro ao atualizar endereço: $errorMessage")
                 }
             }
 
