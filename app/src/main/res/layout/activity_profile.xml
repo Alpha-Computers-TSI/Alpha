@@ -36,7 +36,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
             android:text="Nome"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000"/>
 
         <EditText
             android:id="@+id/userEditText"
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
             android:hint="Digite seu nome"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -52,7 +54,8 @@
             android:paddingTop="16dp"
             android:paddingBottom="8dp"
             android:text="CPF"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000"/>
 
         <EditText
             android:id="@+id/cpfEditText"
@@ -60,7 +63,8 @@
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
             android:hint="Digite seu CPF"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -68,7 +72,8 @@
             android:paddingTop="16dp"
             android:paddingBottom="8dp"
             android:text="Email"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#000000"/>
 
         <EditText
             android:id="@+id/emailEditText"
@@ -76,7 +81,8 @@
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
             android:hint="Digite seu email"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColor="#000000"/>
 
     </LinearLayout>
 
@@ -84,27 +90,40 @@
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/profile_button"
-        android:backgroundTint="#03A9F4"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#34C9FF"
         android:text="ATUALIZAR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout16"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MEUS DADOS"
-        android:textColor="#03A9F4"
+        android:textColor="#34C9FF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.432" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@android:color/black"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/bottom_nav_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

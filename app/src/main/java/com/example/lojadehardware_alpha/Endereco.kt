@@ -3,11 +3,11 @@ package com.example.lojadehardware_alpha
 import com.google.gson.annotations.SerializedName
 
 data class Endereco(
-    @SerializedName("ENDERECO_ID") val enderecoId: Int?,
-    @SerializedName("ENDERECO_LOGRADOURO") val enderecoLogradouro: String?,
-    @SerializedName("ENDERECO_NUMERO") val enderecoNumero: String?,
-    @SerializedName("ENDERECO_COMPLEMENTO") val enderecoComplemento: String?,
-    @SerializedName("ENDERECO_CIDADE") val enderecoCidade: String?,
-    @SerializedName("ENDERECO_ESTADO") val enderecoEstado: String?,
-    @SerializedName("ENDERECO_CEP") val enderecoCep: String?
+    val ENDERECO_CEP: String,
+    val ENDERECO_LOGRADOURO: String,
+    val ENDERECO_NUMERO: String,
+    val ENDERECO_NOME: String,
+    val ENDERECO_CIDADE: String,
+    val ENDERECO_ESTADO: String
 )
+

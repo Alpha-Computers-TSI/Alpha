@@ -20,6 +20,18 @@
             android:name=".ListaCategorias"
             android:exported="false" />
         <activity
+            android:name=".PedidoDetalhe"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterAddress"
+            android:exported="false" />
+        <activity
+            android:name=".Orders"
+            android:exported="false" />
+        <activity
+            android:name=".MyAddress"
+            android:exported="false" />
+        <activity
             android:name=".FiltrosActivity"
             android:exported="false" />
         <activity
@@ -30,6 +42,12 @@
             android:exported="false"
             android:label="@string/title_activity_lista_produtos"
             android:theme="@style/Theme.LojaDeHardwareAlpha" />
+        />
+        <activity
+            android:name=".Home"
+            android:exported="false"
+            android:label="@string/title_activity_lista_produtos"
+            android:theme="@style/Theme.LojaDeHardwareAlpha" />
         <activity
             android:name=".SingleProduct"
             android:exported="false" />
@@ -37,22 +55,25 @@
             android:name=".Payment"
             android:exported="false" />
         <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
             android:name=".ProductCart"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".MyAccount"
             android:exported="false" />
         <activity
             android:name=".OrderPlaced"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
