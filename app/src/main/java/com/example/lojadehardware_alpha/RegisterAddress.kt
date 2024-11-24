@@ -1,11 +1,13 @@
 package com.example.lojadehardware_alpha
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
@@ -56,6 +58,7 @@ class RegisterAddress : AppCompatActivity() {
     private lateinit var cidadeInput: EditText
     private lateinit var estadoInput: EditText
     private lateinit var btnCadastrar: Button
+    private lateinit var textmyaddress: TextView // Aqui é o TextView para a Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -70,6 +73,7 @@ class RegisterAddress : AppCompatActivity() {
         cidadeInput = findViewById(R.id.cidadeInput)
         estadoInput = findViewById(R.id.estadoInput)
         btnCadastrar = findViewById(R.id.btnCadastrar)
+        textmyaddress = findViewById(R.id.textmyaddress) // Aqui é onde o TextView é encontrado no layout
 
         cepInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -122,7 +126,14 @@ class RegisterAddress : AppCompatActivity() {
                     }
                 })
         }
+
+        // Evento de clique para navegar até a tela de endereço
+        textmyaddress.setOnClickListener {
+            val intent = Intent(this, MyAddress::class.java)
+            startActivity(intent)
+        }
     }
+
     private fun buscarEndereco(cep: String) {
         viaCep.buscarEndereco(cep).enqueue(object : Callback<ViaCepResponse> {
             override fun onResponse(call: Call<ViaCepResponse>, response: Response<ViaCepResponse>) {
