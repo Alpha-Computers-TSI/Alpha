@@ -3,20 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="383dp"
-        android:layout_height="167dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/border_radious_my_account"
         android:orientation="vertical"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/pedidoNumero"
@@ -32,30 +29,33 @@
             android:layout_height="wrap_content"
             android:text="Em andamento"
             android:textColor="#34C9FF"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/produtoImagem"
                 android:layout_width="144dp"
                 android:layout_height="109dp"
-                android:contentDescription="Imagem do Produto" />
+                android:contentDescription="Imagem do Produto"
+                android:layout_marginEnd="8dp"/>
 
             <TextView
                 android:id="@+id/totalPedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:gravity="center"
                 android:text="Total: R$ 0,00"
-                android:textColor="#000000"
+                android:textColor="#34C9FF"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
