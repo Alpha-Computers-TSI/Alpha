@@ -33,5 +33,7 @@ interface UserService {
 
     @GET("pedidos.php")
     fun listPedidos(@Query("id") id: Int): Call<List<Pedidos>>
-}
 
+    @GET("pedidoDetalhe.php")
+    fun listPedidoItens(@Query("id") pedidoId: Int): Call<List<PedidoItem>>
+}

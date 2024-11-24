@@ -44,6 +44,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="410dp"
         android:layout_height="347dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
