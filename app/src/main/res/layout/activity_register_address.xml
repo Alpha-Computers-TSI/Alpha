@@ -87,49 +87,103 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
             android:text="CEP"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/cepInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@android:drawable/edit_text"
             android:hint="Digite seu CEP"
-            android:padding="12dp" />
+            android:padding="8dp" />
 
         <!-- Campo Rua -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:text="Rua"
-            android:textSize="16sp" />
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Logradouro"
+            android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/logradouroInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite sua rua"
-            android:padding="12dp" />
+            android:hint="Digite o logradouro"
+            android:padding="8dp" />
 
         <!-- Campo Número -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
             android:text="Número"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
+            android:id="@+id/numeroInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite o número"
+            android:padding="8dp" />
+
+        <!-- Campo Nome -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Nome"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/nomeInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite seu número"
-            android:padding="12dp" />
+            android:hint="Digite o nome"
+            android:padding="8dp" />
+
+        <!-- Campo Cidade -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Cidade"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/cidadeInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite a cidade"
+            android:padding="8dp" />
+
+        <!-- Campo Estado -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Estado"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/estadoInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Digite o estado"
+            android:padding="8dp" />
     </LinearLayout>
 
     <Button
@@ -145,18 +199,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
 
-    <!-- Bottom Navigation View -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/bottom_nav_menu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+<!--    &lt;!&ndash; Bottom Navigation View &ndash;&gt;-->
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNavigationView"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@android:color/black"-->
+<!--        app:itemIconTint="@android:color/white"-->
+<!--        app:itemTextColor="@android:color/white"-->
+<!--        app:menu="@menu/bottom_nav_menu"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 
 

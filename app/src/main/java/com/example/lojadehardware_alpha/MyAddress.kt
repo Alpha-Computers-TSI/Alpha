@@ -19,8 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MyAddress : AppCompatActivity() {
 
     private lateinit var cepEdit: EditText
-    private lateinit var roadEdit: EditText
-    private lateinit var numberEdit: EditText
+    private lateinit var logradouroEdit: EditText
+    private lateinit var numeroEdit: EditText
+    private lateinit var nomeEdit: EditText
+    private lateinit var cidadeEdit: EditText
+    private lateinit var estadoEdit: EditText
     private lateinit var updateButton: Button
 
     private val retrofit = Retrofit.Builder()
@@ -36,48 +39,41 @@ class MyAddress : AppCompatActivity() {
 
         // Inicializar os componentes do layout
         cepEdit = findViewById(R.id.cepEdit)
-        roadEdit = findViewById(R.id.roadEdit)
-        numberEdit = findViewById(R.id.numberEdit)
+        logradouroEdit = findViewById(R.id.logradouroEdit)
+        numeroEdit = findViewById(R.id.numeroEdit)
+        nomeEdit = findViewById(R.id.nomeEdit)
+        cidadeEdit = findViewById(R.id.cidadeEdit)
+        estadoEdit = findViewById(R.id.estadoEdit)
         updateButton = findViewById(R.id.buttonUpdate)
 
-      // Adicionando clique ao TextView para abrir RegisterAddress
+        // Clique para registrar um novo endereço
         val textregister: TextView = findViewById(R.id.textregister)
         textregister.setOnClickListener {
             val intent = Intent(this, RegisterAddress::class.java)
             startActivity(intent)
         }
 
-
-        // Recuperar o ID do usuário do SharedPreferences
+        // Recuperar ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", -1)
 
-        Log.d("MyAddress", "Recuperado userId: $userId")
-
-        // Verificar se o userId é válido
         if (userId != -1) {
             loadInitialAddress(userId) // Carregar os dados iniciais do endereço
         } else {
-            Log.e("MyAddress", "Erro: ID do usuário não encontrado.")
             Toast.makeText(this, "Erro: ID do usuário não encontrado.", Toast.LENGTH_LONG).show()
         }
 
         // Configurar o botão de atualização
         updateButton.setOnClickListener {
-            val cep = cepEdit.text.toString().trim()
-            val logradouro = roadEdit.text.toString().trim()
-            val numero = numberEdit.text.toString().trim()
-
-            if (cep.isEmpty() || logradouro.isEmpty() || numero.isEmpty()) {
-                Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             val endereco = Endereco(
-                ENDERECO_CEP = cep,
-                ENDERECO_LOGRADOURO = logradouro,
-                ENDERECO_NUMERO = numero
+                ENDERECO_CEP = cepEdit.text.toString().trim(),
+                ENDERECO_LOGRADOURO = logradouroEdit.text.toString().trim(),
+                ENDERECO_NUMERO = numeroEdit.text.toString().trim(),
+                ENDERECO_NOME = nomeEdit.text.toString().trim(),
+                ENDERECO_CIDADE = cidadeEdit.text.toString().trim(),
+                ENDERECO_ESTADO = estadoEdit.text.toString().trim()
             )
+
             updateAddress(userId, endereco)
         }
     }
@@ -87,22 +83,23 @@ class MyAddress : AppCompatActivity() {
         userService.listEnderecos(userId).enqueue(object : Callback<Endereco> {
             override fun onResponse(call: Call<Endereco>, response: Response<Endereco>) {
                 if (response.isSuccessful) {
-                    val endereco = response.body()
-                    if (endereco != null) {
+                    response.body()?.let { endereco ->
                         cepEdit.setText(endereco.ENDERECO_CEP)
-                        roadEdit.setText(endereco.ENDERECO_LOGRADOURO)
-                        numberEdit.setText(endereco.ENDERECO_NUMERO)
-                        Log.d("MyAddress", "Endereço carregado com sucesso.")
-                    } else {
-                        Log.e("MyAddress", "Endereço não encontrado.")
+                        logradouroEdit.setText(endereco.ENDERECO_LOGRADOURO)
+                        numeroEdit.setText(endereco.ENDERECO_NUMERO)
+                        nomeEdit.setText(endereco.ENDERECO_NOME)
+                        cidadeEdit.setText(endereco.ENDERECO_CIDADE)
+                        estadoEdit.setText(endereco.ENDERECO_ESTADO)
+                    } ?: run {
+                        Toast.makeText(this@MyAddress, "Nenhum endereço encontrado.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Log.e("MyAddress", "Erro ao carregar endereço: ${response.code()}")
+                    Toast.makeText(this@MyAddress, "Erro ao carregar endereço: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Endereco>, t: Throwable) {
-                Log.e("MyAddress", "Erro de conexão: ${t.message}")
+                Toast.makeText(this@MyAddress, "Erro de conexão: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -114,13 +111,7 @@ class MyAddress : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@MyAddress, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
-                    val errorMessage = when (response.code()) {
-                        400 -> "Requisição inválida. Verifique os dados enviados."
-                        404 -> "Usuário não encontrado. Tente novamente."
-                        500 -> "Erro no servidor. Tente mais tarde."
-                        else -> "Erro inesperado: ${response.code()}"
-                    }
-                    Toast.makeText(this@MyAddress, errorMessage, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MyAddress, "Erro ao atualizar endereço: ${response.code()}", Toast.LENGTH_LONG).show()
                 }
             }
 
