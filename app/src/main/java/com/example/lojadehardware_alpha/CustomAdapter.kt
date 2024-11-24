@@ -40,7 +40,6 @@ class CustomAdapter(private var dataSet: List<Produto>) :
         return ViewHolder(view)
     }
 
-
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val produto = dataSet[position]
         viewHolder.nome.text = produto.produtoNome

@@ -66,7 +66,15 @@ class CartAdapter(
             productQuantity.text = item.quantidadeDisponivel.toString()
             productSubtotal.text = String.format("Subtotal: R$%.2f", precoFinal * (item.quantidadeDisponivel ?: 1))
 
-            Glide.with(context).load(item.imagemUrl).into(holder.productImage)
+            // Verifica se a URL da imagem é válida ou está vazia
+            val imageUrl = if (item.imagemUrl.isNullOrEmpty() || item.imagemUrl == "empty") {
+                "https://st4.depositphotos.com/36923632/38547/v/450/depositphotos_385477712-stock-illustration-outline-drug-icon-drug-vector.jpg" // URL padrão
+            } else {
+                item.imagemUrl
+            }
+
+            // Carrega a imagem com Glide
+            Glide.with(context).load(imageUrl).into(holder.productImage)
 
             decreaseButton.setOnClickListener { alterarQuantidade(item, holder, -1) }
             increaseButton.setOnClickListener { alterarQuantidade(item, holder, 1) }

@@ -30,7 +30,6 @@ class OrderPlaced : AppCompatActivity() {
         // Verificar se a lista é nula ou vazia
         if (productList.isNullOrEmpty()) {
             // Exiba uma mensagem ou realize outra ação para lidar com a lista vazia
-            // Exemplo:
             println("Nenhum produto encontrado!")
             return
         }
