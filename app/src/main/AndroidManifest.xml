@@ -34,6 +34,9 @@
             android:name=".SingleProduct"
             android:exported="false" />
         <activity
+            android:name=".Payment"
+            android:exported="false" />
+        <activity
             android:name=".ProductCart"
             android:exported="false" />
         <activity
@@ -44,6 +47,9 @@
             android:exported="false" />
         <activity
             android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".OrderPlaced"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

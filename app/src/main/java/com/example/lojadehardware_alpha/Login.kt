@@ -66,7 +66,6 @@ class Login : AppCompatActivity() {
         togglePasswordVisibility.setImageResource(R.drawable.ic_visibility_off)
 
         // Alterna a visibilidade da senha ao clicar no ícone
-        // Alterna a visibilidade da senha ao clicar no ícone
         togglePasswordVisibility.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
             if (isPasswordVisible) {
@@ -90,7 +89,7 @@ class Login : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://thyagoquintas.com.br/ALPHA/autenticacao/")
+            .baseUrl("https://eb995d1f-dfff-4a7b-90f7-7ebe2438ad50-00-8qvsbwqugcqv.kirk.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -132,7 +131,7 @@ class Login : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("login")
+        @GET("userLogin.php")
         fun login(
             @Query("usuario") usuario: String,
             @Query("senha") senha: String
