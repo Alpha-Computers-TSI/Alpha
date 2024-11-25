@@ -58,9 +58,7 @@ class ProductCart : AppCompatActivity() {
         fetchCartItems()
 
         goBackToHomeArrow.setOnClickListener{
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-            finish()
+            finish() // Finaliza a Activity atual e retorna à anterior
         }
 
         forgottenCepTextView.setOnClickListener {
@@ -94,14 +92,14 @@ class ProductCart : AppCompatActivity() {
 
 
         goToListagemProdutos.setOnClickListener {
-            val intent = Intent(this@ProductCart, ListaProdutos::class.java)
+            val intent = Intent(this@ProductCart, Home::class.java)
             startActivity(intent)
         }
     }
 
     private fun fetchCartItems() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://77271f8d-5953-4fb8-97c7-a179e7e317e5-00-346q9duyvospq.kirk.replit.dev/")
+            .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

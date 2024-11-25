@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.os.Handler
+import android.widget.ImageView
 
 
 class Home : BaseSearchActivity() {
@@ -46,31 +47,15 @@ class Home : BaseSearchActivity() {
 
         // Configurar BottomNavigationView
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
-
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    // Navegação para a HomeActivity
-                    startActivity(Intent(this, Home::class.java))
-                    true
-                }
-
-                R.id.nav_categories -> {
-                    // Navegação para a ListaCategorias
-                    startActivity(Intent(this, ListaCategorias::class.java))
-                    true
-                }
-
-                R.id.nav_account -> {
-                    // Navegação para a ContaActivity
-                    startActivity(Intent(this, MyAccount::class.java))
-                    true
-                }
-
-                else -> false
-            }
+        // Configurar botão para o carrinho
+        val cartIcon: ImageView = findViewById(R.id.cart_icon)
+        cartIcon.setOnClickListener {
+            val intent = Intent(this, ProductCart::class.java)
+            startActivity(intent)
         }
+
         // Configurar barra de pesquisa
         val searchView = findViewById<SearchView>(R.id.search_view)
         configurarSearchView(searchView) { termo ->

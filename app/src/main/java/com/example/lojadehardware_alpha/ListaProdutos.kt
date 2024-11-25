@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lojadehardware_alpha.util.MenuFiltrosHelper
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,6 +42,17 @@ class ListaProdutos : BaseSearchActivity() {
         // Configura a barra de pesquisa
         configurarSearchView(searchView) { query ->
             abrirResultadosBusca(query)
+        }
+
+        // Configurar BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
+
+        // Configurar botão para o carrinho
+        val cartIcon: ImageView = findViewById(R.id.cart_icon)
+        cartIcon.setOnClickListener {
+            val intent = Intent(this, ProductCart::class.java)
+            startActivity(intent)
         }
 
         progressBar = findViewById(R.id.progressBar)
