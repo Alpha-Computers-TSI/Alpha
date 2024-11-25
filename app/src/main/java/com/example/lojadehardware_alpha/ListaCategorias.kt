@@ -3,12 +3,14 @@ package com.example.lojadehardware_alpha
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ListaCategorias : BaseSearchActivity() {
 
@@ -26,6 +28,17 @@ class ListaCategorias : BaseSearchActivity() {
 
         // Configuração da barra de pesquisa
         val searchView = findViewById<SearchView>(R.id.search_view)
+
+        // Configurar BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
+
+        // Configurar botão para o carrinho
+        val cartIcon: ImageView = findViewById(R.id.cart_icon)
+        cartIcon.setOnClickListener {
+            val intent = Intent(this, ProductCart::class.java)
+            startActivity(intent)
+        }
 
         // Ao clicar na barra de pesquisa, ela abre
         searchView.setOnClickListener {

@@ -2,6 +2,7 @@ package com.example.lojadehardware_alpha
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -11,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +28,10 @@ class SingleProduct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_produto_detalhes)
+
+        // Configurar BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
@@ -43,22 +49,28 @@ class SingleProduct : AppCompatActivity() {
         val formatoMoeda = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
         // Formata os valores como moeda
-        val precoFormatado = formatoMoeda.format(produtoPreco - produtoDesconto)
+        val precoFormatado = formatoMoeda.format(produtoPreco - (produtoPreco * produtoDesconto) / 100)
         val descontoFormatado = formatoMoeda.format(produtoPreco)
 
         // Define o texto no TextView de preço
-        findViewById<TextView>(R.id.txtPrecoProduto).apply {
+        findViewById<TextView>(R.id.txtPrecoFinal).apply {
             text = precoFormatado
         }
 
         // Configura o TextView de desconto
-        findViewById<TextView>(R.id.txtDescontoProduto).apply {
+        findViewById<TextView>(R.id.txtPrecoOriginal).apply {
+
+            // Efeito texto riscado
+            paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+
+            // Ocultar caso não haja desconto
             if (produtoDesconto == 0.0) {
                 visibility = View.GONE // Oculta a view se o desconto for 0
             } else {
                 text = descontoFormatado
                 visibility = View.VISIBLE // Mostra a view caso tenha um desconto válido
             }
+
         }
 
         //findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
@@ -81,6 +93,11 @@ class SingleProduct : AppCompatActivity() {
             val intent = Intent(this@SingleProduct, ProductCart::class.java)
             startActivity(intent)
       }
+
+        val btnBack = findViewById<ImageView>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish() // Finaliza a Activity atual e retorna à anterior
+        }
     }
 
     // Função para adicionar o produto ao carrinho

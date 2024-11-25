@@ -58,9 +58,7 @@ class ProductCart : AppCompatActivity() {
         fetchCartItems()
 
         goBackToHomeArrow.setOnClickListener{
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-            finish()
+            finish() // Finaliza a Activity atual e retorna à anterior
         }
 
         forgottenCepTextView.setOnClickListener {
@@ -94,7 +92,7 @@ class ProductCart : AppCompatActivity() {
 
 
         goToListagemProdutos.setOnClickListener {
-            val intent = Intent(this@ProductCart, ListaProdutos::class.java)
+            val intent = Intent(this@ProductCart, Home::class.java)
             startActivity(intent)
         }
     }
