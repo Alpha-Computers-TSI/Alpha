@@ -55,8 +55,8 @@ class MyAddress : AppCompatActivity() {
         }
 
         // Configurar BottomNavigationView
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
+        //val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        //BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         // Recuperar ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
