@@ -48,6 +48,9 @@ class ListaProdutos : BaseSearchActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_categories
+
         // Configurar botão para o carrinho
         val cartIcon: ImageView = findViewById(R.id.cart_icon)
         cartIcon.setOnClickListener {

@@ -30,6 +30,9 @@ class Profile : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_account
+
         // Inicializar os EditText
         nomeEditText = findViewById(R.id.userEditText)
         cpfEditText = findViewById(R.id.cpfEditText)
