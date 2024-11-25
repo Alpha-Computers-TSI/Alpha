@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class OrderPlaced : BaseSearchActivity() {
+class OrderPlaced : AppCompatActivity() {
     private lateinit var resumoPedidoRecyclerView: RecyclerView
     private lateinit var goBackToProductsBtn: Button
     private lateinit var goBackToHomeArrow: ImageView
@@ -56,6 +56,6 @@ class OrderPlaced : BaseSearchActivity() {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
             finish()
+        }
     }
-  }
 }
