@@ -84,7 +84,7 @@ class Register : AppCompatActivity() {
     private fun registerUser(user: User) {
         // Configuração do Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
+            .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
