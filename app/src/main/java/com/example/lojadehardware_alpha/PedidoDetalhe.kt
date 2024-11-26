@@ -21,7 +21,7 @@ class PedidoDetalhe : AppCompatActivity() {
     private lateinit var adapter: PedidoDetalheAdapter
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://eb995d1f-dfff-4a7b-90f7-7ebe2438ad50-00-8qvsbwqugcqv.kirk.replit.dev/")
+        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

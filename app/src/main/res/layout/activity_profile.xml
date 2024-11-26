@@ -44,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite seu nome"
             android:padding="12dp"
             android:textColor="#000000"/>
 
@@ -62,9 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite seu CPF"
+            android:maxLength="11"
             android:padding="12dp"
-            android:textColor="#000000"/>
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="match_parent"
@@ -80,9 +79,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite seu email"
+            android:maxLength="64"
             android:padding="12dp"
-            android:textColor="#000000"/>
+            android:textColor="#000000" />
 
     </LinearLayout>
 
