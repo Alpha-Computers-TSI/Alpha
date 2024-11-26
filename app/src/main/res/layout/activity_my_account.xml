@@ -19,8 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Bem-vindo -->
-
+    <!-- Título Principal -->
     <TextView
         android:id="@+id/textView49"
         android:layout_width="wrap_content"
@@ -32,52 +31,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/toolbar3"
-        app:layout_constraintVertical_bias="0.432" />
+        app:layout_constraintTop_toTopOf="@id/toolbar3" />
 
-    <LinearLayout
-        android:layout_width="272dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="216dp"
-        android:background="@drawable/border_radious_my_account"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar3">
-
-        <TextView
-            android:id="@+id/myDocuments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Meus dados"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" /> <!-- Espaçamento entre os itens -->
-
-        <TextView
-            android:id="@+id/myOrdersTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Meus pedidos"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" /> <!-- Espaçamento entre os itens -->
-
-        <TextView
-            android:id="@+id/myAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Meu endereço"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
+    <!-- Título "Bem-vindo" -->
     <TextView
         android:id="@+id/textView50"
         android:layout_width="wrap_content"
@@ -90,7 +46,135 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar3" />
+
+    <!-- Centralizado: Dados, Pedidos e Endereço -->
+    <LinearLayout
+        android:layout_width="210dp"
+        android:layout_height="209dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/border_radious_my_account"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView50">
+
+        <!-- Meus Dados com Ícone -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Ícone -->
+            <ImageView
+                android:id="@+id/myDataIcon"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="Ícone de dados"
+                android:src="@drawable/ic_baseline_person_24"
+                app:tint="#34C9FF" />
+
+            <!-- Espaço entre a imagem e o texto -->
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <!-- Texto -->
+            <TextView
+                android:id="@+id/myDocuments"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:text="Meus dados"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Linha separadora -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="#e6e8eb" />
+
+        <!-- Meus Pedidos com Ícone -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Ícone -->
+            <ImageView
+                android:id="@+id/myOrdersIcon"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="Ícone de pedidos"
+                android:src="@drawable/box_unpacked"
+                app:tint="#34C9FF" />
+
+            <!-- Espaço entre a imagem e o texto -->
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <!-- Texto -->
+            <TextView
+                android:id="@+id/myOrdersTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meus pedidos"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Linha separadora -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="#e6e8eb" />
+
+        <!-- Meu Endereço com Ícone -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Ícone -->
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="Ícone referente ao endereço"
+                android:src="@drawable/location_icon"
+                app:tint="#34C9FF" />
+
+            <!-- Espaço entre a imagem e o texto -->
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <!-- Texto -->
+            <TextView
+                android:id="@+id/myAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meu endereço"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

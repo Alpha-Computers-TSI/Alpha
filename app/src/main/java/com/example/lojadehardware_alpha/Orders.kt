@@ -2,9 +2,9 @@ package com.example.lojadehardware_alpha
 
 import Pedidos
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Orders : AppCompatActivity() {
 
+    private lateinit var semPedidosImg: ImageView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: OrdersAdapter
     private val pedidosList = mutableListOf<Pedidos>()
@@ -43,9 +44,11 @@ class Orders : AppCompatActivity() {
         adapter = OrdersAdapter(pedidosList)
         recyclerView.adapter = adapter
 
-        // Chamar a função para buscar os pedidos
-        fetchPedidos(userId) // Substitua pelo ID real do usuário
+        // Referência à imagem que será visível quando não houver pedidos
+        semPedidosImg = findViewById(R.id.semPedidosImg)
 
+        // Chamar a função para buscar os pedidos
+        fetchPedidos(userId)
     }
 
     private fun fetchPedidos(userId: Int) {
@@ -56,6 +59,17 @@ class Orders : AppCompatActivity() {
                         pedidosList.clear()
                         pedidosList.addAll(it)
                         adapter.notifyDataSetChanged()
+
+                        // Verificar se a lista de pedidos está vazia
+                        if (pedidosList.isEmpty()) {
+                            // Se estiver vazia, esconder o RecyclerView e mostrar a imagem
+                            recyclerView.visibility = View.GONE
+                            semPedidosImg.visibility = View.VISIBLE
+                        } else {
+                            // Caso contrário, garantir que o RecyclerView esteja visível
+                            recyclerView.visibility = View.VISIBLE
+                            semPedidosImg.visibility = View.GONE
+                        }
                     }
                 } else {
                     Toast.makeText(this@Orders, "Erro: ${response.message()}", Toast.LENGTH_SHORT).show()
@@ -63,12 +77,10 @@ class Orders : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Pedidos>>, t: Throwable) {
-                Toast.makeText(this@Orders, "Falha ao conectar à API", Toast.LENGTH_SHORT).show()
+                // Lidar com falha na requisição
+                Toast.makeText(this@Orders, "Falha ao carregar pedidos", Toast.LENGTH_SHORT).show()
                 Log.e("OrdersActivity", "Error fetching pedidos", t)
             }
         })
     }
 }
-
-
-

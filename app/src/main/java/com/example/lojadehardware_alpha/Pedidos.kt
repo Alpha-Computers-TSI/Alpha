@@ -1,4 +1,4 @@
-data class Pedidos(
+data class  Pedidos(
     val PEDIDO_ID: Int,
     val USUARIO_ID: Int,
     val STATUS_ID: Int,

@@ -57,4 +57,15 @@
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:menu="@menu/bottom_nav_menu" />
+
+    <ImageView
+        android:id="@+id/semPedidosImg"
+        android:layout_width="280dp"
+        android:layout_height="393dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4"
+        app:srcCompat="@drawable/alphawolflogo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

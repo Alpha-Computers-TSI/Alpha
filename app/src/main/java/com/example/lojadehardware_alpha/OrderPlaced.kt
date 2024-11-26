@@ -53,9 +53,9 @@ class OrderPlaced : AppCompatActivity() {
         goBackToProductsBtn = findViewById(R.id.goBackToProductsBtn)
 
         goBackToProductsBtn.setOnClickListener {
-            val intent = Intent(this, ListaProdutos::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
             finish()
+        }
     }
-  }
 }

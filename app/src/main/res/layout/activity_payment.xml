@@ -258,6 +258,16 @@
                         android:layout_height="261dp"
                         android:layout_marginTop="6dp"
                         app:srcCompat="@drawable/no_address_found" />
+
+                    <Button
+                        android:id="@+id/goToAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dp"
+                        android:backgroundTint="#34C9FF"
+                        android:text="Cadastrar Endereço"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>

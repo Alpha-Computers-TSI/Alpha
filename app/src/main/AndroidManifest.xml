@@ -65,6 +65,12 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".MyAccount"
+            android:exported="false" />
+        <activity
+            android:name=".MyAddress"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
@@ -72,6 +78,9 @@
             android:exported="false" />
         <activity
             android:name=".OrderPlaced"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterAddress"
             android:exported="false" />
         <activity
             android:name=".Login"
