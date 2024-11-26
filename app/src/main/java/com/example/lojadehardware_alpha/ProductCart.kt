@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,8 @@ class ProductCart : AppCompatActivity() {
     private lateinit var forgottenCepTextView: TextView
     private lateinit var cartAdapter: CartAdapter
     private lateinit var goBackToHomeArrow: ImageView
+    private lateinit var progressBar: ProgressBar
+
 
     private var total: Double = 0.0
     private var productsValue: Double = 0.0
@@ -51,6 +54,9 @@ class ProductCart : AppCompatActivity() {
         goToListagemProdutos = findViewById(R.id.goToListagemProdutos)
         forgottenCepTextView = findViewById(R.id.forgottenCepTextView)
         goBackToHomeArrow = findViewById(R.id.goBackToHomeArrow)
+        progressBar = findViewById(R.id.progressBar)
+
+
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -100,6 +106,8 @@ class ProductCart : AppCompatActivity() {
     }
 
     private fun fetchCartItems() {
+        progressBar.visibility = View.VISIBLE
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -112,6 +120,7 @@ class ProductCart : AppCompatActivity() {
         api.getCartItems(userId = idUsuario).enqueue(object : Callback<List<Produto>> {
 
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     cartItems = response.body()?.toMutableList() ?: mutableListOf()
                     setupAdapter()

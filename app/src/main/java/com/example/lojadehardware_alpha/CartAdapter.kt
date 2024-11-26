@@ -180,39 +180,15 @@ class CartAdapter(
     private fun bloquearBotoes(holder: ViewHolder) {
         holder.decreaseButton.isEnabled = false
         holder.increaseButton.isEnabled = false
+        holder.itemView.findViewById<View>(R.id.progressBar).visibility = View.VISIBLE
+
     }
 
     private fun desbloquearBotoes(holder: ViewHolder) {
         holder.decreaseButton.isEnabled = true
         holder.increaseButton.isEnabled = true
-
-        //Chama o método Delete
-        /*private fun removeItemFromCart(item: Produto, position: Int) {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val api = retrofit.create(CartApiService::class.java)
+        holder.itemView.findViewById<View>(R.id.progressBar).visibility = View.GONE
 
 
-            val sharedPreferences = context.getSharedPreferences("Dados", Context.MODE_PRIVATE)
-            val userId = sharedPreferences.getInt("id", 0)
-
-            api.deleteCartItem(item.produtoId!!, userId).enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        items.removeAt(position)
-                        notifyItemRemoved(position)
-                        notifyItemRangeChanged(position, items.size)
-                        updateTotal()
-                    }
-                }
-
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    // Tratamento de erro ao remover o item
-                }
-            })
-        }*/
     }
 }
