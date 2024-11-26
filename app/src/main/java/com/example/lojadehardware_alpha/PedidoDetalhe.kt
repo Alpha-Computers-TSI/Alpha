@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +21,7 @@ class PedidoDetalhe : AppCompatActivity() {
     private lateinit var adapter: PedidoDetalheAdapter
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
+        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -31,10 +30,6 @@ class PedidoDetalhe : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedido_detalhe)
-
-        // Configurar BottomNavigationView
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         recyclerView = findViewById(R.id.recyclerView)
 

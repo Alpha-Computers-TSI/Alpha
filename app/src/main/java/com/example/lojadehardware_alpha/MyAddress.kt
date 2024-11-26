@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +27,7 @@ class MyAddress : AppCompatActivity() {
     private lateinit var updateButton: Button
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
+        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -54,10 +53,6 @@ class MyAddress : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Configurar BottomNavigationView
-        //val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        //BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
-
         // Recuperar ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", -1)
@@ -76,7 +71,7 @@ class MyAddress : AppCompatActivity() {
                 ENDERECO_NUMERO = numeroEdit.text.toString().trim(),
                 ENDERECO_NOME = nomeEdit.text.toString().trim(),
                 ENDERECO_CIDADE = cidadeEdit.text.toString().trim(),
-                ENDERECO_ESTADO = estadoEdit.text.toString().trim(),
+                ENDERECO_ESTADO = estadoEdit.text.toString().trim()
             )
 
             updateAddress(userId, endereco)
