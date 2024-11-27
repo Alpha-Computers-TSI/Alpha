@@ -43,11 +43,10 @@
             android:exported="false"
             android:label="@string/title_activity_lista_produtos"
             android:theme="@style/Theme.LojaDeHardwareAlpha" />
-        />
+
         <activity
             android:name=".Home"
             android:exported="false"
-            android:label="@string/title_activity_lista_produtos"
             android:theme="@style/Theme.LojaDeHardwareAlpha" />
         <activity
             android:name=".SingleProduct"
@@ -68,19 +67,10 @@
             android:name=".MyAccount"
             android:exported="false" />
         <activity
-            android:name=".MyAddress"
-            android:exported="false" />
-        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".MyAccount"
-            android:exported="false" />
-        <activity
             android:name=".OrderPlaced"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterAddress"
             android:exported="false" />
         <activity
             android:name=".Login"
