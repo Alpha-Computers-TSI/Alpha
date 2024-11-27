@@ -47,6 +47,7 @@
         <activity
             android:name=".Home"
             android:exported="false"
+            android:label="@string/title_activity_lista_produtos"
             android:theme="@style/Theme.LojaDeHardwareAlpha" />
         <activity
             android:name=".SingleProduct"
