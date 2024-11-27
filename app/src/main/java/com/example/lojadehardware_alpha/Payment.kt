@@ -2,6 +2,7 @@ package com.example.lojadehardware_alpha
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,6 +27,7 @@ class Payment : AppCompatActivity() {
     private lateinit var boletoContainer: LinearLayout
     private lateinit var cardContainer: LinearLayout
     private lateinit var goBackToProductCart: ImageView
+    private lateinit var goToAddress: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +79,13 @@ class Payment : AppCompatActivity() {
 
         // Carregar endereços do usuário
         loadUserAddresses(userId)
+
+        //Vai para tela de cadastro de Endereço
+        goToAddress = findViewById(R.id.goToAddress)
+        goToAddress.setOnClickListener{
+            val intent = Intent(this, RegisterAddress::class.java)
+            startActivity(intent)
+        }
 
         // Volta para o Carrinho
         goBackToProductCart = findViewById(R.id.goBackToProductCart)
@@ -158,10 +167,12 @@ class Payment : AppCompatActivity() {
     // Popula RadioGroup com endereços do usuário
     private fun populateAddressRadioButtons(addresses: List<Endereco>) {
         addresses.forEach { address ->
-            val radioButton = RadioButton(this)
-            radioButton.text =
-                "${address.ENDERECO_LOGRADOURO}, ${address.ENDERECO_NUMERO} - ${address.ENDERECO_NOME}, ${address.ENDERECO_CIDADE} - ${address.ENDERECO_ESTADO}, ${address.ENDERECO_CEP}"
-            radioButton.tag = address.ENDERECO_ID
+            val radioButton = RadioButton(this).apply {
+                text =
+                    "${address.ENDERECO_LOGRADOURO}, ${address.ENDERECO_NUMERO} - ${address.ENDERECO_NOME}, ${address.ENDERECO_CIDADE} - ${address.ENDERECO_ESTADO}, ${address.ENDERECO_CEP}"
+                tag = address.ENDERECO_ID
+                setTextColor(Color.BLACK) // Define a cor do texto como preta
+            }
             radioGroup.addView(radioButton)
         }
     }
@@ -179,16 +190,21 @@ class Payment : AppCompatActivity() {
         val call = api.createOrder(orderRequest)
         call.enqueue(object : Callback<ResponseCompra> {
             override fun onResponse(call: Call<ResponseCompra>, response: Response<ResponseCompra>) {
-                Log.d("RESPONSE_CODE", response.code().toString())
-                Log.d("RESPONSE_BODY", response.body()?.toString() ?: "Corpo vazio")
-                Log.d("RESPONSE_ERROR", response.errorBody()?.string() ?: "Sem erro")
-
                 if (response.isSuccessful) {
                     Toast.makeText(this@Payment, "Pedido realizado com sucesso!", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this@Payment, OrderPlaced::class.java))
+
+                    // Cria a Intent para a próxima tela
+                    val intent = Intent(this@Payment, OrderPlaced::class.java)
+
+                    // Passa a lista de produtos pela Intent
+                    if (!products.isNullOrEmpty()) {
+                        intent.putParcelableArrayListExtra("PRODUCT_LIST", products)
+                    }
+
+                    startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this@Payment, "Erro ao realizar pedido: ${response.code()}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@Payment, "Erro ao realizar pedido", Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -197,7 +213,6 @@ class Payment : AppCompatActivity() {
             }
         })
     }
-
 
     // Interface para chamadas da API
     interface OrderApiService {

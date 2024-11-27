@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,7 @@ class RegisterAddress : AppCompatActivity() {
 
     // Inicializa Retrofit
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
+        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -47,6 +48,8 @@ class RegisterAddress : AppCompatActivity() {
         )
         .build()
 
+
+
     private val viaCep = viaCepRetrofit.create(ViaCepService::class.java)
 
 
@@ -58,7 +61,9 @@ class RegisterAddress : AppCompatActivity() {
     private lateinit var cidadeInput: EditText
     private lateinit var estadoInput: EditText
     private lateinit var btnCadastrar: Button
-    private lateinit var textmyaddress: TextView // Aqui é o TextView para a Intent
+    private lateinit var textmyaddress: TextView
+    private lateinit var btnvoltarMeuEndereco: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -73,6 +78,7 @@ class RegisterAddress : AppCompatActivity() {
         cidadeInput = findViewById(R.id.cidadeInput)
         estadoInput = findViewById(R.id.estadoInput)
         btnCadastrar = findViewById(R.id.btnCadastrar)
+        progressBar = findViewById(R.id.progressBar)
         textmyaddress = findViewById(R.id.textmyaddress) // Aqui é onde o TextView é encontrado no layout
 
         cepInput.addTextChangedListener(object : TextWatcher {
@@ -89,6 +95,8 @@ class RegisterAddress : AppCompatActivity() {
 
         // Evento de clique no botão "Cadastrar"
         btnCadastrar.setOnClickListener {
+            progressBar.visibility = ProgressBar.VISIBLE
+
             val endereco = Endereco(
                 ENDERECO_CEP = cepInput.text.toString(),
                 ENDERECO_LOGRADOURO = logradouroInput.text.toString(),
@@ -109,6 +117,8 @@ class RegisterAddress : AppCompatActivity() {
                         response: Response<ResponseModel>
                     ) {
                         if (response.isSuccessful) {
+                            progressBar.visibility = ProgressBar.GONE
+
                             response.body()?.let {
                                 if (it.success != null) {
                                     Toast.makeText(this@RegisterAddress, it.success, Toast.LENGTH_LONG).show()
@@ -117,6 +127,8 @@ class RegisterAddress : AppCompatActivity() {
                                 }
                             }
                         } else {
+                            progressBar.visibility = ProgressBar.GONE
+
                             Toast.makeText(this@RegisterAddress, "Erro: ${response.code()}", Toast.LENGTH_LONG).show()
                         }
                     }
@@ -132,11 +144,21 @@ class RegisterAddress : AppCompatActivity() {
             val intent = Intent(this, MyAddress::class.java)
             startActivity(intent)
         }
+
+        // Configurar o botão de voltar
+
+        btnvoltarMeuEndereco= findViewById(R.id.btnvoltarMeuEndereco)
+        btnvoltarMeuEndereco.setOnClickListener {
+            val intent = Intent(this, MyAddress::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun buscarEndereco(cep: String) {
         viaCep.buscarEndereco(cep).enqueue(object : Callback<ViaCepResponse> {
             override fun onResponse(call: Call<ViaCepResponse>, response: Response<ViaCepResponse>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     val endereco = response.body()
                     if (endereco != null) {
@@ -157,4 +179,6 @@ class RegisterAddress : AppCompatActivity() {
             }
         })
     }
+
+
 }

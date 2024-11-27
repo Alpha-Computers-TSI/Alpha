@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,7 +21,13 @@ class MyAccount : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
+
         }
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
+
 
         // Configurar BottomNavigationView
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)

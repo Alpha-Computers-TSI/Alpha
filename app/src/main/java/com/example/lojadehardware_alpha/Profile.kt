@@ -1,10 +1,12 @@
 package com.example.lojadehardware_alpha
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,6 +23,8 @@ class Profile : AppCompatActivity() {
     private lateinit var cpfEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var updateButton: Button
+    private lateinit var bntVoltarMinhaConta: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +34,12 @@ class Profile : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
-        // Marcar a aba atual como selecionada
-        bottomNavigationView.selectedItemId = R.id.nav_account
-
         // Inicializar os EditText
         nomeEditText = findViewById(R.id.userEditText)
         cpfEditText = findViewById(R.id.cpfEditText)
         emailEditText = findViewById(R.id.emailEditText)
         updateButton = findViewById(R.id.button10)
+        progressBar = findViewById(R.id.progressBar)
 
         // Recuperar o ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
@@ -54,20 +56,33 @@ class Profile : AppCompatActivity() {
             Toast.makeText(this, "Erro: ID do usuário não encontrado.", Toast.LENGTH_LONG).show()
         }
 
+        // Configurar o botão de voltar
+
+        bntVoltarMinhaConta = findViewById(R.id.bntVoltarMinhaConta)
+        bntVoltarMinhaConta.setOnClickListener {
+            val intent = Intent(this, MyAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
         // Configura o botão de atualizar
         updateButton.setOnClickListener {
             updateUserData(userId)
+            finish()
+
         }
     }
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
+        .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     val userService = retrofit.create(UserService::class.java)
 
     private fun updateUserData(userId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
         val nome = nomeEditText.text.toString()
         val cpf = cpfEditText.text.toString()
         val email = emailEditText.text.toString()
@@ -81,6 +96,7 @@ class Profile : AppCompatActivity() {
 
         userService.updateUser(userId, usuarioAtualizado).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     Toast.makeText(this@Profile, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
@@ -97,9 +113,12 @@ class Profile : AppCompatActivity() {
     }
 
     fun fetchUserData(userId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
+
         val call = userService.getUsuario(userId)
         call.enqueue(object : Callback<Usuario> {
             override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     val usuario = response.body()
                     if (usuario != null) {

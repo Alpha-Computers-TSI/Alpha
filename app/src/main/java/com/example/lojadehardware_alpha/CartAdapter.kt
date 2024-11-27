@@ -32,7 +32,7 @@ class CartAdapter(
     // Retrofit centralizado
     private val retrofitService: CartApiService by lazy {
         Retrofit.Builder()
-            .baseUrl("https://77271f8d-5953-4fb8-97c7-a179e7e317e5-00-346q9duyvospq.kirk.replit.dev/")
+            .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CartApiService::class.java)
@@ -68,7 +68,7 @@ class CartAdapter(
 
             // Verifica se a URL da imagem é válida ou está vazia
             val imageUrl = if (item.imagemUrl.isNullOrEmpty() || item.imagemUrl == "empty") {
-                "https://st4.depositphotos.com/36923632/38547/v/450/depositphotos_385477712-stock-illustration-outline-drug-icon-drug-vector.jpg" // URL padrão
+                "https://st4.depositphotos.com/36923632/38547/v/450/depositphotos_385477712-stock-illustration-outline-drug-icon-drug-vector.jpg"
             } else {
                 item.imagemUrl
             }
@@ -180,39 +180,15 @@ class CartAdapter(
     private fun bloquearBotoes(holder: ViewHolder) {
         holder.decreaseButton.isEnabled = false
         holder.increaseButton.isEnabled = false
+        holder.itemView.findViewById<View>(R.id.progressBar).visibility = View.VISIBLE
+
     }
 
     private fun desbloquearBotoes(holder: ViewHolder) {
         holder.decreaseButton.isEnabled = true
         holder.increaseButton.isEnabled = true
-
-        //Chama o método Delete
-        /*private fun removeItemFromCart(item: Produto, position: Int) {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://www.thyagoquintas.com.br/ALPHA/carrinho_de_compras/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val api = retrofit.create(CartApiService::class.java)
+        holder.itemView.findViewById<View>(R.id.progressBar).visibility = View.GONE
 
 
-            val sharedPreferences = context.getSharedPreferences("Dados", Context.MODE_PRIVATE)
-            val userId = sharedPreferences.getInt("id", 0)
-
-            api.deleteCartItem(item.produtoId!!, userId).enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        items.removeAt(position)
-                        notifyItemRemoved(position)
-                        notifyItemRangeChanged(position, items.size)
-                        updateTotal()
-                    }
-                }
-
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    // Tratamento de erro ao remover o item
-                }
-            })
-        }*/
     }
 }

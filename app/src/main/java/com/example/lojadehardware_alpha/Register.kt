@@ -1,8 +1,12 @@
 package com.example.lojadehardware_alpha
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -36,6 +40,23 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_register)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Ocultar a System UI
+            window.insetsController?.let {
+                it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            // Compatibilidade para versões mais antigas
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.myOrdersTextView)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -84,7 +105,7 @@ class Register : AppCompatActivity() {
     private fun registerUser(user: User) {
         // Configuração do Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.repl.co/")
+            .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

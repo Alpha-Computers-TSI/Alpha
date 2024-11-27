@@ -36,13 +36,13 @@
         android:id="@+id/textmyaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:text="Meu endereço"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintHorizontal_bias="0.209"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar6" />
 
@@ -50,157 +50,197 @@
         android:id="@+id/textregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:lineSpacingExtra="8sp"
         android:text="Cadastrar"
         android:textColor="#34C9FF"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar6" />
 
     <LinearLayout
         android:id="@+id/linearLayout15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_width="409dp"
+        android:layout_height="473dp"
+        android:layout_marginTop="12dp"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar6">
+        app:layout_constraintTop_toBottomOf="@+id/textmyaddress"
+        tools:ignore="MissingConstraints">
 
         <!-- Campo CEP -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
             android:text="CEP"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/cepInput"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite seu CEP"
-            android:padding="12dp"
-            android:textColor="#000000"/>
+            android:maxLength="8"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <!-- Campo Rua -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
             android:text="Logradouro"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/logradouroInput"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite o logradouro"
-            android:padding="12dp"
-            android:textColor="#000000"/>
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <!-- Campo Número -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
             android:text="Número"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/numeroInput"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite o número"
-            android:padding="12dp"
-            android:textColor="#000000"/>
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <!-- Campo Nome -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
-            android:text="Nome"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
+            android:text="Casa, Apartamento..."
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/nomeInput"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite o nome"
-            android:padding="12dp"
-            android:textColor="#000000"/>
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <!-- Campo Cidade -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
             android:text="Cidade"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/cidadeInput"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite a cidade"
-            android:padding="12dp"
-            android:textColor="#000000"/>
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <!-- Campo Estado -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
             android:text="Estado"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/estadoInput"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Digite o estado"
-            android:padding="12dp"
-            android:textColor="#000000"/>
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btnCadastrar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="#34C9FF"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:text="CADASTRAR"
         android:textColor="#FFFFFF"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout15" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <Button
+        android:id="@+id/btnvoltarMeuEndereco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#34C9FF"
+        android:text="VOLTAR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.385"
+        app:layout_constraintStart_toEndOf="@+id/btnCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
