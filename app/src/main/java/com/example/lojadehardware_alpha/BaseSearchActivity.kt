@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lojadehardware_alpha.util.MenuFiltrosHelper
 import retrofit2.Retrofit
@@ -35,6 +36,9 @@ abstract class BaseSearchActivity : AppCompatActivity() {
         searchView.setOnClickListener {
             searchView.isIconified = false
         }
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
