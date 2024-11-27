@@ -96,7 +96,7 @@ class Orders : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Pedidos>>, t: Throwable) {
                 // Mostrar Toast de falha e exibir a imagem
-                Toast.makeText(this@Orders, "Falha ao carregar pedidos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Orders, "Sem pedidos", Toast.LENGTH_SHORT).show()
                 Log.e("OrdersActivity", "Error fetching pedidos", t)
 
                 recyclerView.visibility = View.GONE
