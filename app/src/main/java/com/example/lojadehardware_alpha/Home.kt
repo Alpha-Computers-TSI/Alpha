@@ -18,7 +18,7 @@ class Home : BaseSearchActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var bannerAdapter: BannerAdapter
-    private val bannerImages = listOf(R.drawable.banner_modelo, R.drawable.banner_modelo)
+    private val bannerImages = listOf(R.drawable.banner_modelo, R.drawable.banner_modelo2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
