@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -22,6 +23,8 @@ class ListaCategorias : BaseSearchActivity() {
         searchResultsMessage = findViewById(R.id.searchResultsMessage)
         progressBar = findViewById(R.id.progressBar)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
 
         // Configurar o LayoutManager para o RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
