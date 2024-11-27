@@ -33,6 +33,9 @@ class SingleProduct : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = 0
+
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)

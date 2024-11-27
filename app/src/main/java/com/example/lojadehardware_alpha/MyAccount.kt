@@ -33,6 +33,9 @@ class MyAccount : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_account
+
         val myDocuments: TextView = findViewById(R.id.myDocuments)
 
         myDocuments.setOnClickListener{

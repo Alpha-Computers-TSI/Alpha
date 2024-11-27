@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +40,13 @@ class Orders : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
 
+        // Configurar BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
+
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_account
+
         // Recuperar o ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("id", -1)
@@ -54,7 +62,7 @@ class Orders : AppCompatActivity() {
         semPedidosImg = findViewById(R.id.semPedidosImg)
 
         // Chamar a função para buscar os pedidos
-        fetchPedidos(userId)
+        fetchPedidos(userId) // Substitua pelo ID real do usuário
 
         // Configurar o botão de voltar
 
@@ -105,3 +113,6 @@ class Orders : AppCompatActivity() {
         })
     }
 }
+
+
+

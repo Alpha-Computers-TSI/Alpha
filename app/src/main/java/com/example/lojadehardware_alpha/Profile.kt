@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +29,13 @@ class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        // Configurar BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
+
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_account
 
         // Inicializar os EditText
         nomeEditText = findViewById(R.id.userEditText)

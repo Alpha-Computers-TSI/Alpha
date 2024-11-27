@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +44,14 @@ class PedidoDetalhe : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // Configurar BottomNavigationView
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
+
+
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_account
 
         recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.progressBar)
