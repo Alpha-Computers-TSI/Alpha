@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +59,7 @@ class RegisterAddress : AppCompatActivity() {
     private lateinit var cidadeInput: EditText
     private lateinit var estadoInput: EditText
     private lateinit var btnCadastrar: Button
+    private lateinit var progressBar: ProgressBar
     private lateinit var textmyaddress: TextView // Aqui é o TextView para a Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +75,7 @@ class RegisterAddress : AppCompatActivity() {
         cidadeInput = findViewById(R.id.cidadeInput)
         estadoInput = findViewById(R.id.estadoInput)
         btnCadastrar = findViewById(R.id.btnCadastrar)
+        progressBar = findViewById(R.id.progressBar)
         textmyaddress = findViewById(R.id.textmyaddress) // Aqui é onde o TextView é encontrado no layout
 
         cepInput.addTextChangedListener(object : TextWatcher {
@@ -89,6 +92,8 @@ class RegisterAddress : AppCompatActivity() {
 
         // Evento de clique no botão "Cadastrar"
         btnCadastrar.setOnClickListener {
+            progressBar.visibility = ProgressBar.VISIBLE
+
             val endereco = Endereco(
                 ENDERECO_CEP = cepInput.text.toString(),
                 ENDERECO_LOGRADOURO = logradouroInput.text.toString(),
@@ -109,6 +114,8 @@ class RegisterAddress : AppCompatActivity() {
                         response: Response<ResponseModel>
                     ) {
                         if (response.isSuccessful) {
+                            progressBar.visibility = ProgressBar.GONE
+
                             response.body()?.let {
                                 if (it.success != null) {
                                     Toast.makeText(this@RegisterAddress, it.success, Toast.LENGTH_LONG).show()
@@ -117,6 +124,8 @@ class RegisterAddress : AppCompatActivity() {
                                 }
                             }
                         } else {
+                            progressBar.visibility = ProgressBar.GONE
+
                             Toast.makeText(this@RegisterAddress, "Erro: ${response.code()}", Toast.LENGTH_LONG).show()
                         }
                     }
@@ -137,6 +146,7 @@ class RegisterAddress : AppCompatActivity() {
     private fun buscarEndereco(cep: String) {
         viaCep.buscarEndereco(cep).enqueue(object : Callback<ViaCepResponse> {
             override fun onResponse(call: Call<ViaCepResponse>, response: Response<ViaCepResponse>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     val endereco = response.body()
                     if (endereco != null) {

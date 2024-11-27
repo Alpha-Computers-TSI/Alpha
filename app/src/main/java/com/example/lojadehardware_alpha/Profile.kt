@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.ResponseBody
@@ -20,6 +21,7 @@ class Profile : AppCompatActivity() {
     private lateinit var cpfEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var updateButton: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class Profile : AppCompatActivity() {
         cpfEditText = findViewById(R.id.cpfEditText)
         emailEditText = findViewById(R.id.emailEditText)
         updateButton = findViewById(R.id.button10)
+        progressBar = findViewById(R.id.progressBar)
 
         // Recuperar o ID do usuário do SharedPreferences
         val sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
@@ -60,6 +63,7 @@ class Profile : AppCompatActivity() {
     val userService = retrofit.create(UserService::class.java)
 
     private fun updateUserData(userId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
         val nome = nomeEditText.text.toString()
         val cpf = cpfEditText.text.toString()
         val email = emailEditText.text.toString()
@@ -73,6 +77,7 @@ class Profile : AppCompatActivity() {
 
         userService.updateUser(userId, usuarioAtualizado).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     Toast.makeText(this@Profile, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
@@ -89,9 +94,12 @@ class Profile : AppCompatActivity() {
     }
 
     fun fetchUserData(userId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
+
         val call = userService.getUsuario(userId)
         call.enqueue(object : Callback<Usuario> {
             override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     val usuario = response.body()
                     if (usuario != null) {

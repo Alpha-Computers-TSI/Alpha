@@ -2,6 +2,7 @@ package com.example.lojadehardware_alpha
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ class PedidoDetalhe : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PedidoDetalheAdapter
+    private lateinit var progressBar: ProgressBar
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
@@ -32,6 +34,7 @@ class PedidoDetalhe : AppCompatActivity() {
         setContentView(R.layout.activity_pedido_detalhe)
 
         recyclerView = findViewById(R.id.recyclerView)
+        progressBar = findViewById(R.id.progressBar)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -48,17 +51,21 @@ class PedidoDetalhe : AppCompatActivity() {
     }
 
     private fun carregarItensDoPedido(pedidoId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
         userService.listPedidoItens(pedidoId).enqueue(object : Callback<List<PedidoItem>> {
             override fun onResponse(
                 call: Call<List<PedidoItem>>,
                 response: Response<List<PedidoItem>>
+
             ) {
                 if (response.isSuccessful && response.body() != null) {
+                    progressBar.visibility = ProgressBar.GONE
                     val itens = response.body()!!
                     Log.d("PedidoDetalhe", "Itens recebidos: $itens")
                     adapter = PedidoDetalheAdapter(itens)
                     recyclerView.adapter = adapter
                 } else {
+                    progressBar.visibility = ProgressBar.GONE
                     Log.e("PedidoDetalhe", "Erro na resposta: ${response.code()} - ${response.errorBody()?.string()}")
                     Toast.makeText(
                         this@PedidoDetalhe,
