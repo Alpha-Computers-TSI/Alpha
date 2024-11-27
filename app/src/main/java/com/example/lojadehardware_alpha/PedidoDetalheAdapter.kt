@@ -19,6 +19,7 @@
             val produtoNome: TextView = itemView.findViewById(R.id.textViewNomeProduto)
             val descricaoProduto: TextView = itemView.findViewById(R.id.textViewDescricaoProduto)
             val precoProduto: TextView = itemView.findViewById(R.id.textViewPrecoProduto)
+            val textViewQuantidade: TextView = itemView.findViewById(R.id.textViewQuantidade)
         }
 
         // Inflando o layout do item
@@ -40,9 +41,10 @@
                 .into(holder.produtoImagem)
 
             // Configurando os textos
+            holder.textViewQuantidade.text = String.format("Qtd: %d", item.ITEM_QTD)
             holder.descricaoProduto.text = item.PRODUTO_DESC
             holder.produtoNome.text = item.PRODUTO_NOME
-            holder.precoProduto.text = String.format("R$ %.2f", item.ITEM_PRECO)
+            holder.precoProduto.text = String.format("R$ %.2f", item.ITEM_PRECO_COM_DESCONTO)
         }
 
         // Retornando o tamanho da lista

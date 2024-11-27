@@ -72,7 +72,6 @@ class Profile : AppCompatActivity() {
         // Configura o botão de atualizar
         updateButton.setOnClickListener {
             updateUserData(userId)
-            finish()
 
         }
     }

@@ -22,6 +22,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Nome do Produto"
+        android:textStyle="bold"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,17 +43,31 @@
 
     <TextView
         android:id="@+id/textViewPrecoProduto"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
         android:text="Preço do Produto"
         android:textColor="#34C9FF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintStart_toStartOf="@id/textViewDescricaoProduto"
-        app:layout_constraintTop_toBottomOf="@id/textViewDescricaoProduto"
-        android:gravity="center" />
+        app:layout_constraintTop_toBottomOf="@id/textViewDescricaoProduto" />
+
+    <TextView
+        android:id="@+id/textViewQuantidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Qtd: 1"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar8"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPrecoProduto"
+        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescricaoProduto"
+        app:layout_constraintVertical_bias="0.593" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar8"
