@@ -2,9 +2,11 @@ package com.example.lojadehardware_alpha
 
 import Pedidos
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,7 @@ class Orders : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: OrdersAdapter
     private val pedidosList = mutableListOf<Pedidos>()
+    private lateinit var bntvoltarMyAccont: Button
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
@@ -49,6 +52,15 @@ class Orders : AppCompatActivity() {
 
         // Chamar a função para buscar os pedidos
         fetchPedidos(userId)
+
+        // Configurar o botão de voltar
+
+        bntvoltarMyAccont = findViewById(R.id.bntvoltarMyAccont)
+        bntvoltarMyAccont.setOnClickListener {
+            val intent = Intent(this, MyAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun fetchPedidos(userId: Int) {
