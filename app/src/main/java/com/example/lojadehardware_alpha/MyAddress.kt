@@ -25,6 +25,7 @@ class MyAddress : AppCompatActivity() {
     private lateinit var cidadeEdit: EditText
     private lateinit var estadoEdit: EditText
     private lateinit var updateButton: Button
+    private lateinit var bntVoltarMeusDados: Button
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://2c87926d-7bca-4d8a-b846-4ddddb31c316-00-1y6vahvqnlnmn.worf.replit.dev/")
@@ -46,11 +47,21 @@ class MyAddress : AppCompatActivity() {
         estadoEdit = findViewById(R.id.estadoEdit)
         updateButton = findViewById(R.id.buttonUpdate)
 
+        //botao voltar para meus dados
+        bntVoltarMeusDados = findViewById(R.id.bntVoltarMeusDados)
+        bntVoltarMeusDados.setOnClickListener{
+            val intent = Intent(this, MyAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
         // Clique para registrar um novo endereço
         val textregister: TextView = findViewById(R.id.textregister)
         textregister.setOnClickListener {
             val intent = Intent(this, RegisterAddress::class.java)
             startActivity(intent)
+            finish()
         }
 
         // Recuperar ID do usuário do SharedPreferences
