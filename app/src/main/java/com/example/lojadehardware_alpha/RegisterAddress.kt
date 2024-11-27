@@ -47,6 +47,8 @@ class RegisterAddress : AppCompatActivity() {
         )
         .build()
 
+
+
     private val viaCep = viaCepRetrofit.create(ViaCepService::class.java)
 
 
@@ -58,7 +60,8 @@ class RegisterAddress : AppCompatActivity() {
     private lateinit var cidadeInput: EditText
     private lateinit var estadoInput: EditText
     private lateinit var btnCadastrar: Button
-    private lateinit var textmyaddress: TextView // Aqui é o TextView para a Intent
+    private lateinit var textmyaddress: TextView
+    private lateinit var btnvoltarMeuEndereco: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -131,6 +134,15 @@ class RegisterAddress : AppCompatActivity() {
         textmyaddress.setOnClickListener {
             val intent = Intent(this, MyAddress::class.java)
             startActivity(intent)
+        }
+
+        // Configurar o botão de voltar
+
+        btnvoltarMeuEndereco= findViewById(R.id.btnvoltarMeuEndereco)
+        btnvoltarMeuEndereco.setOnClickListener {
+            val intent = Intent(this, MyAddress::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
