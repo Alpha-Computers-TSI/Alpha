@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // Atualize a versão se necessário
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -91,6 +92,9 @@ dependencies {
 
     //Scalars
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+
+    // Viewpager 2
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 }
 
 

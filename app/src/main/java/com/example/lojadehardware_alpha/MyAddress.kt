@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,7 @@ class MyAddress : AppCompatActivity() {
     private lateinit var cidadeEdit: EditText
     private lateinit var estadoEdit: EditText
     private lateinit var updateButton: Button
+    private lateinit var progressBar: ProgressBar
     private lateinit var bntVoltarMeusDados: Button
 
     private val retrofit = Retrofit.Builder()
@@ -46,6 +48,7 @@ class MyAddress : AppCompatActivity() {
         cidadeEdit = findViewById(R.id.cidadeEdit)
         estadoEdit = findViewById(R.id.estadoEdit)
         updateButton = findViewById(R.id.buttonUpdate)
+        progressBar = findViewById(R.id.progressBar)
 
         //botao voltar para meus dados
         bntVoltarMeusDados = findViewById(R.id.bntVoltarMeusDados)
@@ -91,8 +94,11 @@ class MyAddress : AppCompatActivity() {
 
     // Função para carregar o endereço inicial
     private fun loadInitialAddress(userId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
+
         userService.listEnderecos(userId).enqueue(object : Callback<Endereco> {
             override fun onResponse(call: Call<Endereco>, response: Response<Endereco>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     response.body()?.let { endereco ->
                         cepEdit.setText(endereco.ENDERECO_CEP)
@@ -117,8 +123,10 @@ class MyAddress : AppCompatActivity() {
 
     // Função para atualizar o endereço
     private fun updateAddress(userId: Int, endereco: Endereco) {
+        progressBar.visibility = ProgressBar.VISIBLE
         userService.updateEndereco(userId, endereco).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                progressBar.visibility = ProgressBar.GONE
                 if (response.isSuccessful) {
                     Toast.makeText(this@MyAddress, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {

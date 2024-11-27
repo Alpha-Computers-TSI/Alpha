@@ -2,9 +2,13 @@ package com.example.lojadehardware_alpha
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -32,7 +36,23 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.myOrdersTextView)) { v, insets ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Ocultar a System UI
+            window.insetsController?.let {
+                it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            // Compatibilidade para versões mais antigas
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -60,6 +80,8 @@ class Login : AppCompatActivity() {
             finish()
         }
     }
+
+
 
     private fun setupPasswordVisibilityToggle() {
         // Estado inicial do ícone
@@ -89,7 +111,7 @@ class Login : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://thyagoquintas.com.br/ALPHA/autenticacao/")
+            .baseUrl("https://ca639ef2-1d78-467b-b48a-91e14f4a2f8b-00-37irjmq3m5iwx.spock.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -118,7 +140,6 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this@Login, "Usuário ou senha inválidos", Toast.LENGTH_LONG).show()
                     }
                 } else {
-                    Log.e("LoginActivity", "Login failed: HTTP error code: " + response.code() + " msg: " + response.message())
                     Toast.makeText(this@Login, "Falha no login", Toast.LENGTH_LONG).show()
                 }
             }
@@ -131,7 +152,7 @@ class Login : AppCompatActivity() {
     }
 
     interface ApiService {
-        @GET("login")
+        @GET("userLogin.php")
         fun login(
             @Query("usuario") usuario: String,
             @Query("senha") senha: String

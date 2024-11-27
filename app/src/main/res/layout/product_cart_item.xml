@@ -1,45 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_marginBottom="10dp"
+    android:paddingLeft="8dp"
+    android:paddingTop="8dp"
+    android:paddingRight="8dp">
+
+
 
     <ImageView
         android:id="@+id/productImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintVertical_bias="0.517" />
 
     <TextView
         android:id="@+id/productNameTextView"
-        android:layout_width="0dp"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Nome do Produto"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintLeft_toRightOf="@+id/productImageView"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/productPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@+id/productImageView"
-        app:layout_constraintTop_toBottomOf="@+id/productNameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/productNameTextView"
+        tools:text="Preco" />
+
+    <LinearLayout
+        android:id="@+id/quantityControlLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@+id/productImageView"
+        app:layout_constraintTop_toBottomOf="@+id/productPriceTextView">
+
+        <ImageButton
+            android:id="@+id/decreaseButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Decrementar"
+            android:src="@drawable/minus_sign"
+            app:cornerRadius="0dp" />
+
+
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#5D5A5A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/increaseButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Incrementar"
+            android:src="@drawable/plus_sign"
+            app:cornerRadius="0dp" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/productQuantityTextView"
+        android:id="@+id/productDiscountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/productImageView"
-        app:layout_constraintTop_toBottomOf="@+id/productPriceTextView" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="precoDesconto"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/productPriceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/productNameTextView" />
 
-    <Button
-        android:id="@+id/deleteButton"
+
+
+    <TextView
+        android:id="@+id/productSubtotalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remover"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="Subtotal"
+        android:textColor="#5D5A5A"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/productImageView"
+        app:layout_constraintTop_toBottomOf="@+id/quantityControlLayout" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="409dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="16dp"
+        android:background="#F9F9F9"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productSubtotalTextView" />
+
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toEndOf="@+id/productPriceTextView"
+        app:layout_constraintTop_toTopOf="@+id/productNameTextView"
+        app:srcCompat="@drawable/trashcanicon" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

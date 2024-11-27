@@ -1,7 +1,15 @@
 package com.example.lojadehardware_alpha
 
+import Pedidos
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.widget.ProgressBar
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +27,8 @@ class PedidoDetalhe : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PedidoDetalheAdapter
+    private lateinit var goToMyAccount: Button
+    private lateinit var progressBar: ProgressBar
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://ca639ef2-1d78-467b-b48a-91e14f4a2f8b-00-37irjmq3m5iwx.spock.replit.dev/")
@@ -27,16 +37,24 @@ class PedidoDetalhe : AppCompatActivity() {
 
     private val userService = retrofit.create(UserService::class.java)
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedido_detalhe)
 
+        goToMyAccount = findViewById(R.id.goToMyAccount)
+        goToMyAccount.setOnClickListener{
+            val intent = Intent(this, Pedidos::class.java)
+            startActivity(intent)
+        }
+
         recyclerView = findViewById(R.id.recyclerView)
+        progressBar = findViewById(R.id.progressBar)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val pedidoId = intent.getIntExtra("PEDIDO_ID", -1)
-        Log.d("PedidoDetalhe", "Pedido ID recebido: $pedidoId")
 
         if (pedidoId == -1) {
             Toast.makeText(this, "Pedido ID inválido.", Toast.LENGTH_SHORT).show()
@@ -48,17 +66,21 @@ class PedidoDetalhe : AppCompatActivity() {
     }
 
     private fun carregarItensDoPedido(pedidoId: Int) {
+        progressBar.visibility = ProgressBar.VISIBLE
         userService.listPedidoItens(pedidoId).enqueue(object : Callback<List<PedidoItem>> {
             override fun onResponse(
                 call: Call<List<PedidoItem>>,
                 response: Response<List<PedidoItem>>
+
             ) {
                 if (response.isSuccessful && response.body() != null) {
+                    progressBar.visibility = ProgressBar.GONE
                     val itens = response.body()!!
                     Log.d("PedidoDetalhe", "Itens recebidos: $itens")
                     adapter = PedidoDetalheAdapter(itens)
                     recyclerView.adapter = adapter
                 } else {
+                    progressBar.visibility = ProgressBar.GONE
                     Log.e("PedidoDetalhe", "Erro na resposta: ${response.code()} - ${response.errorBody()?.string()}")
                     Toast.makeText(
                         this@PedidoDetalhe,

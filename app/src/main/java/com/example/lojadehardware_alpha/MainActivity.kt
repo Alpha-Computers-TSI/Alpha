@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val startButton: Button = findViewById(R.id.startButton)
 
         startButton.setOnClickListener {
-            val intent = Intent(this@MainActivity,  Home::class.java)
+            val intent = Intent(this@MainActivity,  Login::class.java)
             startActivity(intent)
             finish()
         }

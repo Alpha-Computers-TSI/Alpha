@@ -63,36 +63,41 @@
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="16sp" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginTop="15dp">
-
-        <!-- Preço do produto -->
-        <TextView
-            android:id="@+id/valorProduto"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="normal"
-            android:layout_weight="1"
-            android:textColor="#606060"
-            android:textSize="13sp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
 
-        <!-- valor de desconto do produto -->
-        <TextView
-            android:id="@+id/descontoProduto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textColor="#34C9FF"
-            android:layout_marginLeft="10dp"
-            android:textSize="15sp" />
+            <!-- Preço do produto -->
+            <TextView
+                android:id="@+id/valorProduto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:layout_weight="1"
+                android:textColor="#606060"
+                android:textSize="13sp"
+                android:ellipsize="end"
+                android:maxLines="1" />
 
-</LinearLayout>
+            <!-- valor de desconto do produto -->
+            <TextView
+                android:id="@+id/descontoProduto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="#34C9FF"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:maxLines="1" />
+        </LinearLayout>
 
 
         <!-- Botão de compra -->

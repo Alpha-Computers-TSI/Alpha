@@ -22,7 +22,6 @@ class OrdersAdapter(private val pedidosList: List<Pedidos>) : RecyclerView.Adapt
 
         // Preenche os dados do pedido
         holder.pedidoNumero.text = "Pedido #${pedido.PEDIDO_ID}"
-        holder.pedidoStatus.text = "Status: ${pedido.STATUS_ID}" // Você pode mapear o status para texto se necessário
         holder.totalPedido.text = "Total: R$ ${"%.2f".format(pedido.TOTAL_PEDIDO)}"
 
         // Usando Glide para carregar a imagem do produto
@@ -46,7 +45,6 @@ class OrdersAdapter(private val pedidosList: List<Pedidos>) : RecyclerView.Adapt
     // ViewHolder para os elementos do pedido
     inner class PedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val pedidoNumero: TextView = itemView.findViewById(R.id.pedidoNumero)
-        val pedidoStatus: TextView = itemView.findViewById(R.id.pedidoStatus)
         val totalPedido: TextView = itemView.findViewById(R.id.totalPedido)
         val produtoImagem: ImageView = itemView.findViewById(R.id.produtoImagem)
     }
