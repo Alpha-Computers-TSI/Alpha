@@ -134,10 +134,11 @@
         android:id="@+id/deleteButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="56dp"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/productNameTextView"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toEndOf="@+id/productPriceTextView"
         app:layout_constraintTop_toTopOf="@+id/productNameTextView"
         app:srcCompat="@drawable/trashcanicon" />
 

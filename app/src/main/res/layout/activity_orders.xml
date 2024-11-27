@@ -42,15 +42,16 @@
         android:indeterminateTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="395dp"
-        android:layout_height="465dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
+        android:layout_width="0dp"
+        android:layout_height="450dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bntvoltarMyAccont"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +89,7 @@
         android:id="@+id/bntvoltarMyAccont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#34C9FF"
         android:text="VOLTAR"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"

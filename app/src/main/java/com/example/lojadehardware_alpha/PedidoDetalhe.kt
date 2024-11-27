@@ -1,8 +1,13 @@
 package com.example.lojadehardware_alpha
 
+import Pedidos
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.ProgressBar
 import android.widget.Button
 import android.widget.Toast
@@ -32,16 +37,16 @@ class PedidoDetalhe : AppCompatActivity() {
 
     private val userService = retrofit.create(UserService::class.java)
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedido_detalhe)
 
-        //Volta para os Dados da Conta
         goToMyAccount = findViewById(R.id.goToMyAccount)
         goToMyAccount.setOnClickListener{
-            val intent = Intent(this, MyAccount::class.java)
+            val intent = Intent(this, Pedidos::class.java)
             startActivity(intent)
-            finish()
         }
 
         recyclerView = findViewById(R.id.recyclerView)

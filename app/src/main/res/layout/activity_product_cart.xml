@@ -357,10 +357,11 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cartRecyclerView"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF" />
 
