@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +35,9 @@ class OrderPlaced : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
 
         // Recuperar a lista de produtos passada pelo Intent
         val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST")
