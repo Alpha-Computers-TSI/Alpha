@@ -1,8 +1,10 @@
 package com.example.lojadehardware_alpha
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ProgressBar
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,7 @@ class PedidoDetalhe : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PedidoDetalheAdapter
+    private lateinit var goToMyAccount: Button
     private lateinit var progressBar: ProgressBar
 
     private val retrofit = Retrofit.Builder()
@@ -33,13 +36,20 @@ class PedidoDetalhe : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedido_detalhe)
 
+        //Volta para os Dados da Conta
+        goToMyAccount = findViewById(R.id.goToMyAccount)
+        goToMyAccount.setOnClickListener{
+            val intent = Intent(this, MyAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.progressBar)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val pedidoId = intent.getIntExtra("PEDIDO_ID", -1)
-        Log.d("PedidoDetalhe", "Pedido ID recebido: $pedidoId")
 
         if (pedidoId == -1) {
             Toast.makeText(this, "Pedido ID inválido.", Toast.LENGTH_SHORT).show()

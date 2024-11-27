@@ -1,6 +1,7 @@
 package com.example.lojadehardware_alpha
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -21,6 +22,7 @@ class Profile : AppCompatActivity() {
     private lateinit var cpfEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var updateButton: Button
+    private lateinit var bntVoltarMinhaConta: Button
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +51,21 @@ class Profile : AppCompatActivity() {
             Toast.makeText(this, "Erro: ID do usuário não encontrado.", Toast.LENGTH_LONG).show()
         }
 
+        // Configurar o botão de voltar
+
+        bntVoltarMinhaConta = findViewById(R.id.bntVoltarMinhaConta)
+        bntVoltarMinhaConta.setOnClickListener {
+            val intent = Intent(this, MyAccount::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
         // Configura o botão de atualizar
         updateButton.setOnClickListener {
             updateUserData(userId)
+            finish()
+
         }
     }
 
