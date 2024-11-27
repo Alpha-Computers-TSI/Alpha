@@ -74,24 +74,28 @@ class Orders : AppCompatActivity() {
 
                         // Verificar se a lista de pedidos está vazia
                         if (pedidosList.isEmpty()) {
-                            // Se estiver vazia, esconder o RecyclerView e mostrar a imagem
                             recyclerView.visibility = View.GONE
                             semPedidosImg.visibility = View.VISIBLE
                         } else {
-                            // Caso contrário, garantir que o RecyclerView esteja visível
                             recyclerView.visibility = View.VISIBLE
                             semPedidosImg.visibility = View.GONE
                         }
                     }
                 } else {
                     Toast.makeText(this@Orders, "Erro: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    // Mostrar imagem de sem pedidos em caso de erro na resposta
+                    recyclerView.visibility = View.GONE
+                    semPedidosImg.visibility = View.VISIBLE
                 }
             }
 
             override fun onFailure(call: Call<List<Pedidos>>, t: Throwable) {
-                // Lidar com falha na requisição
+                // Mostrar Toast de falha e exibir a imagem
                 Toast.makeText(this@Orders, "Falha ao carregar pedidos", Toast.LENGTH_SHORT).show()
                 Log.e("OrdersActivity", "Error fetching pedidos", t)
+
+                recyclerView.visibility = View.GONE
+                semPedidosImg.visibility = View.VISIBLE
             }
         })
     }

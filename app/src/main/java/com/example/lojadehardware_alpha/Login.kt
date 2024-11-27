@@ -118,7 +118,6 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this@Login, "Usuário ou senha inválidos", Toast.LENGTH_LONG).show()
                     }
                 } else {
-                    Log.e("LoginActivity", "Login failed: HTTP error code: " + response.code() + " msg: " + response.message())
                     Toast.makeText(this@Login, "Falha no login", Toast.LENGTH_LONG).show()
                 }
             }
