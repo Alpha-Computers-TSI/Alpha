@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,7 @@ class Orders : AppCompatActivity() {
     private lateinit var semPedidosImg: ImageView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: OrdersAdapter
+    private lateinit var progressBar: ProgressBar
     private val pedidosList = mutableListOf<Pedidos>()
     private lateinit var bntvoltarMyAccont: Button
 
@@ -46,6 +48,7 @@ class Orders : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = OrdersAdapter(pedidosList)
         recyclerView.adapter = adapter
+        progressBar = findViewById(R.id.progressBar)
 
         // Referência à imagem que será visível quando não houver pedidos
         semPedidosImg = findViewById(R.id.semPedidosImg)
@@ -64,8 +67,10 @@ class Orders : AppCompatActivity() {
     }
 
     private fun fetchPedidos(userId: Int) {
+        progressBar.visibility = View.VISIBLE
         userService.listPedidos(userId).enqueue(object : Callback<List<Pedidos>> {
             override fun onResponse(call: Call<List<Pedidos>>, response: Response<List<Pedidos>>) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     response.body()?.let {
                         pedidosList.clear()
