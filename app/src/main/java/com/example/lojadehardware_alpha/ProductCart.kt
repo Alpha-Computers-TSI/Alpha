@@ -100,7 +100,7 @@ class ProductCart : AppCompatActivity() {
 
 
         goToListagemProdutos.setOnClickListener {
-            val intent = Intent(this@ProductCart, ListaProdutos::class.java)
+            val intent = Intent(this@ProductCart, Home::class.java)
             startActivity(intent)
         }
     }
