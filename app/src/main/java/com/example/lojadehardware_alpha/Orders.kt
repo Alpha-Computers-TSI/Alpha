@@ -68,8 +68,6 @@ class Orders : AppCompatActivity() {
 
         bntvoltarMyAccont = findViewById(R.id.bntvoltarMyAccont)
         bntvoltarMyAccont.setOnClickListener {
-            val intent = Intent(this, MyAccount::class.java)
-            startActivity(intent)
             finish()
         }
     }

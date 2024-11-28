@@ -54,8 +54,7 @@ class PedidoDetalhe : AppCompatActivity() {
 
         goToMyAccount = findViewById(R.id.goToMyAccount)
         goToMyAccount.setOnClickListener{
-            val intent = Intent(this, Pedidos::class.java)
-            startActivity(intent)
+            finish()
         }
 
         recyclerView = findViewById(R.id.recyclerView)
