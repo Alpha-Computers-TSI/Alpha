@@ -46,6 +46,10 @@ class PedidoDetalhe : AppCompatActivity() {
 
         // Configurar BottomNavigationView
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        // Marcar a aba atual como selecionada
+        bottomNavigationView.selectedItemId = R.id.nav_account
+
         BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         goToMyAccount = findViewById(R.id.goToMyAccount)

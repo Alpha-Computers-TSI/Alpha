@@ -31,10 +31,11 @@ class Profile : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         // Marcar a aba atual como selecionada
         bottomNavigationView.selectedItemId = R.id.nav_account
+
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         // Inicializar os EditText
         nomeEditText = findViewById(R.id.userEditText)

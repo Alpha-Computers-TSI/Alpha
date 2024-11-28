@@ -45,10 +45,11 @@ class Orders : AppCompatActivity() {
         val userId = sharedPreferences.getInt("id", -1)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         // Marcar a aba atual como selecionada
         bottomNavigationView.selectedItemId = R.id.nav_account
+
+        BottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView)
 
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
