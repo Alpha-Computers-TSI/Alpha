@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="28dp"
-        android:paddingTop="100dp"
         android:paddingBottom="8dp"
         android:text="Nome"
         android:textColor="#000000"
@@ -128,7 +127,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/bntVoltarMinhaConta"
@@ -136,13 +135,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:backgroundTint="#34C9FF"
+        android:textColor="#FFFFFF"
         android:text="VOLTAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button10"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView10"
